@@ -31,7 +31,7 @@ def major(major_name):
     if major_normalized not in majors:
         return f"Could not fine major {major_name}"
     else:
-        return "yolo"
+        return render_template("major_instance.html", major_name=major_name.replace("_", " ").title())
 
 
 if __name__ == "__main__":
