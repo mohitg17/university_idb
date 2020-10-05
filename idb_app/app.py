@@ -40,7 +40,7 @@ def majors_base():
         instance = {
             'page_url': url_for('major', major_name=major),
                 'image_url': url_for('static', filename=(major + '.jpg')),
-                'name': major,
+                'name': major.replace("_"," ").title(),
         }
         model['instances'].append(instance)
 
@@ -89,7 +89,7 @@ def universities_base():
 def major(major_name):
     major_normalized = major_name.lower()
     if major_normalized not in majors:
-        return f"Could not fine major {major_name}"
+        return f"Could not find major {major_name}"
     else:
         return render_template("major_instance.html", major_name=major_name.replace("_", " ").title())
 
