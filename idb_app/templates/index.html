@@ -1,5 +1,109 @@
 {% extends 'base.html' %} {% block head %}
 <title>Universities IDB</title>
+<style>
+    :root {
+        --primary-highlight-color: rgba(100, 100, 100, 0.75);
+        --primary-background-color: rgb(100, 100, 100);
+    }
+
+    #index-top-image {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        background-image: url("https://thumbnails.texastribune.org/mqTx0nHcXzbyYBnODHV3aRITwbM=/1200x804/smart/filters:quality(95)/https://static.texastribune.org/media/files/ec9e4cecb784a6a461353ac943eb1d36/UT%20Austin%20Closures%20MG%2009%20TT.jpg");
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    .jumbotron {
+        background-color: var(--primary-highlight-color);
+        margin: 2rem;
+    }
+
+    #main-button {
+        height: 10rem;
+        border-radius: 25px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }
+
+    .first-image {
+        background-image: url("https://thumbnails.texastribune.org/mqTx0nHcXzbyYBnODHV3aRITwbM=/1200x804/smart/filters:quality(95)/https://static.texastribune.org/media/files/ec9e4cecb784a6a461353ac943eb1d36/UT%20Austin%20Closures%20MG%2009%20TT.jpg");
+    }
+
+    .second-image {
+        background-image: url("https://thumbnails.texastribune.org/mqTx0nHcXzbyYBnODHV3aRITwbM=/1200x804/smart/filters:quality(95)/https://static.texastribune.org/media/files/ec9e4cecb784a6a461353ac943eb1d36/UT%20Austin%20Closures%20MG%2009%20TT.jpg");
+    }
+
+    .third-image {
+        background-image: url("https://thumbnails.texastribune.org/mqTx0nHcXzbyYBnODHV3aRITwbM=/1200x804/smart/filters:quality(95)/https://static.texastribune.org/media/files/ec9e4cecb784a6a461353ac943eb1d36/UT%20Austin%20Closures%20MG%2009%20TT.jpg");
+    }
+
+    #main-button img {
+        object-fit: none;
+        object-position: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    #main-button div {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .highlight {
+        background-color: var(--primary-highlight-color);
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        background-color: var(--primary-background-color);
+    }
+</style>
 {% endblock %} {% block body %}
-<h1>Index.html</h1>
+<div class="container-fluid" id="index-top-image">
+    <div class="jumbotron text-center display-3">
+        <p>Find the university for you!</p>
+        <p></p>
+    </div>
+
+    <div class="container-md">
+        <div class="row">
+            <div
+                class="card col-sm-3 mx-auto my-auto first-image"
+                id="main-button"
+            >
+                <div class="centered text-white highlight">Universities</div>
+                <a href="#" class="stretched-link"></a>
+            </div>
+            <div
+                class="card col-sm-3 mx-auto my-auto second-image"
+                id="main-button"
+            >
+                <div class="centered text-white highlight">Cities</div>
+                <a href="#" class="stretched-link"></a>
+            </div>
+            <div
+                class="card col-sm-3 mx-auto my-auto third-image"
+                id="main-button"
+            >
+                <div class="centered text-white highlight">Majors</div>
+                <a href="#" class="stretched-link"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <a href="#">Learn more about us</a>
+</div>
 {% endblock %}
