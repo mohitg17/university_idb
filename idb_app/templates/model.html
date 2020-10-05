@@ -1,5 +1,4 @@
 {% extends 'base.html' %} {% block head %}
-<title>Universities IDB</title>
 <style>
     :root {
         --primary-highlight-color: rgba(100, 100, 100, 0.75);
@@ -70,31 +69,25 @@
     }
 </style>
 {% endblock %} {% block body %}
-<div class="container-fluid" id="index-top-image">
-    <div class="jumbotron text-center display-3">
-        <p>Find the university for you!</p>
-        <p></p>
-    </div>
 
-    <div class="container-md">
-        <div class="row">
-            <div class="card col-sm-3 mx-auto my-auto first-image main-button">
-                <div class="centered text-white highlight">Universities</div>
-                <a href="#" class="stretched-link"></a>
-            </div>
-            <div class="card col-sm-3 mx-auto my-auto second-image main-button">
-                <div class="centered text-white highlight">Cities</div>
-                <a href="#" class="stretched-link"></a>
-            </div>
-            <div class="card col-sm-3 mx-auto my-auto third-image main-button">
-                <div class="centered text-white highlight">Majors</div>
-                <a href="#" class="stretched-link"></a>
-            </div>
+<div class="jumbotron" style="background-color: rgba(110, 110, 110, 0.6)">
+    <h1 style="text-align: center">{{ model.title }}</h1>
+</div>
+
+<div class="container">
+    <div class="card-columns">
+        {% for instance in model.instances %}
+        <!-- TODO make image a background-image instead of img -->
+        <div
+            class="card h-100 main-button"
+            style="background-image:'{{ instance.image_url }}';"
+        >
+            <img class="img-fluid d-block" src="{{instance.image_url}}" />
+            <div class="centered text-white highlight">{{instance.name}}</div>
+            <a href="{{instance.page_url}}" class="stretched-link"></a>
         </div>
+        {% endfor %}
     </div>
 </div>
 
-<div class="footer">
-    <a href="#">Learn more about us</a>
-</div>
 {% endblock %}
