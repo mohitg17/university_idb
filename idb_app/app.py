@@ -64,7 +64,7 @@ def cities_base():
 
     return render_template("model.html", model=model)
 
-    @app.route("/universities")
+@app.route("/universities")
 def universities_base():
     model = {
         'title': 'Universities',
