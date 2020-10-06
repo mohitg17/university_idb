@@ -1,4 +1,58 @@
 {% extends 'base.html' %}
+{% block head %}
+<style>
+    :root {
+        --primary-highlight-color: rgba(100, 100, 100, 0.75);
+        --primary-background-color: rgb(100, 100, 100);
+    }
+
+    #index-top-image {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        background-image: url("https://thumbnails.texastribune.org/mqTx0nHcXzbyYBnODHV3aRITwbM=/1200x804/smart/filters:quality(95)/https://static.texastribune.org/media/files/ec9e4cecb784a6a461353ac943eb1d36/UT%20Austin%20Closures%20MG%2009%20TT.jpg");
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    .main-button {
+        height: 10rem;
+        border-radius: 25px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }
+
+    #main-button img {
+        object-fit: none;
+        object-position: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    #main-button div {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .highlight {
+        background-color: var(--primary-highlight-color);
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        background-color: var(--primary-background-color);
+    }
+</style>
+{% endblock %}
 {% block body %}
 <div class="jumbotron" style="background-color: #395C6B; margin-bottom: 0px">
   <div class="row">
@@ -26,8 +80,23 @@
       <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#bachelors">Number of Bachelor's Programs</button>
       <div id="bachelors" class="collapse">{{major_stats[major_name.lower().replace(' ','_')]['num_bachelor_programs']}}</div>
   </div>
-  <div class="col-xl-9">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <div class="col-xl-9" style="padding: 40px">
+     <h3 class="text-center">Colleges & Universities offering Bachelor's Degrees in {{major_name}}</h3>
+      <div class="container">
+    <div class="card-columns">
+        {% for uni in major_stats[major_name.lower().replace(' ','_')]['schools'] %}
+        <!-- TODO make image a background-image instead of img -->
+        <div
+            class="card h-100 main-button"
+            style="background-image:'{{url_for('static', filename=(uni.lower() + '.jpg'))}}';"
+        >
+            <img class="img-fluid d-block" src="{{url_for('static', filename=(uni.lower() + '.jpg'))}}" />
+            <div class="centered text-white highlight">{{uni}}</div>
+            <!-- TODO add link to college pages -->
+            <a href="" class="stretched-link"></a>
+        </div>
+        {% endfor %}
+    </div>
   </div>
 </div>
 {% endblock %}

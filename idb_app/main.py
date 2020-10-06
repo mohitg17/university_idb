@@ -76,6 +76,7 @@ def universities_base():
     }
 
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
+    # TODO need to replace spaces with underscores in URL
     for university in universities:
         instance = {
             'page_url': url_for('university', university_name=university),
@@ -96,6 +97,7 @@ major_stats = {
         "num_certificate_programs": 376,
         "num_associate_programs": 696,
         "num_bachelor_programs": 1169,
+        "schools": ["The University of Texas at Austin", "Harvard University", "Rice University"],
     },
     "history": {
         "median_starting_salary": 39200,
@@ -104,6 +106,7 @@ major_stats = {
         "num_certificate_programs": 21,
         "num_associate_programs": 185,
         "num_bachelor_programs": 1233,
+        "schools": ["The University of Texas at Austin", "Harvard University", "Rice University"],
     },
     "engineering": {
         # salary is a non-weighted mean of the different engineering major salaries
@@ -114,6 +117,7 @@ major_stats = {
         "num_certificate_programs": 95,
         "num_associate_programs": 464,
         "num_bachelor_programs": 619,
+        "schools": ["The University of Texas at Austin", "Harvard University", "Rice University"],
     }
 }
 
