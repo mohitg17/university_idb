@@ -1,0 +1,137 @@
+{% extends 'base.html'%} {% block head %}
+<style>
+    :root {
+        --primary-highlight-color: rgba(100, 100, 100, 0.75);
+        --primary-background-color: rgb(100, 100, 100);
+    }
+
+    #index-top-image {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        background-image: url("https://thumbnails.texastribune.org/mqTx0nHcXzbyYBnODHV3aRITwbM=/1200x804/smart/filters:quality(95)/https://static.texastribune.org/media/files/ec9e4cecb784a6a461353ac943eb1d36/UT%20Austin%20Closures%20MG%2009%20TT.jpg");
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    .jumbotron {
+        background-color: var(--primary-highlight-color);
+        margin: 2rem;
+    }
+
+    .main-button {
+        height: 10rem;
+        border-radius: 25px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }
+
+    .first-image {
+        background-image: url("https://thumbnails.texastribune.org/mqTx0nHcXzbyYBnODHV3aRITwbM=/1200x804/smart/filters:quality(95)/https://static.texastribune.org/media/files/ec9e4cecb784a6a461353ac943eb1d36/UT%20Austin%20Closures%20MG%2009%20TT.jpg");
+    }
+
+    .second-image {
+        background-image: url("https://thumbnails.texastribune.org/mqTx0nHcXzbyYBnODHV3aRITwbM=/1200x804/smart/filters:quality(95)/https://static.texastribune.org/media/files/ec9e4cecb784a6a461353ac943eb1d36/UT%20Austin%20Closures%20MG%2009%20TT.jpg");
+    }
+
+    .third-image {
+        background-image: url("https://thumbnails.texastribune.org/mqTx0nHcXzbyYBnODHV3aRITwbM=/1200x804/smart/filters:quality(95)/https://static.texastribune.org/media/files/ec9e4cecb784a6a461353ac943eb1d36/UT%20Austin%20Closures%20MG%2009%20TT.jpg");
+    }
+
+    #main-button img {
+        object-fit: none;
+        object-position: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    #main-button div {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .highlight {
+        background-color: var(--primary-highlight-color);
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        background-color: var(--primary-background-color);
+    }
+</style>
+{% endblock %} {% block body %}
+
+<div class="jumbotron text-center display-3">
+    <p>About us</p>
+    <p></p>
+</div>
+
+<div class="container-md my-3" style="height: 100%">
+    <div class="row">
+        <div class="col-sm-6 my-3" style="height: 100px">
+            <img
+                class="rounded-circle float-left h-100 mx-3"
+                src="https://pbs.twimg.com/profile_images/859065855438671872/HSqk9rlZ_400x400.jpg"
+            />
+            <div>
+                <h6>Harrison Berrier</h6>
+                <p class="align-middle">Some bio text</p>
+            </div>
+        </div>
+        <div class="col-sm-6 my-3" style="height: 100px">
+            <img
+                class="rounded-circle float-left h-100 mx-3"
+                src="https://images.squarespace-cdn.com/content/v1/5c32bf379f8770886815fddc/1590297004195-GKCW0XU3YMN5VFJCSJ1I/ke17ZwdGBToddI8pDm48kDrYL3V2MY696D_oNCXfZZh7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UbSUXmQyi0s2DyYPy5upVZloWjHiMHsMYmeJBmYYD78Z7dsz4i27n53EfqFOh7KSRA/mohit_square.jpg"
+            />
+            <div>
+                <h6>Mohit Gupta</h6>
+                <p class="align-middle">Some bio text</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 my-3" style="height: 100px">
+            <img
+                class="rounded-circle float-left h-100 mx-3"
+                src="data:image/jpeg;base64,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"
+            />
+            <div>
+                <h6>Silas Strawn</h6>
+                <p class="align-middle">Some bio text</p>
+            </div>
+        </div>
+        <div class="col-sm-6 my-3" style="height: 100px">
+            <img
+                class="rounded-circle float-left h-100 mx-3"
+                src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e1/University_of_Texas_at_Austin_seal.svg/1200px-University_of_Texas_at_Austin_seal.svg.png"
+            />
+            <div>
+                <h6>Nikhil Jalla</h6>
+                <p class="align-middle">Some bio text</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-sm">
+    <p class="highlight">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
+    </p>
+</div>
+
+{% endblock %}
