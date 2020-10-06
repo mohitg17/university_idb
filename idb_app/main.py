@@ -100,7 +100,7 @@ def city(city_name):
     if city_normalized not in cities:
         return f"Could not find city {city_name}"
     else:
-        return render_template("major_instance.html", major_name=major_name.replace("_", " ").title())
+        return render_template("city_instance.html", city_name=city_name.replace("_", " ").title())
 
 # TODO change this to add university instance routes
 @app.route("/university/<string:university_name>")

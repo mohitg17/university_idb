@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block head %}
+    <title>US Cities IDB</title>
+    <style>
+        #city {
+            height: 100%;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid" id="city" style="background-color: #395C6B;">
+    <h1>{{city_name}}</h1>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <h3>State: TX</h3>
+        <h3>Population: At least 10</h3>
+        
+    </div>
+</div>
+ 
+    
+{% endblock %}
