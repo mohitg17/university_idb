@@ -16,6 +16,7 @@ cities = {
 
 # TODO currently, the template relies on the naming scheme of these variables so @Harrison will add some formatting in this file to make that more robust to different names
 # Sorry I changed up the cities and universities. It was because of a naming problem.
+# After phase i, we can just pull the list of model instance names from MongoDB -Silas
 universities = {
     "The University of Texas at Austin",
     "Harvard University",
