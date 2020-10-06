@@ -86,7 +86,36 @@ def universities_base():
 
     return render_template("model.html", model=model)
 
+
 # TODO migrate to mongoengine after phase i
+major_stats = {
+    "education": {
+        "median_starting_salary": 34900,
+        "median_midcareer_salary": 52000,
+        # for now just < 1 year certificate
+        "num_certificate_programs": 376,
+        "num_associate_programs": 696,
+        "num_bachelor_programs": 1169,
+    },
+    "history": {
+        "median_starting_salary": 39200,
+        "median_midcareer_salary": 71000,
+        # for now just < 1 year certificate
+        "num_certificate_programs": 21,
+        "num_associate_programs": 185,
+        "num_bachelor_programs": 1233,
+    },
+    "engineering": {
+        # salary is a non-weighted mean of the different engineering major salaries
+        # TODO average more intelligently
+        "median_starting_salary": 58957,
+        "median_midcareer_salary": 99257,
+        # for now just < 1 year certificate
+        "num_certificate_programs": 95,
+        "num_associate_programs": 464,
+        "num_bachelor_programs": 619,
+    }
+}
 
 
 @app.route("/major/<string:major_name>")
@@ -95,7 +124,12 @@ def major(major_name):
     if major_normalized not in majors:
         return f"Could not find major {major_name}"
     else:
-        return render_template("major_instance.html", major_name=major_name.replace("_", " ").title())
+        # TODO figure out a less hacky way to do this
+        def format_dollar_amt(amt: int) -> str:
+            return f"${amt:,}"
+
+        return render_template("major_instance.html", major_name=major_name.replace("_", " ").title(),
+                               major_stats=major_stats, format_dollar_amt=format_dollar_amt)
 
 # TODO change this to add city instance routes
 @app.route("/city/<string:city_name>")
