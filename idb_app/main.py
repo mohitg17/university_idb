@@ -15,8 +15,11 @@ cities = {
 }
 
 # TODO currently, the template relies on the naming scheme of these variables so @Harrison will add some formatting in this file to make that more robust to different names
+# Sorry I changed up the cities and universities. It was because of a naming problem.
 universities = {
-    
+    "The University of Texas at Austin",
+    "Harvard University",
+    "Rice University",
 }
 
 @app.route("/")
@@ -75,7 +78,7 @@ def universities_base():
     for university in universities:
         instance = {
             'page_url': url_for('university', university_name=university),
-                'image_url': url_for('static', filename=(university + '.jpg')),
+                'image_url': url_for('static', filename=(university.lower() + '.jpg')),
                 'name': university,
         }
         model['instances'].append(instance)
