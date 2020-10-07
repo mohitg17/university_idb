@@ -18,7 +18,7 @@ cities = {
 # Sorry I changed up the cities and universities. It was because of a naming problem.
 # After phase i, we can just pull the list of model instance names from MongoDB -Silas
 universities = {
-    "The University of Texas at Austin",
+    "The University Of Texas At Austin",
     "Harvard University",
     "Rice University",
 }
@@ -79,7 +79,7 @@ def universities_base():
     # TODO need to replace spaces with underscores in URL
     for university in universities:
         instance = {
-            'page_url': url_for('university', university_name=university),
+            'page_url': url_for('university', university_name=university.lower().replace(' ', '_')),
                 'image_url': url_for('static', filename=(university.lower() + '.jpg')),
                 'name': university,
         }
@@ -169,8 +169,8 @@ university_stats = {
         "avg_cost": 100000,
         "predominant_degree": "Bachelor's",
         "highest_degree": "Doctorate"
-    }
-        "harvard_university": {
+    },
+    "harvard_university": {
         "student_population": 50000,
         "acceptance_rate": 20,
         "in_state_tuition": 10000,
@@ -180,7 +180,7 @@ university_stats = {
         "sat_median": 1600,
         "act_median": 36,
         "percent_black": 10,
-        "percent_white" 45,
+        "percent_white": 45,
         "percent_asian": 20,
         "percent_hispanic": 25,
         "percent_male": 48,
@@ -190,8 +190,8 @@ university_stats = {
         "avg_cost": 100000,
         "predominant_degree": "Bachelor's",
         "highest_degree": "Doctorate"
-    }
-        "rice_university": {
+    },
+    "rice_university": {
         "student_population": 50000,
         "acceptance_rate": 20,
         "in_state_tuition": 10000,
@@ -201,7 +201,7 @@ university_stats = {
         "sat_median": 1600,
         "act_median": 36,
         "percent_black": 10,
-        "percent_white" 45,
+        "percent_white": 45,
         "percent_asian": 20,
         "percent_hispanic": 25,
         "percent_male": 48,
@@ -236,14 +236,12 @@ def city(city_name):
     else:
         return render_template("city_instance.html", city_name=city_name.replace("_", " ").title(), city_stats=city_stats)
 
-# TODO change this to add university instance routes
 @app.route("/university/<string:university_name>")
 def university(university_name):
-    university_normalized = university_name.lower()
-    if university_normalized not in universities:
-        return f"Could not find university {university_name}"
+    if university_name.replace('_', ' ').title() not in universities:
+        return f"Could not find university {university_name.replace('_', ' ').title()}"
     else:
-        return render_template("university_instance.html", university_name=university_name.replace("_", " ").title(), university_stats=university_stats)
+        return render_template("university_instance.html", university_name=university_name.replace("_", " ").title(), university_stats=university_stats[university_name])
 
 if __name__ == "__main__":
     app.run(debug=True, host="localhost")
