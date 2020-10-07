@@ -133,13 +133,18 @@
             </div>
             <div class="container" id="cost" style="margin-bottom: 10px;">
                 <h3 class="headers">Tuition and Aid</h3>
-                <h5>Tuition</h5>
-                <div class="div-text">In-state: ${{university_stats['in_state_tuition']}}</div>
-                <div class="div-text">Out of State: ${{university_stats['out_of_state_tuition']}}</div>
-                <h5>Aid</h5>
-                <div class="div-text">Median Debt: ${{university_stats['median_debt']}}</div>
-                <div class="div-text">Median Loan: ${{university_stats['median_loan']}}</div>
-                <h5>Average Cost of Attendance: ${{university_stats['avg_cost']}} per year</h5>
+                <div style="width: 50%; float: left;">
+                    <h5 style="padding-left: 10px;">Tuition</h5>
+                    <div class="div-text">In-state: ${{university_stats['in_state_tuition']}}</div>
+                    <div class="div-text">Out of State: ${{university_stats['out_of_state_tuition']}}</div>
+                    <h5 style="padding-left: 10px;">Aid</h5>
+                    <div class="div-text">Median Debt: ${{university_stats['median_debt']}}</div>
+                    <div class="div-text">Median Loan: ${{university_stats['median_loan']}}</div>
+                </div>
+                <div style="width: 50%; float: right;">
+                    <h1 style="text-align: center; padding-top: 30px;">${{university_stats['avg_cost']}}</h1>
+                    <h5 style="text-align: center;">Average cost per year</h5>
+                </div>
             </div>
         </div>
         <div style="width:30%; float: right;">
