@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{{university_name}}</title>
+<style>
+    .sections {
+        padding-left: 30px;
+        padding-bottom: 10px;
+    }
+
+    .div-text {
+        padding-left: 20px;
+        font-size: 14pt;
+    }
+
+    a {
+        color: white;
+    }
+
+    .headers {
+        color: white;
+        background-color: #191970;
+        padding: 2px 0px 2px 5px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<div>
+    <div class="jumbotron" style="background-color: #191970;">
+        <h1 style="color: white">{{university_name}}</h1>
+        <p style="color: white">{{university_stats['location']}}</p>
+    </div>
+
+    <div style="margin-right: 25px;">
+        <div style="width:15%; float: left; background-color: #191970; padding:10px; color: white;">
+            <h6 class="sections"><a href="#info">Location</a></h6>
+            <h6 class="sections"><a href="#majors">Majors</a></h6>
+            <h6 class="sections"><a href="#admissions">Admissions</a></h6>
+            <h6 class="sections"><a href="#demographics">Demographics</a></h6>
+            <h6 class="sections"><a href="#cost">Cost</a></h6>
+        </div>
+        <div style="width:52%; float: left; margin-left:20px">
+            <div class="container" id="overview" style="margin-bottom: 10px;">
+                <h3 class="headers">Overview</h3>
+                <div class="row">
+                    <div class="col text-center"><h4>Student Population</h4></div>
+                    <div class="col text-center"><h4>Acceptance Rate</h4></div>
+                    <div class="col text-center"><h4>Tuition</h4></div>
+                </div>
+                <div class="row">
+                    <div class="col text-center"><h1>{{university_stats['student_population']}}</h1></div>
+                    <div class="col text-center"><h1>{{university_stats['acceptance_rate']}}%</h1></div>
+                    <div class="col text-center"><h1>${{university_stats['in_state_tuition']}}</h1></div>
+                </div>
+            </div>
+            <div class="container" id="info" style="margin-bottom: 10px">
+                <h3 class="headers">School Info</h3>
+                <div style="width: 40%; float: left;">
+                    <h5 class="text-center" style="padding-top: 20%">Location: {{university_stats['location']}}</h5>
+                    <h5 class="text-center">Main Campus: {{university_stats['location']}}</h5>
+                    <h5 class="text-center">Website:
+                        <a href="{{university_stats['website']}}" style="color: blue;">{{university_stats['website']}}</a>
+                    </h5>
+                </div>
+                <div>
+                    <img class="img-fluid d-block" style="width: 60%;" src="../static/austin.jpg" />
+                </div>
+            </div>
+            <div class="container" id="majors" style="margin-bottom: 10px;">
+                <h3 class="headers">Majors</h3>
+                <div class="row">
+                    <div class="col div-text">Agriculture</div>
+                    <div class="col div-text">Resources</div>
+                    <div class="col div-text">Architecture</div>
+                </div>
+                <div class="row">
+                    <div class="col div-text">Ethnic Studies</div>
+                    <div class="col div-text">Gender Studies</div>
+                    <div class="col div-text">Communications</div>
+                </div>
+                <div class="row">
+                    <div class="col div-text">Computer Science</div>
+                    <div class="col div-text">Culinary</div>
+                    <div class="col div-text">Education</div>
+                </div>
+                <div class="row">
+                    <div class="col div-text">Language</div>
+                    <div class="col div-text">Family Science</div>
+                    <div class="col div-text">Law</div>
+                </div>
+                <div class="row">
+                    <div class="col div-text">English</div>
+                    <div class="col div-text">Humanity</div>
+                    <div class="col div-text">Library Sciences</div>
+                </div>
+                <div class="row">
+                    <div class="col div-text">Biology</div>
+                    <div class="col div-text">Math</div>
+                    <div class="col div-text">Parks and Recreation</div>
+                </div>
+            </div>
+            <div class="container" id="admissions" style="margin-bottom: 10px">
+                <h3 class="headers">Admissions</h3>
+                <div class="row">
+                    <div class="col" style="text-align: center;"><h1>{{university_stats['sat_median']}}</h1></div>
+                    <div class="col" style="text-align: center;"><h1>{{university_stats['act_median']}}</h1></div>
+                </div>
+                <div class="row">
+                    <div class="col" style="text-align: center;"><h4>SAT median</h4></div>
+                    <div class="col" style="text-align: center;"><h4>ACT median</h4></div>
+                </div>
+            </div>
+            <div class="container" id="demographics" style="margin-bottom: 10px">
+                <h3 class="headers">Demographics</h3>
+                <div class="row">
+                    <div class="col text-center" style="padding-left: 20px;"><h3>By Race</h3></div>
+                    <div class="col">
+                        <div class="row div-text">Black: {{university_stats['percent_black']}}%</div>
+                        <div class="row div-text">White: {{university_stats['percent_white']}}%</div>
+                        <div class="row div-text">Asian: {{university_stats['percent_asian']}}%</div>
+                        <div class="row div-text">Hispanic: {{university_stats['percent_hispanic']}}%</div>
+                    </div>
+                </div>
+                <div class="row" style="padding: 20px;">
+                    <div class="col text-center" style="padding-left: 20px;"><h3>By Gender</h3></div>
+                    <div class="col">
+                        <div class="row div-text">Men: {{university_stats['percent_male']}}%</div>
+                        <div class="row div-text">Female: {{university_stats['percent_female']}}%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" id="cost" style="margin-bottom: 10px;">
+                <h3 class="headers">Tuition and Aid</h3>
+                <h5>Tuition</h5>
+                <div class="div-text">In-state: ${{university_stats['in_state_tuition']}}</div>
+                <div class="div-text">Out of State: ${{university_stats['out_of_state_tuition']}}</div>
+                <h5>Aid</h5>
+                <div class="div-text">Median Debt: ${{university_stats['median_debt']}}</div>
+                <div class="div-text">Median Loan: ${{university_stats['median_loan']}}</div>
+                <h5>Average Cost of Attendance: ${{university_stats['avg_cost']}} per year</h5>
+            </div>
+        </div>
+        <div style="width:30%; float: right;">
+            <div class="container" style="border:2px solid lightgrey; margin-bottom: 10px;">
+                <h3>Degrees</h3>
+                <div>Predominant Degree Awarded: {{university_stats['predominant_degree']}}</div>
+                <div>Highest Degree Awarded: {{university_stats['highest_degree']}}</div>
+            </div>
+            <div class="container" style="border:2px solid lightgrey; margin-bottom: 10px;">
+                <h3>Completion Rates</h3>
+                <div>First-time full-time students: </div>
+                <div>Adjusted for cohort: </div>
+                <div>White students: </div>
+                <div>Black students: </div>
+                <div>Asian students: </div>
+                <div>Hispanic students: </div>
+            </div>
+            <div class="container" style="border:2px solid lightgrey; margin-bottom: 10px;">
+                <h3>Retention Rates</h3>
+                <div>First-time full-time students: </div>
+                <div>First-time part-time students: </div>
+            </div>
+            <div class="container" style="border:2px solid lightgrey; margin-bottom: 10px;">
+                <h3>Debt Repayment</h3>
+                <div>1 year: </div>
+                <div>3 year: </div>
+                <div>5 year: </div>
+                <div>7 year: </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
