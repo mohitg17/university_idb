@@ -148,6 +148,71 @@ city_stats = {
     }
 }
 
+university_stats = {
+    "the_university_of_texas_at_austin": {
+        "student_population": 50000,
+        "acceptance_rate": 20,
+        "in_state_tuition": 10000,
+        "out_of_state_tuition": 20000,
+        "location": "Austin, TX",
+        "website": "http://utexas.edu",
+        "sat_median": 1600,
+        "act_median": 36,
+        "percent_black": 10,
+        "percent_white": 45,
+        "percent_asian": 20,
+        "percent_hispanic": 25,
+        "percent_male": 48,
+        "percent_female": 52,
+        "median_debt": 20000,
+        "median_loan": 20000,
+        "avg_cost": 100000,
+        "predominant_degree": "Bachelor's",
+        "highest_degree": "Doctorate"
+    }
+        "harvard_university": {
+        "student_population": 50000,
+        "acceptance_rate": 20,
+        "in_state_tuition": 10000,
+        "out_of_state_tuition": 20000,
+        "location": "Austin, TX",
+        "website": "http://utexas.edu",
+        "sat_median": 1600,
+        "act_median": 36,
+        "percent_black": 10,
+        "percent_white" 45,
+        "percent_asian": 20,
+        "percent_hispanic": 25,
+        "percent_male": 48,
+        "percent_female": 52,
+        "median_debt": 20000,
+        "median_loan": 20000,
+        "avg_cost": 100000,
+        "predominant_degree": "Bachelor's",
+        "highest_degree": "Doctorate"
+    }
+        "rice_university": {
+        "student_population": 50000,
+        "acceptance_rate": 20,
+        "in_state_tuition": 10000,
+        "out_of_state_tuition": 20000,
+        "location": "Austin, TX",
+        "website": "http://utexas.edu",
+        "sat_median": 1600,
+        "act_median": 36,
+        "percent_black": 10,
+        "percent_white" 45,
+        "percent_asian": 20,
+        "percent_hispanic": 25,
+        "percent_male": 48,
+        "percent_female": 52,
+        "median_debt": 20000,
+        "median_loan": 20000,
+        "avg_cost": 100000,
+        "predominant_degree": "Bachelor's",
+        "highest_degree": "Doctorate"
+    }
+}
 
 @app.route("/major/<string:major_name>")
 def major(major_name):
@@ -178,7 +243,7 @@ def university(university_name):
     if university_normalized not in universities:
         return f"Could not find university {university_name}"
     else:
-        return render_template("major_instance.html", major_name=major_name.replace("_", " ").title())
+        return render_template("university_instance.html", university_name=university_name.replace("_", " ").title(), university_stats=university_stats)
 
 if __name__ == "__main__":
     app.run(debug=True, host="localhost")
