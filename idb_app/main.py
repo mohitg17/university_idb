@@ -121,6 +121,33 @@ major_stats = {
     }
 }
 
+city_stats = {
+    "austin": {
+        "area": 579.4,
+        "population": 950715,
+        "population density": 3780,
+        "community type": "Urban",
+        "median age": 33.4,
+        "median gross rent": 1244
+    },
+    "houston": {
+        "area": 251.5,
+        "population": 2312717,
+        "population density": 3991,
+        "community type": "Urban",
+        "median age": 33.1,
+        "median gross rent": 986
+    },
+    "cambridge": {
+        "area": 6.43,
+        "population": 113630,
+        "population density": 17.675,
+        "community type": "Urban",
+        "median age": 30.5,
+        "median gross rent": 2102
+    }
+}
+
 
 @app.route("/major/<string:major_name>")
 def major(major_name):
@@ -142,7 +169,7 @@ def city(city_name):
     if city_normalized not in cities:
         return f"Could not find city {city_name}"
     else:
-        return render_template("city_instance.html", city_name=city_name.replace("_", " ").title())
+        return render_template("city_instance.html", city_name=city_name.replace("_", " ").title(), city_stats=city_stats)
 
 # TODO change this to add university instance routes
 @app.route("/university/<string:university_name>")

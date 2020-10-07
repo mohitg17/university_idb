@@ -8,16 +8,24 @@
 {% endblock %}
 
 {% block body %}
-<div class="container-fluid" id="city" style="background-color: #395C6B;">
-    <h1>{{city_name}}</h1>
-</div>
-<div class="container-fluid">
+<div class="jumbotron" style="background-color: #395C6B; margin-bottom: 0px">
     <div class="row">
-        <h3>State: TX</h3>
-        <h3>Population: At least 10</h3>
-        
+      <h1>{{city_name}}</h1>
     </div>
-</div>
+  </div>
+
+  <div class="row">
+    <div class="col" style="background-color: #80A4ED; padding: 40px">
+      <h4 class="text-center">{{city_name}} stats</h4>
+      <h5>Area (sq mi): {{city_stats[city_name.lower()]['area']}}</h5>
+      <h5>Population: {{city_stats[city_name.lower()]['population']}}</h5>
+      <h5>Population Density: {{city_stats[city_name.lower()]['population density']}}</h5>
+      <h5>Community Type: {{city_stats[city_name.lower()]['community type']}}</h5>
+      <h5>Median Age: {{city_stats[city_name.lower()]['median age']}}</h5>
+      <h5>Median Gross Rent: {{city_stats[city_name.lower()]['median gross rent']}}</h5>
+    </div>
  
-    
+    <div class="col-xl-9" style="padding: 40px">
+        <h3 class="text-center">Colleges & Universities in {{city_name}}</h3>
+    </div>
 {% endblock %}
