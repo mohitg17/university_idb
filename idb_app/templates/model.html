@@ -19,6 +19,11 @@
         margin: 2rem;
     }
 
+    .card-img-top {
+        height: 12vw;
+        object-fit: cover;
+    }
+
     .main-button {
         height: 10rem;
         border-radius: 25px;
@@ -82,7 +87,7 @@
             class="card h-100 main-button"
             style="background-image:'{{ instance.image_url }}';"
         >
-            <img class="img-fluid d-block" src="{{instance.image_url}}" />
+            <img class="card-img-top d-block" src="{{instance.image_url}}" />
             <div class="centered text-white highlight">{{instance.name}}</div>
             <a href="{{instance.page_url}}" class="stretched-link"></a>
         </div>
