@@ -92,8 +92,7 @@
         >
             <img class="img-fluid d-block" src="{{url_for('static', filename=(uni.lower() + '.jpg'))}}" />
             <div class="centered text-white highlight">{{uni}}</div>
-            <!-- TODO add link to college pages -->
-            <a href="" class="stretched-link"></a>
+            <a href="/university/{{uni.lower().replace(' ', '_')}}" class="stretched-link"></a>
         </div>
         {% endfor %}
     </div>
