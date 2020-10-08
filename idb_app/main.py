@@ -23,9 +23,11 @@ universities = {
     "Rice University",
 }
 
+
 @app.route("/")
 def index():
     return render_template("index.html")
+
 
 @app.route("/about")
 def about():
@@ -50,6 +52,7 @@ def majors_base():
 
     return render_template("model.html", model=model)
 
+
 @app.route("/cities")
 def cities_base():
     model = {
@@ -62,7 +65,7 @@ def cities_base():
         instance = {
             'page_url': url_for('city', city_name=city),
                 'image_url': url_for('static', filename=(city + '.jpg')),
-                'name': city,
+                'name': city.title(),
         }
         model['instances'].append(instance)
 
@@ -214,6 +217,7 @@ university_stats = {
     }
 }
 
+
 @app.route("/major/<string:major_name>")
 def major(major_name):
     major_normalized = major_name.lower()
@@ -227,6 +231,7 @@ def major(major_name):
         return render_template("major_instance.html", major_name=major_name.replace("_", " ").title(),
                                major_stats=major_stats, format_dollar_amt=format_dollar_amt)
 
+
 # TODO change this to add city instance routes
 @app.route("/city/<string:city_name>")
 def city(city_name):
@@ -236,12 +241,14 @@ def city(city_name):
     else:
         return render_template("city_instance.html", city_name=city_name.replace("_", " ").title(), city_stats=city_stats)
 
+
 @app.route("/university/<string:university_name>")
 def university(university_name):
     if university_name.replace('_', ' ').title() not in universities:
         return f"Could not find university {university_name.replace('_', ' ').title()}"
     else:
         return render_template("university_instance.html", university_name=university_name.replace("_", " ").title(), university_stats=university_stats[university_name])
+
 
 if __name__ == "__main__":
     app.run(debug=True, host="localhost")
