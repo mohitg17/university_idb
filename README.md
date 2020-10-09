@@ -16,3 +16,4 @@ python main.py
 ## Time Spent By Team Member 
 
 - Silas Strawn: ~10 hours 
+- Harrison Berrier: ~10 hours
