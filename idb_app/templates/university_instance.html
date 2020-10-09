@@ -139,7 +139,6 @@
                     <div class="div-text">Out of State: ${{university_stats['out_of_state_tuition']}}</div>
                     <h5 style="padding-left: 10px;">Aid</h5>
                     <div class="div-text">Median Debt: ${{university_stats['median_debt']}}</div>
-                    <div class="div-text">Median Loan: ${{university_stats['median_loan']}}</div>
                 </div>
                 <div style="width: 50%; float: right;">
                     <h1 style="text-align: center; padding-top: 30px;">${{university_stats['avg_cost']}}</h1>
@@ -148,31 +147,26 @@
             </div>
         </div>
         <div style="width:30%; float: right;">
-            <div class="container" style="border:2px solid lightgrey; margin-bottom: 10px;">
+            <div class="container" style="border:2px solid lightgrey; margin-bottom: 20px;">
                 <h3>Degrees</h3>
                 <div>Predominant Degree Awarded: {{university_stats['predominant_degree']}}</div>
                 <div>Highest Degree Awarded: {{university_stats['highest_degree']}}</div>
             </div>
-            <div class="container" style="border:2px solid lightgrey; margin-bottom: 10px;">
+            <div class="container" style="border:2px solid lightgrey; margin-bottom: 20px;">
                 <h3>Completion Rates</h3>
-                <div>First-time full-time students: </div>
-                <div>Adjusted for cohort: </div>
-                <div>White students: </div>
-                <div>Black students: </div>
-                <div>Asian students: </div>
-                <div>Hispanic students: </div>
+                <div>Completion Overall 2019: {{university_stats['completion_overall']}} </div>
+                <div>White students: {{university_stats['completion_rate_white']}}%</div>
+                <div>Black students: {{university_stats['completion_rate_black']}}%</div>
+                <div>Asian students: {{university_stats['completion_rate_asian']}}%</div>
+                <div>Hispanic students: {{university_stats['completion_rate_hispanic']}}%</div>
             </div>
-            <div class="container" style="border:2px solid lightgrey; margin-bottom: 10px;">
-                <h3>Retention Rates</h3>
-                <div>First-time full-time students: </div>
-                <div>First-time part-time students: </div>
+            <div class="container" style="border:2px solid lightgrey; margin-bottom: 20px;">
+                <h3>Earnings</h3>
+                <div>Average Earnings after 10 years: ${{university_stats['earnings']}}</div>
             </div>
-            <div class="container" style="border:2px solid lightgrey; margin-bottom: 10px;">
-                <h3>Debt Repayment</h3>
-                <div>1 year: </div>
-                <div>3 year: </div>
-                <div>5 year: </div>
-                <div>7 year: </div>
+            <div class="container" style="border:2px solid lightgrey; margin-bottom: 20px;">
+                <h3>Retention Rate</h3>
+                <div>Overall: {{university_stats['retention_rate']}}%</div>
             </div>
         </div>
     </div>
