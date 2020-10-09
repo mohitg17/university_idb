@@ -36,57 +36,51 @@ def about():
 
 @app.route("/majors")
 def majors_base():
-    model = {
-        'title': 'Fields of Study & Majors',
-        'instances': []
-    }
+    model = {"title": "Fields of Study & Majors", "instances": []}
 
     # Mapping majors to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     for major in majors:
         instance = {
-            'page_url': url_for('major', major_name=major),
-                'image_url': url_for('static', filename=(major + '.jpg')),
-                'name': major.replace("_"," ").title(),
+            "page_url": url_for("major", major_name=major),
+            "image_url": url_for("static", filename=(major + ".jpg")),
+            "name": major.replace("_", " ").title(),
         }
-        model['instances'].append(instance)
+        model["instances"].append(instance)
 
     return render_template("model.html", model=model)
 
 
 @app.route("/cities")
 def cities_base():
-    model = {
-        'title': 'Cities',
-        'instances': []
-    }
+    model = {"title": "Cities", "instances": []}
 
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     for city in cities:
         instance = {
-            'page_url': url_for('city', city_name=city),
-                'image_url': url_for('static', filename=(city + '.jpg')),
-                'name': city.title(),
+            "page_url": url_for("city", city_name=city),
+            "image_url": url_for("static", filename=(city + ".jpg")),
+            "name": city.title(),
         }
-        model['instances'].append(instance)
+        model["instances"].append(instance)
 
     return render_template("model.html", model=model)
 
+
 @app.route("/universities")
 def universities_base():
-    model = {
-        'title': 'Universities',
-        'instances': []
-    }
+    model = {"title": "Universities", "instances": []}
 
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     # TODO need to replace spaces with underscores in URL
     for university in universities:
         instance = {
-            'page_url': url_for('university', university_name=university.lower().replace(' ', '_')),
-                'image_url': url_for('static', filename=(university.lower() + '.jpg')),
-                'name': university,
+            "page_url": url_for(
+                "university", university_name=university.lower().replace(" ", "_")
+            ),
+            "image_url": url_for("static", filename=(university.lower() + ".jpg")),
+            "name": university,
         }
-        model['instances'].append(instance)
+        model["instances"].append(instance)
 
     return render_template("model.html", model=model)
 
@@ -100,7 +94,11 @@ major_stats = {
         "num_certificate_programs": 376,
         "num_associate_programs": 696,
         "num_bachelor_programs": 1169,
-        "schools": ["The University of Texas at Austin", "Harvard University", "Rice University"],
+        "schools": [
+            "The University of Texas at Austin",
+            "Harvard University",
+            "Rice University",
+        ],
     },
     "history": {
         "median_starting_salary": 39200,
@@ -109,7 +107,11 @@ major_stats = {
         "num_certificate_programs": 21,
         "num_associate_programs": 185,
         "num_bachelor_programs": 1233,
-        "schools": ["The University of Texas at Austin", "Harvard University", "Rice University"],
+        "schools": [
+            "The University of Texas at Austin",
+            "Harvard University",
+            "Rice University",
+        ],
     },
     "engineering": {
         # salary is a non-weighted mean of the different engineering major salaries
@@ -120,8 +122,12 @@ major_stats = {
         "num_certificate_programs": 95,
         "num_associate_programs": 464,
         "num_bachelor_programs": 619,
-        "schools": ["The University of Texas at Austin", "Harvard University", "Rice University"],
-    }
+        "schools": [
+            "The University of Texas at Austin",
+            "Harvard University",
+            "Rice University",
+        ],
+    },
 }
 
 city_stats = {
@@ -151,7 +157,7 @@ city_stats = {
         "median age": 30.5,
         "median gross rent": 2102,
         "schools": ["Harvard University"],
-    }
+    },
 }
 
 university_stats = {
@@ -174,7 +180,7 @@ university_stats = {
         "median_debt": 11514,
         "avg_cost": 16505,
         "predominant_degree": "Bachelor's",
-        "highest_degree": "Doctorate"
+        "highest_degree": "Doctorate",
     },
     "harvard_university": {
         "student_population": 7582,
@@ -195,7 +201,7 @@ university_stats = {
         "median_debt": 591,
         "avg_cost": 15561,
         "predominant_degree": "Bachelor's",
-        "highest_degree": "Doctorate"
+        "highest_degree": "Doctorate",
     },
     "rice_university": {
         "student_population": 3962,
@@ -216,8 +222,8 @@ university_stats = {
         "median_debt": 537,
         "avg_cost": 20879,
         "predominant_degree": "Bachelor's",
-        "highest_degree": "Doctorate"
-    }
+        "highest_degree": "Doctorate",
+    },
 }
 
 
@@ -231,8 +237,12 @@ def major(major_name):
         def format_dollar_amt(amt: int) -> str:
             return f"${amt:,}"
 
-        return render_template("major_instance.html", major_name=major_name.replace("_", " ").title(),
-                               major_stats=major_stats, format_dollar_amt=format_dollar_amt)
+        return render_template(
+            "major_instance.html",
+            major_name=major_name.replace("_", " ").title(),
+            major_stats=major_stats,
+            format_dollar_amt=format_dollar_amt,
+        )
 
 
 # TODO change this to add city instance routes
@@ -242,15 +252,23 @@ def city(city_name):
     if city_normalized not in cities:
         return f"Could not find city {city_name}"
     else:
-        return render_template("city_instance.html", city_name=city_name.replace("_", " ").title(), city_stats=city_stats)
+        return render_template(
+            "city_instance.html",
+            city_name=city_name.replace("_", " ").title(),
+            city_stats=city_stats,
+        )
 
 
 @app.route("/university/<string:university_name>")
 def university(university_name):
-    if university_name.replace('_', ' ').title() not in universities:
+    if university_name.replace("_", " ").title() not in universities:
         return f"Could not find university {university_name.replace('_', ' ').title()}"
     else:
-        return render_template("university_instance.html", university_name=university_name.replace("_", " ").title(), university_stats=university_stats[university_name])
+        return render_template(
+            "university_instance.html",
+            university_name=university_name.replace("_", " ").title(),
+            university_stats=university_stats[university_name],
+        )
 
 
 if __name__ == "__main__":
