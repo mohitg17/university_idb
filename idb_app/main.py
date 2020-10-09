@@ -131,7 +131,8 @@ city_stats = {
         "population density": 3780,
         "community type": "Urban",
         "median age": 33.4,
-        "median gross rent": 1244
+        "median gross rent": 1244,
+        "schools": ["The University of Texas at Austin"],
     },
     "houston": {
         "area": 251.5,
@@ -139,7 +140,8 @@ city_stats = {
         "population density": 3991,
         "community type": "Urban",
         "median age": 33.1,
-        "median gross rent": 986
+        "median gross rent": 986,
+        "schools": ["Rice University"],
     },
     "cambridge": {
         "area": 6.43,
@@ -147,7 +149,8 @@ city_stats = {
         "population density": 17.675,
         "community type": "Urban",
         "median age": 30.5,
-        "median gross rent": 2102
+        "median gross rent": 2102,
+        "schools": ["Harvard University"],
     }
 }
 

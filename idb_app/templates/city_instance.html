@@ -4,6 +4,22 @@
         #city {
             height: 100%;
         }
+
+        .card-img-top {
+            height: 12vw;
+            object-fit: cover;
+        }
+
+        .highlight {
+            background-color: var(--primary-highlight-color);
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        :root {
+            --primary-highlight-color: rgba(100, 100, 100, 0.75);
+            --primary-background-color: rgb(100, 100, 100);
+        }
     </style>
 {% endblock %}
 
@@ -27,5 +43,18 @@
  
     <div class="col-xl-9" style="padding: 40px">
         <h3 class="text-center">Colleges & Universities in {{city_name}}</h3>
+        <div class="card-columns">
+        {% for uni in city_stats[city_name.lower().replace(' ','_')]['schools'] %}
+        <!-- TODO make image a background-image instead of img -->
+        <div
+            class="card h-100 main-button"
+            style="background-image:'{{url_for('static', filename=(uni.lower() + '.jpg'))}}';"
+        >
+            <img class="card-img-top d-block" src="{{url_for('static', filename=(uni.lower() + '.jpg'))}}" />
+            <div class="centered text-white highlight">{{uni}}</div>
+            <a href="/university/{{uni.lower().replace(' ', '_')}}" class="stretched-link"></a>
+        </div>
+        {% endfor %}
+    </div>
     </div>
 {% endblock %}
