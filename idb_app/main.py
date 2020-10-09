@@ -181,6 +181,13 @@ university_stats = {
         "avg_cost": 16505,
         "predominant_degree": "Bachelor's",
         "highest_degree": "Doctorate",
+        "completion_overall": 5938,
+        "completion_rate_black": 74.06,
+        "completion_rate_asian": 87.93,
+        "completion_rate_hispanic": 73.91,
+        "completion_rate_white": 86.12,
+        "earnings": 58200,
+        "retention_rate": 94.95
     },
     "harvard_university": {
         "student_population": 7582,
@@ -202,6 +209,13 @@ university_stats = {
         "avg_cost": 15561,
         "predominant_degree": "Bachelor's",
         "highest_degree": "Doctorate",
+        "completion_overall": 492,
+        "completion_rate_black": 99.04,
+        "completion_rate_asian": 97.73,
+        "completion_rate_hispanic": 98.68,
+        "completion_rate_white": 97.60,
+        "earnings": 58200,
+        "retention_rate": 99.11
     },
     "rice_university": {
         "student_population": 3962,
@@ -223,7 +237,14 @@ university_stats = {
         "avg_cost": 20879,
         "predominant_degree": "Bachelor's",
         "highest_degree": "Doctorate",
-    },
+        "completion_overall": 390,
+        "completion_rate_black": 85.94,
+        "completion_rate_asian": 98.08,
+        "completion_rate_hispanic": 92.31,
+        "completion_rate_white": 94.99,
+        "earnings": 65400,
+        "retention_rate": 97.41
+    }
 }
 
 
