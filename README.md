@@ -12,3 +12,7 @@ Run the following in your shell to start the server at `localhost:5000/`
 pip install -r requirements.txt
 python main.py
 ```
+
+## Time Spent By Team Member 
+
+- Silas Strawn: ~10 hours 
