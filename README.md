@@ -17,3 +17,4 @@ python main.py
 
 - Silas Strawn: ~10 hours 
 - Harrison Berrier: ~10 hours
+- Nikhil Jalla: ~8 hours
