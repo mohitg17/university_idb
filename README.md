@@ -13,8 +13,19 @@ pip install -r requirements.txt
 python main.py
 ```
 
-## Time Spent By Team Member 
+# Team Members
 
-- Silas Strawn: ~10 hours 
-- Harrison Berrier: ~10 hours
-- Nikhil Jalla: ~10 hours
+
+## Team Member, EID, Github ID, Estimated and Actual Completion Rate
+- Silas Strawn, StrawnSC:
+    - Estimated: 10 hours
+    - Actual: 11 hours
+- Harrison Berrier, hlb962, harrisonberrier:
+    - Estimated: 9 hours
+    - Actual: 11 hours
+- Nikhil Jalla, nj5473, nikhiljalla17:
+    - Estimated: 10 hours
+    - Actual: 11 hours
+- Mohit Gupta, mg58629, mohitg17:
+    - Estimated: 10 hours
+    - Actual: 10 hours
