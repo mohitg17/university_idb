@@ -14,7 +14,7 @@ python main.py
 ```
 
 ## Team Member, EID, Github ID, Estimated and Actual Completion Rate
-- Silas Strawn, StrawnSC:
+- Silas Strawn, scs3434, StrawnSC:
     - Estimated: 10 hours
     - Actual: 11 hours
 - Harrison Berrier, hlb962, harrisonberrier:
