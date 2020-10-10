@@ -13,9 +13,6 @@ pip install -r requirements.txt
 python main.py
 ```
 
-# Team Members
-
-
 ## Team Member, EID, Github ID, Estimated and Actual Completion Rate
 - Silas Strawn, StrawnSC:
     - Estimated: 10 hours
