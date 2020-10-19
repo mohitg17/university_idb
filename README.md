@@ -8,9 +8,9 @@ You will probably want to use a virtual environment for the pip install. We're u
 
 Run the following in your shell to start the server at `localhost:5000/`
 
-```cd idb_app
+```
 pip install -r requirements.txt
-python main.py
+python -m db_app.main
 ```
 
 ## Team Member, EID, Github ID, Estimated and Actual Completion Rate
