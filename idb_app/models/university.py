@@ -6,7 +6,7 @@ from idb_app.models import City, Major, choices
 
 class University(Document):
     name = StringField(required=True, unique=True)
-    location = ReferenceField(City, reverse_delete_rule=DENY, required=True)
+    city = ReferenceField(City, reverse_delete_rule=DENY, required=True)
     majors_offered = ListField(
         ReferenceField(Major, reverse_delete_rule=DENY), required=True
     )
