@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for
 from idb_app.mongo import Connector
-from idb_app.models import Major
+from idb_app.models import Major, City, University
 
 app = Flask(__name__)
 
@@ -9,18 +9,6 @@ Connector.load_database_creds()
 
 # switch to Connector.connect_prod_database() when done testing
 Connector.connect_prod_database()
-
-majors = {
-    "engineering",
-    "history",
-    "education",
-}
-
-cities = {
-    "austin",
-    "cambridge",
-    "houston",
-}
 
 # TODO currently, the template relies on the naming scheme of these variables so @Harrison will add some formatting in this file to make that more robust to different names
 # Sorry I changed up the cities and universities. It was because of a naming problem.
@@ -62,13 +50,13 @@ def majors_base():
 @app.route("/cities")
 def cities_base():
     model = {"title": "Cities", "instances": []}
-
+    cities = City.objects().only("name", "state")
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     for city in cities:
         instance = {
-            "page_url": url_for("city", city_name=city),
-            "image_url": url_for("static", filename=(city + ".jpg")),
-            "name": city.title(),
+            "page_url": url_for("city", city_name=city.name),
+            "image_url": url_for("static", filename=(city.name + ".jpg")),
+            "name": str(city),
         }
         model["instances"].append(instance)
 
