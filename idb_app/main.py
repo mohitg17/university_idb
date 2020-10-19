@@ -45,13 +45,14 @@ def about():
 @app.route("/majors")
 def majors_base():
     model = {"title": "Fields of Study & Majors", "instances": []}
+    majors = Major.objects().only("name")
 
     # Mapping majors to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     for major in majors:
         instance = {
-            "page_url": url_for("major", major_name=major),
-            "image_url": url_for("static", filename=(major + ".jpg")),
-            "name": major.replace("_", " ").title(),
+            "page_url": url_for("major", major_name=major.name),
+            "image_url": url_for("static", filename=(major.name + ".jpg")),
+            "name": major.name.replace("_", " ").title(),
         }
         model["instances"].append(instance)
 
