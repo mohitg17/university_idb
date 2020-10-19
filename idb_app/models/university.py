@@ -28,6 +28,7 @@ class University(Document):
     predominant_degree = StringField(required=True, choices=choices.DEGREE_CHOICES)
     highest_degree = StringField(required=True, choices=choices.DEGREE_CHOICES)
     completion_overall = FloatField(required=True, min_value=0.0, max_value=100.0)
+    completion_rate_white = FloatField(required=True, min_value=0.0, max_value=100.0)
     completion_rate_black = FloatField(required=True, min_value=0.0, max_value=100.0)
     completion_rate_asian = FloatField(required=True, min_value=0.0, max_value=100.0)
     completion_rate_hispanic = FloatField(required=True, min_value=0.0, max_value=100.0)
