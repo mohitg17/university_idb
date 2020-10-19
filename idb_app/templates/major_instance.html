@@ -69,27 +69,27 @@
   <div class="col" style="background-color: #80A4ED; padding: 40px">
     <h4 class="text-center">{{major_name}} at a Glance</h4>
     <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#starting-salary">Median Starting Salary</button>
-      <div id="starting-salary" class="collapse">{{format_dollar_amt(major_stats[major_name.lower().replace(' ','_')]['median_starting_salary'])}}</div>
+      <div id="starting-salary" class="collapse">{{format_dollar_amt(major.median_starting_salary)}}</div>
       <br>
     <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#midcareer-salary">Median Mid-Career Salary</button>
-      <div id="midcareer-salary" class="collapse">{{format_dollar_amt(major_stats[major_name.lower().replace(' ','_')]['median_midcareer_salary'])}}</div>
+      <div id="midcareer-salary" class="collapse">{{format_dollar_amt(major.median_midcareer_salary)}}</div>
       <br>
 
     <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#certificate">Number of Certificate Programs</button>
-      <div id="certificate" class="collapse">{{major_stats[major_name.lower().replace(' ','_')]['num_certificate_programs']}}</div>
+      <div id="certificate" class="collapse">{{major.num_certificate_programs}}</div>
     <br>
     <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#associates">Number of Associate's Programs</button>
-      <div id="associates" class="collapse">{{major_stats[major_name.lower().replace(' ','_')]['num_associate_programs']}}</div>
+      <div id="associates" class="collapse">{{major.num_associate_programs}}</div>
       <br>
 
       <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#bachelors">Number of Bachelor's Programs</button>
-      <div id="bachelors" class="collapse">{{major_stats[major_name.lower().replace(' ','_')]['num_bachelor_programs']}}</div>
+      <div id="bachelors" class="collapse">{{major.num_bachelor_programs}}</div>
   </div>
   <div class="col-xl-9" style="padding: 40px">
      <h3 class="text-center">Colleges & Universities offering Bachelor's Degrees in {{major_name}}</h3>
       <div class="container">
     <div class="card-columns">
-        {% for uni in major_stats[major_name.lower().replace(' ','_')]['schools'] %}
+        {% for uni in schools %}
         <!-- TODO make image a background-image instead of img -->
         <div
             class="card h-100 main-button"
