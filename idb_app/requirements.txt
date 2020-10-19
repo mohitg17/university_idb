@@ -1,6 +1,7 @@
 astroid==2.4.2
 click==7.1.2
 colorama==0.4.3
+dnspython==2.0.0
 Flask==1.1.2
 isort==5.5.4
 itsdangerous==1.1.0
@@ -12,6 +13,7 @@ mongoengine==0.20.0
 mongomock==3.20.0
 pylint==2.6.0
 pymongo==3.11.0
+python-dotenv==0.14.0
 sentinels==1.0.0
 six==1.15.0
 structlog==20.1.0
