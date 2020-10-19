@@ -142,14 +142,17 @@ def major(major_name):
 # TODO change this to add city instance routes
 @app.route("/city/<string:city_name>")
 def city(city_name):
-    city_normalized = city_name.lower()
-    if city_normalized not in cities:
+    # TODO will need to refactor this to include state in the parameter
+    city_loaded = City.objects(name=city_name.lower()).first()
+    if city_loaded is None:
         return f"Could not find city {city_name}"
     else:
         return render_template(
             "city_instance.html",
-            city_name=city_name.replace("_", " ").title(),
-            city_stats=city_stats,
+            city_name=str(city_loaded),
+            city=city_loaded,
+            # TODO
+            schools=[],
         )
 
 
