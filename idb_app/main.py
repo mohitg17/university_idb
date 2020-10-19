@@ -10,15 +10,6 @@ Connector.load_database_creds()
 # switch to Connector.connect_prod_database() when done testing
 Connector.connect_prod_database()
 
-# TODO currently, the template relies on the naming scheme of these variables so @Harrison will add some formatting in this file to make that more robust to different names
-# Sorry I changed up the cities and universities. It was because of a naming problem.
-# After phase i, we can just pull the list of model instance names from MongoDB -Silas
-universities = {
-    "The University Of Texas At Austin",
-    "Harvard University",
-    "Rice University",
-}
-
 
 @app.route("/")
 def index():
@@ -66,57 +57,21 @@ def cities_base():
 @app.route("/universities")
 def universities_base():
     model = {"title": "Universities", "instances": []}
+    universities = University.objects().only("name")
 
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     # TODO need to replace spaces with underscores in URL
     for university in universities:
         instance = {
             "page_url": url_for(
-                "university", university_name=university.lower().replace(" ", "_")
+                "university", university_name=university.name
             ),
-            "image_url": url_for("static", filename=(university.lower() + ".jpg")),
-            "name": university,
+            "image_url": url_for("static", filename=(university.name.replace("_"," ") + ".jpg")),
+            "name": university.name.replace("_", " ").title(),
         }
         model["instances"].append(instance)
 
     return render_template("model.html", model=model)
-
-
-# TODO migrate to mongoengine after phase i
-
-city_stats = {
-    "austin": {
-        "area": 579.4,
-        "population": 950715,
-        "population density": 3780,
-        "community type": "Urban",
-        "median age": 33.4,
-        "median gross rent": 1244,
-        "schools": ["The University of Texas at Austin"],
-    },
-    "houston": {
-        "area": 251.5,
-        "population": 2312717,
-        "population density": 3991,
-        "community type": "Urban",
-        "median age": 33.1,
-        "median gross rent": 986,
-        "schools": ["Rice University"],
-    },
-    "cambridge": {
-        "area": 6.43,
-        "population": 113630,
-        "population density": 17.675,
-        "community type": "Urban",
-        "median age": 30.5,
-        "median gross rent": 2102,
-        "schools": ["Harvard University"],
-    },
-}
-
-university_stats = {
-
-}
 
 
 @app.route("/major/<string:major_name>")
@@ -158,13 +113,16 @@ def city(city_name):
 
 @app.route("/university/<string:university_name>")
 def university(university_name):
-    if university_name.replace("_", " ").title() not in universities:
+    # TODO may need more than just name to differentiate universities
+    uni_loaded = University.objects(name=university_name).first()
+    if uni_loaded is None:
         return f"Could not find university {university_name.replace('_', ' ').title()}"
     else:
         return render_template(
             "university_instance.html",
             university_name=university_name.replace("_", " ").title(),
-            university_stats=university_stats[university_name],
+            university=uni_loaded,
+            city_name=str(uni_loaded.city),
         )
 
 

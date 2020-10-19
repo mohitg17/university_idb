@@ -30,7 +30,7 @@
 <div>
     <div class="jumbotron" style="background-color: #395C6B;">
         <h1 style="color: white">{{university_name}}</h1>
-        <p style="color: white">{{university_stats['location']}}</p>
+        <p style="color: white">{{city_name}}</p>
     </div>
 
     <div style="margin-right: 25px;">
@@ -50,24 +50,25 @@
                     <div class="col text-center"><h4>Tuition</h4></div>
                 </div>
                 <div class="row">
-                    <div class="col text-center"><h1>{{university_stats['student_population']}}</h1></div>
-                    <div class="col text-center"><h1>{{university_stats['acceptance_rate']}}%</h1></div>
-                    <div class="col text-center"><h1>${{university_stats['in_state_tuition']}}</h1></div>
+                    <div class="col text-center"><h1>{{university.student_population}}</h1></div>
+                    <div class="col text-center"><h1>{{university.acceptance_rate}}%</h1></div>
+                    <div class="col text-center"><h1>${{university.in_state_tuition}}</h1></div>
                 </div>
             </div>
             <div class="container" id="info" style="margin-bottom: 10px">
                 <h3 class="headers">School Info</h3>
                 <div style="width: 40%; float: left;">
-                    <h5 class="text-center" style="padding-top: 20%">Location: {{university_stats['location']}}</h5>
-                    <h5 class="text-center">Main Campus: {{university_stats['location']}}</h5>
+                    <h5 class="text-center" style="padding-top: 20%">Location: {{city_name}}</h5>
+                    <h5 class="text-center">Main Campus: {{city_name}}</h5>
                     <h5 class="text-center">Website:
-                        <a href="{{university_stats['website']}}" style="color: blue;">{{university_stats['website']}}</a>
+                        <a href="{{university.website}}" style="color: blue;">{{university.website}}</a>
                     </h5>
                 </div>
                 <div>
-                    <img class="img-fluid d-block" style="width: 60%;" src="{{url_for('static', filename=(university_stats['city'] + '.jpg'))}}" />
+                    <img class="img-fluid d-block" style="width: 60%;" src="{{url_for('static', filename=(university.city.name + '.jpg'))}}" />
                 </div>
             </div>
+            <!-- TODO link to majors pages and make dynamic -->
             <div class="container" id="majors" style="margin-bottom: 10px;">
                 <h3 class="headers">Majors</h3>
                 <div class="row">
@@ -104,8 +105,8 @@
             <div class="container" id="admissions" style="margin-bottom: 10px">
                 <h3 class="headers">Admissions</h3>
                 <div class="row">
-                    <div class="col" style="text-align: center;"><h1>{{university_stats['sat_median']}}</h1></div>
-                    <div class="col" style="text-align: center;"><h1>{{university_stats['act_median']}}</h1></div>
+                    <div class="col" style="text-align: center;"><h1>{{university.sat_median}}</h1></div>
+                    <div class="col" style="text-align: center;"><h1>{{university.act_median}}</h1></div>
                 </div>
                 <div class="row">
                     <div class="col" style="text-align: center;"><h4>SAT median</h4></div>
@@ -117,17 +118,17 @@
                 <div class="row">
                     <div class="col text-center" style="padding-left: 20px;"><h3>By Race</h3></div>
                     <div class="col">
-                        <div class="row div-text">Black: {{university_stats['percent_black']}}%</div>
-                        <div class="row div-text">White: {{university_stats['percent_white']}}%</div>
-                        <div class="row div-text">Asian: {{university_stats['percent_asian']}}%</div>
-                        <div class="row div-text">Hispanic: {{university_stats['percent_hispanic']}}%</div>
+                        <div class="row div-text">Black: {{university.percent_black}}%</div>
+                        <div class="row div-text">White: {{university.percent_white}}%</div>
+                        <div class="row div-text">Asian: {{university.percent_asian}}%</div>
+                        <div class="row div-text">Hispanic: {{university.percent_hispanic}}%</div>
                     </div>
                 </div>
                 <div class="row" style="padding: 20px;">
                     <div class="col text-center" style="padding-left: 20px;"><h3>By Gender</h3></div>
                     <div class="col">
-                        <div class="row div-text">Men: {{university_stats['percent_male']}}%</div>
-                        <div class="row div-text">Female: {{university_stats['percent_female']}}%</div>
+                        <div class="row div-text">Men: {{university.percent_male}}%</div>
+                        <div class="row div-text">Female: {{university.percent_female}}%</div>
                     </div>
                 </div>
             </div>
@@ -135,13 +136,13 @@
                 <h3 class="headers">Tuition and Aid</h3>
                 <div style="width: 50%; float: left;">
                     <h5 style="padding-left: 10px;">Tuition</h5>
-                    <div class="div-text">In-state: ${{university_stats['in_state_tuition']}}</div>
-                    <div class="div-text">Out of State: ${{university_stats['out_of_state_tuition']}}</div>
+                    <div class="div-text">In-state: ${{university.in_state_tuition}}</div>
+                    <div class="div-text">Out of State: ${{university.out_of_state_tuition}}</div>
                     <h5 style="padding-left: 10px;">Aid</h5>
-                    <div class="div-text">Median Debt: ${{university_stats['median_debt']}}</div>
+                    <div class="div-text">Median Debt: ${{university.median_debt}}</div>
                 </div>
                 <div style="width: 50%; float: right;">
-                    <h1 style="text-align: center; padding-top: 30px;">${{university_stats['avg_cost']}}</h1>
+                    <h1 style="text-align: center; padding-top: 30px;">${{university.avg_cost}}</h1>
                     <h5 style="text-align: center;">Average cost per year</h5>
                 </div>
             </div>
@@ -149,24 +150,24 @@
         <div style="width:30%; float: right;">
             <div class="container" style="border:2px solid lightgrey; margin-bottom: 20px;">
                 <h3>Degrees</h3>
-                <div>Predominant Degree Awarded: {{university_stats['predominant_degree']}}</div>
-                <div>Highest Degree Awarded: {{university_stats['highest_degree']}}</div>
+                <div>Predominant Degree Awarded: {{university.predominant_degree}}</div>
+                <div>Highest Degree Awarded: {{university.highest_degree}}</div>
             </div>
             <div class="container" style="border:2px solid lightgrey; margin-bottom: 20px;">
                 <h3>Completion Rates</h3>
-                <div>Completion Overall 2019: {{university_stats['completion_overall']}} </div>
-                <div>White students: {{university_stats['completion_rate_white']}}%</div>
-                <div>Black students: {{university_stats['completion_rate_black']}}%</div>
-                <div>Asian students: {{university_stats['completion_rate_asian']}}%</div>
-                <div>Hispanic students: {{university_stats['completion_rate_hispanic']}}%</div>
+                <div>Completion Overall 2019: {{university.completion_overall}} </div>
+                <div>White students: {{university.completion_rate_white}}%</div>
+                <div>Black students: {{university.completion_rate_black}}%</div>
+                <div>Asian students: {{university.completion_rate_asian}}%</div>
+                <div>Hispanic students: {{university.completion_rate_hispanic}}%</div>
             </div>
             <div class="container" style="border:2px solid lightgrey; margin-bottom: 20px;">
                 <h3>Earnings</h3>
-                <div>Average Earnings after 10 years: ${{university_stats['earnings']}}</div>
+                <div>Average Earnings after 10 years: ${{university.earnings}}</div>
             </div>
             <div class="container" style="border:2px solid lightgrey; margin-bottom: 20px;">
                 <h3>Retention Rate</h3>
-                <div>Overall: {{university_stats['retention_rate']}}%</div>
+                <div>Overall: {{university.retention_rate}}%</div>
             </div>
         </div>
     </div>
