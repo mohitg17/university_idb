@@ -11,10 +11,12 @@ class Connector:
 
     @classmethod
     def connect_prod_database(cls):
-        user = parse.quote_plus(os.environ["DATABASE_USER"])
-        password = parse.quote_plus(os.environ["DATABASE_PASSWORD"])
+        user = os.environ["DATABASE_USER"]
+        password = os.environ["DATABASE_PASSWORD"]
         database = "idb"
-        connect(host=f"mongodb+srv://{user}:{password}@cluster0.djv4q.mongodb.net/{database}?retryWrites=true&w=majority")
+        options = "retryWrites=true&w=majority"
+        connection_string = f"mongodb+srv://{user}:{password}@cluster0.djv4q.mongodb.net/{database}?{options}"
+        connect(host=connection_string)
 
     @classmethod
     def connect_test_database(cls):

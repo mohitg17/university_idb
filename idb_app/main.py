@@ -1,6 +1,5 @@
 from flask import Flask, render_template, url_for
 from idb_app.mongo import Connector
-from idb_app.ingestion import basic_ingest
 
 app = Flask(__name__)
 
@@ -8,10 +7,7 @@ app = Flask(__name__)
 Connector.load_database_creds()
 
 # switch to Connector.connect_prod_database() when done testing
-Connector.connect_test_database()
-
-# example insert into mongoDB from a dict
-# basic_ingest.insert_majors()
+Connector.connect_prod_database()
 
 majors = {
     "engineering",
