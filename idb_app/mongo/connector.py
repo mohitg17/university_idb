@@ -11,8 +11,8 @@ class Connector:
 
     @classmethod
     def connect_prod_database(cls):
-        user = os.environ["DATABASE_USER"]
-        password = os.environ["DATABASE_PASSWORD"]
+        user = parse.quote_plus(os.environ["DATABASE_USER"])
+        password = parse.quote_plus(os.environ["DATABASE_PASSWORD"])
         database = "idb"
         options = "retryWrites=true&w=majority"
         connection_string = f"mongodb+srv://{user}:{password}@cluster0.djv4q.mongodb.net/{database}?{options}"
