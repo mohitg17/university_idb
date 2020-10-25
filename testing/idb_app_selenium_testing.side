@@ -1,0 +1,450 @@
+{
+  "id": "2603491a-485f-4603-8957-164dddd22f9d",
+  "version": "2.0",
+  "name": "idb_app",
+  "url": "http://localhost:5000",
+  "tests": [{
+    "id": "0024edc5-480d-4a29-bd2c-ecc99fd995b0",
+    "name": "navbar",
+    "commands": [{
+      "id": "7e9853ba-0ddf-4fff-8dba-0655f58b64d8",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4f0dd861-56ce-43d7-9479-30685df25af7",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x826",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a3c50409-fdc9-4465-bb64-a475122fc396",
+      "comment": "",
+      "command": "click",
+      "target": "css=#nav-icon > img",
+      "targets": [
+        ["css=#nav-icon > img", "css:finder"],
+        ["xpath=//img[@alt='Logo']", "xpath:img"],
+        ["xpath=//a[@id='nav-icon']/img", "xpath:idRelative"],
+        ["xpath=//img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7b7d63ec-feda-4678-a64d-0bd7071b0faf",
+      "comment": "",
+      "command": "click",
+      "target": "id=nav-link-home",
+      "targets": [
+        ["id=nav-link-home", "id"],
+        ["linkText=Home", "linkText"],
+        ["css=#nav-link-home", "css:finder"],
+        ["xpath=//a[contains(text(),'Home')]", "xpath:link"],
+        ["xpath=//a[@id='nav-link-home']", "xpath:attributes"],
+        ["xpath=//div[@id='collapsibleNavbar']/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/')]", "xpath:href"],
+        ["xpath=//li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Home')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c6663a80-82df-47a7-adaa-5b6cdc0934c7",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "Universities IDB",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9ce98975-ee61-45d1-953f-6ada8525c479",
+      "comment": "",
+      "command": "click",
+      "target": "id=nav-link-about",
+      "targets": [
+        ["id=nav-link-about", "id"],
+        ["linkText=About", "linkText"],
+        ["css=#nav-link-about", "css:finder"],
+        ["xpath=//a[contains(text(),'About')]", "xpath:link"],
+        ["xpath=//a[@id='nav-link-about']", "xpath:attributes"],
+        ["xpath=//div[@id='collapsibleNavbar']/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/about')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'About')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "49af8afd-4d93-4100-a529-5afd6bef4822",
+      "comment": "",
+      "command": "click",
+      "target": "id=nav-link-cities",
+      "targets": [
+        ["id=nav-link-cities", "id"],
+        ["linkText=Cities", "linkText"],
+        ["css=#nav-link-cities", "css:finder"],
+        ["xpath=//a[contains(text(),'Cities')]", "xpath:link"],
+        ["xpath=//a[@id='nav-link-cities']", "xpath:attributes"],
+        ["xpath=//div[@id='collapsibleNavbar']/ul/li[4]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/cities')]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Cities')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c8a85a75-e64d-4401-9cc4-2d1b49130a27",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "Cities",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "10222080-2015-4d8b-9e1a-4e6802efc2bc",
+      "comment": "",
+      "command": "click",
+      "target": "id=nav-link-majors",
+      "targets": [
+        ["id=nav-link-majors", "id"],
+        ["linkText=Majors", "linkText"],
+        ["css=#nav-link-majors", "css:finder"],
+        ["xpath=//a[contains(text(),'Majors')]", "xpath:link"],
+        ["xpath=//a[@id='nav-link-majors']", "xpath:attributes"],
+        ["xpath=//div[@id='collapsibleNavbar']/ul/li[5]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/majors')]", "xpath:href"],
+        ["xpath=//li[5]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Majors')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e68b0da5-1516-4c3f-bfde-9c95f9f82ae9",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "Fields of Study & Majors",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "2dc96272-2a53-4ede-890a-d75c0f446192",
+    "name": "main_page_card_links",
+    "commands": [{
+      "id": "4f40da82-92f2-4664-94ea-87d64834bcb6",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d84f6da7-ba37-4642-b84e-deaded2a9c97",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x826",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "48ebb200-5eb4-48d8-881a-5c24ca3a1623",
+      "comment": "",
+      "command": "click",
+      "target": "id=home-universities-card",
+      "targets": [
+        ["id=home-universities-card", "id"],
+        ["linkText=Find Universities", "linkText"],
+        ["css=#home-universities-card", "css:finder"],
+        ["xpath=//a[@id='home-universities-card']", "xpath:attributes"],
+        ["xpath=(//a[contains(@href, '/universities')])[2]", "xpath:href"],
+        ["xpath=//div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Find Universities')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "dc22bbfe-a8e9-40ec-b2f0-20bdc8e30381",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "Universities",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f074aa19-b98a-49f6-b380-c50f20444746",
+      "comment": "",
+      "command": "click",
+      "target": "id=nav-link-home",
+      "targets": [
+        ["id=nav-link-home", "id"],
+        ["linkText=Home", "linkText"],
+        ["css=#nav-link-home", "css:finder"],
+        ["xpath=//a[contains(text(),'Home')]", "xpath:link"],
+        ["xpath=//a[@id='nav-link-home']", "xpath:attributes"],
+        ["xpath=//div[@id='collapsibleNavbar']/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/')]", "xpath:href"],
+        ["xpath=//li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Home')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1a182b94-a09d-4794-aaea-885a171afdfc",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "Universities IDB",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6218a318-3a5e-40f4-a35e-7e848e633525",
+      "comment": "",
+      "command": "click",
+      "target": "id=home-cities-card",
+      "targets": [
+        ["id=home-cities-card", "id"],
+        ["linkText=Find Cities", "linkText"],
+        ["css=#home-cities-card", "css:finder"],
+        ["xpath=//a[@id='home-cities-card']", "xpath:attributes"],
+        ["xpath=(//a[contains(@href, '/cities')])[2]", "xpath:href"],
+        ["xpath=//div[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Find Cities')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "72aa7cd3-0acc-47d8-81ef-d96eb7243c2e",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "Cities",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8ccb3c85-6e6b-42eb-af9a-655038bd2d6e",
+      "comment": "",
+      "command": "click",
+      "target": "id=nav-link-home",
+      "targets": [
+        ["id=nav-link-home", "id"],
+        ["linkText=Home", "linkText"],
+        ["css=#nav-link-home", "css:finder"],
+        ["xpath=//a[contains(text(),'Home')]", "xpath:link"],
+        ["xpath=//a[@id='nav-link-home']", "xpath:attributes"],
+        ["xpath=//div[@id='collapsibleNavbar']/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/')]", "xpath:href"],
+        ["xpath=//li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Home')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e2d2a5e3-b5b4-4329-8304-61d699717fd3",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "Universities IDB",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "786dfd9f-b56c-4612-87fd-136ff544d12e",
+      "comment": "",
+      "command": "click",
+      "target": "id=home-majors-card",
+      "targets": [
+        ["id=home-majors-card", "id"],
+        ["linkText=Find Majors", "linkText"],
+        ["css=#home-majors-card", "css:finder"],
+        ["xpath=//a[@id='home-majors-card']", "xpath:attributes"],
+        ["xpath=(//a[contains(@href, '/majors')])[2]", "xpath:href"],
+        ["xpath=//div[3]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Find Majors')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c4a0a0ef-c04a-4e5d-b2e5-37d2bb912e17",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "Fields of Study & Majors",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0daa2f75-c441-48df-ada3-ea9ea60c99a2",
+      "comment": "",
+      "command": "click",
+      "target": "id=nav-link-home",
+      "targets": [
+        ["id=nav-link-home", "id"],
+        ["linkText=Home", "linkText"],
+        ["css=#nav-link-home", "css:finder"],
+        ["xpath=//a[contains(text(),'Home')]", "xpath:link"],
+        ["xpath=//a[@id='nav-link-home']", "xpath:attributes"],
+        ["xpath=//div[@id='collapsibleNavbar']/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/')]", "xpath:href"],
+        ["xpath=//li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Home')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "736718bc-b54a-4c04-b3fe-05f19c188f2b",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "Universities IDB",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "f9dd8e3d-3d2a-4b20-ad07-971105f37d66",
+    "name": "cities",
+    "commands": [{
+      "id": "6bdefc36-e584-42cd-81c7-74f4f07e2dee",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d9b58c42-dd7f-4c23-a3c7-cf77968e8a8f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x826",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "645b3d81-bb6a-4938-9330-b2e607222f69",
+      "comment": "",
+      "command": "click",
+      "target": "id=home-cities-card",
+      "targets": [
+        ["id=home-cities-card", "id"],
+        ["linkText=Find Cities", "linkText"],
+        ["css=#home-cities-card", "css:finder"],
+        ["xpath=//a[@id='home-cities-card']", "xpath:attributes"],
+        ["xpath=(//a[contains(@href, '/cities')])[2]", "xpath:href"],
+        ["xpath=//div[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Find Cities')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "297da4f4-adc1-4681-9469-cb63bee43365",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a[contains(@href, '/city/austin')]",
+      "targets": [
+        ["css=.card:nth-child(1) > .stretched-link", "css:finder"],
+        ["xpath=//a[contains(@href, '/city/austin')]", "xpath:href"],
+        ["xpath=//div/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1580d18e-651b-4c7b-9bcf-1d4851563e2f",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h1",
+      "targets": [
+        ["css=h1", "css:finder"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'Austin, Texas')]", "xpath:innerText"]
+      ],
+      "value": "Austin, Texas"
+    }, {
+      "id": "a34a4057-762e-418e-89db-10ddaba7e25c",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "US Cities IDB",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4bf397b7-1087-4566-9282-a9dcd5e05f20",
+      "comment": "",
+      "command": "click",
+      "target": "id=nav-link-cities",
+      "targets": [
+        ["id=nav-link-cities", "id"],
+        ["linkText=Cities", "linkText"],
+        ["css=#nav-link-cities", "css:finder"],
+        ["xpath=//a[contains(text(),'Cities')]", "xpath:link"],
+        ["xpath=//a[@id='nav-link-cities']", "xpath:attributes"],
+        ["xpath=//div[@id='collapsibleNavbar']/ul/li[4]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/cities')]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Cities')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3ad3eae8-4e89-418a-997b-a6f6f84945bd",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a[contains(@href, '/city/cambridge')]",
+      "targets": [
+        ["css=.card:nth-child(1) > .stretched-link", "css:finder"],
+        ["xpath=//a[contains(@href, '/city/austin')]", "xpath:href"],
+        ["xpath=//div/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e7021a46-5f2d-44ab-94eb-9034ed62bd50",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h1",
+      "targets": [
+        ["css=h1", "css:finder"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'Austin, Texas')]", "xpath:innerText"]
+      ],
+      "value": "Cambridge, Massachusetts"
+    }, {
+      "id": "a8be5089-4b01-4f6f-9bc1-5c77930c1c18",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "US Cities IDB",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9c216006-96b2-4b98-92d7-4c44317c78ae",
+      "comment": "",
+      "command": "click",
+      "target": "id=nav-link-cities",
+      "targets": [
+        ["id=nav-link-cities", "id"],
+        ["linkText=Cities", "linkText"],
+        ["css=#nav-link-cities", "css:finder"],
+        ["xpath=//a[contains(text(),'Cities')]", "xpath:link"],
+        ["xpath=//a[@id='nav-link-cities']", "xpath:attributes"],
+        ["xpath=//div[@id='collapsibleNavbar']/ul/li[4]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/cities')]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Cities')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e4d923eb-bc08-47dd-b2a5-5aa1a74fc2a9",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//a[contains(@href, '/city/houston')]",
+      "targets": [
+        ["css=.card:nth-child(1) > .stretched-link", "css:finder"],
+        ["xpath=//a[contains(@href, '/city/austin')]", "xpath:href"],
+        ["xpath=//div/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6b9b9a7c-1174-4e94-abe1-a6fdbd5e4084",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h1",
+      "targets": [
+        ["css=h1", "css:finder"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'Austin, Texas')]", "xpath:innerText"]
+      ],
+      "value": "Houston, Texas"
+    }, {
+      "id": "a512a1df-2c72-4f1b-9975-7247b85e3e69",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "US Cities IDB",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "2293f903-4f9b-41a6-be3c-054eddd81f04",
+    "name": "universities",
+    "commands": []
+  }],
+  "suites": [{
+    "id": "9d6ac61e-e3ba-46fd-a14f-93fa2b3e4b50",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:5000/"],
+  "plugins": []
+}
