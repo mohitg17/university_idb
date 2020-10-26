@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for
+from flask_paginate import Pagination, get_page_args
 from idb_app.mongo import Connector
 from idb_app.models import Major, City, University
 
@@ -35,7 +36,11 @@ def majors_base():
         }
         model["instances"].append(instance)
 
-    return render_template("model.html", model=model)
+    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    total = len(majors)
+    model["instances"] = model["instances"][offset: offset + per_page]
+    pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
+    return render_template('model.html', model=model, page=page, per_page=per_page, pagination=pagination)
 
 
 @app.route("/cities")
@@ -51,7 +56,11 @@ def cities_base():
         }
         model["instances"].append(instance)
 
-    return render_template("model.html", model=model)
+    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    total = len(cities)
+    model["instances"] = model["instances"][offset: offset + per_page]
+    pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
+    return render_template('model.html', model=model, page=page, per_page=per_page, pagination=pagination)
 
 
 @app.route("/universities")
@@ -60,7 +69,6 @@ def universities_base():
     universities = University.objects().only("school_name")
 
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
-    # TODO need to replace spaces with underscores in URL
     for university in universities:
         instance = {
             "page_url": url_for(
@@ -71,7 +79,11 @@ def universities_base():
         }
         model["instances"].append(instance)
 
-    return render_template("model.html", model=model)
+    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    total = len(universities)
+    model["instances"] = model["instances"][offset: offset + per_page]
+    pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
+    return render_template('model.html', model=model, page=page, per_page=per_page, pagination=pagination)
 
 
 @app.route("/major/<string:major_name>")
