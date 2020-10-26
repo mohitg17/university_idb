@@ -11,7 +11,7 @@ Connector.load_database_creds()
 Connector.connect_prod_database()
 
 # use .limit(X) if you only want to try to scrape for X schools
-universities = University.objects().only("school_name").limit(100)
+universities = University.objects().only("school_name")
 
 count = 0
 for u in universities:
@@ -26,14 +26,12 @@ for u in universities:
              'q': u.school_name,
              'num': 1,
              'safe': 'high',
-             'fileType': 'jpg|png',
              'imgType': 'photo',
              'rights': 'cc_publicdomain|cc_attribute|cc_sharealike|cc_noncommercial|cc_nonderived'
         }
         download_path = "/tmp/"
 
-        # TODO consider resizing here
-        gis.search(search_params=search_params, path_to_dir=download_path)
+        gis.search(search_params=search_params, path_to_dir=download_path, width=400, height=200)
         query_results = gis.results()
 
         # skip if no images found
