@@ -126,7 +126,7 @@ def city(city_name):
 @app.route("/university/<string:university_name>")
 def university(university_name):
     # TODO may need more than just name to differentiate universities
-    uni_loaded = University.objects(name=university_name).first()
+    uni_loaded = University.objects(school_name=university_name).first()
     if uni_loaded is None:
         return f"Could not find university {university_name.replace('_', ' ').title()}"
     else:
@@ -134,7 +134,7 @@ def university(university_name):
             "university_instance.html",
             university_name=university_name.replace("_", " ").title(),
             university=uni_loaded,
-            city_name=str(uni_loaded.city),
+            city_name=str(uni_loaded.school_city),
         )
 
 
