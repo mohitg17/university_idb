@@ -1,3 +1,4 @@
+import sys
 from PIL import Image
 
 from idb_app.models import University, UniversityImage
