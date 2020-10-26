@@ -50,7 +50,7 @@ def cities_base():
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     for city in cities:
         instance = {
-            "page_url": url_for("city", city_name=city.name),
+            "page_url": url_for("city", city_state=city),
             "image_url": url_for("static", filename=(city.name + ".jpg")),
             "name": str(city),
         }
@@ -106,13 +106,11 @@ def major(major_name):
         )
 
 
-# TODO change this to add city instance routes
-@app.route("/city/<string:city_name>")
-def city(city_name):
-    # TODO will need to refactor this to include state in the parameter
-    city_loaded = City.objects(name=city_name.lower()).first()
+@app.route("/city/<string:city_state>")
+def city(city_state):
+    city_loaded = City.objects(name=city_state.split(',')[0], state=city_state.split(',')[1].lstrip(' ')).first()
     if city_loaded is None:
-        return f"Could not find city {city_name}"
+        return f"Could not find city {city_state}"
     else:
         return render_template(
             "city_instance.html",
