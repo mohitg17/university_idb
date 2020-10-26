@@ -1,7 +1,7 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, make_response, redirect
 from flask_paginate import Pagination, get_page_args
 from idb_app.mongo import Connector
-from idb_app.models import Major, City, University
+from idb_app.models import Major, City, University, UniversityImage
 
 app = Flask(__name__)
 
@@ -134,6 +134,19 @@ def university(university_name):
             university=uni_loaded,
             city_name=str(uni_loaded.school_city),
         )
+
+
+@app.route('/university/image/<string:university_id>')
+def get_uni_image(university_id: str):
+    uni_image = UniversityImage.objects(university=university_id).first()
+    if uni_image is None:
+        return redirect(url_for('static', filename="generic_college.jpg"))
+    image_binary = uni_image.image.read()
+    response = make_response(image_binary)
+    response.headers.set('Content-Type', 'image/jpeg')
+    response.headers.set(
+        'Content-Disposition', 'attachment', filename=f'{university_id}.jpg')
+    return response
 
 
 if __name__ == "__main__":
