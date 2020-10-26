@@ -5,7 +5,7 @@ from idb_app.models import City, Major, choices
 
 
 class University(Document):
-    name = StringField(required=True, unique_with=['school_city', 'school_state'])
+    school_name = StringField(required=True, unique_with=['school_city', 'school_state'])
     school_city = ReferenceField(City, reverse_delete_rule=DENY, required=True)
     school_state = StringField(required=True, choices=choices.STATE_CHOICES)
     school_locale = StringField(default="City")

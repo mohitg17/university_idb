@@ -57,17 +57,17 @@ def cities_base():
 @app.route("/universities")
 def universities_base():
     model = {"title": "Universities", "instances": []}
-    universities = University.objects().only("name")
+    universities = University.objects().only("school_name")
 
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     # TODO need to replace spaces with underscores in URL
     for university in universities:
         instance = {
             "page_url": url_for(
-                "university", university_name=university.name
+                "university", university_name=university.school_name
             ),
-            "image_url": url_for("static", filename=(university.name.replace("_"," ") + ".jpg")),
-            "name": university.name.replace("_", " ").title(),
+            "image_url": url_for("static", filename=(university.school_name.replace("_"," ") + ".jpg")),
+            "name": university.school_name.replace("_", " ").title(),
         }
         model["instances"].append(instance)
 
