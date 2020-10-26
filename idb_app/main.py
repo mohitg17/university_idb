@@ -25,7 +25,7 @@ def about():
 @app.route("/majors")
 def majors_base():
     model = {"title": "Fields of Study & Majors", "instances": []}
-    majors = Major.objects().only("name")
+    majors = Major.objects().only("name", "median_starting_salary", "median_midcareer_salary", "num_bachelor_programs")
 
     # Mapping majors to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     for major in majors:
@@ -33,6 +33,9 @@ def majors_base():
             "page_url": url_for("major", major_name=major.name),
             "image_url": url_for("static", filename=(major.name + ".jpg")),
             "name": major.name.replace("_", " ").title(),
+            "attribute_1": {'name': "Median Starting Salary", 'value': major.median_starting_salary},
+            "attribute_2": {'name': "Median Midcareer Salary", 'value': major.median_midcareer_salary},
+            "attribute_3": {'name': "Number of Bachelor's Programs", 'value': major.num_bachelor_programs}
         }
         model["instances"].append(instance)
 
@@ -46,13 +49,16 @@ def majors_base():
 @app.route("/cities")
 def cities_base():
     model = {"title": "Cities", "instances": []}
-    cities = City.objects().only("name", "state")
+    cities = City.objects().only("name", "state", "population", "community_type", "median_gross_rent")
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     for city in cities:
         instance = {
             "page_url": url_for("city", city_state=city),
             "image_url": url_for("static", filename=(city.name + ".jpg")),
             "name": str(city),
+            "attribute_1": {'name': "Population", 'value': city.population},
+            "attribute_2": {'name': "Community Type", 'value': city.community_type},
+            "attribute_3": {'name': "Median Gross Rent", 'value': city.median_gross_rent}
         }
         model["instances"].append(instance)
 
@@ -66,7 +72,7 @@ def cities_base():
 @app.route("/universities")
 def universities_base():
     model = {"title": "Universities", "instances": []}
-    universities = University.objects().only("school_name")
+    universities = University.objects().only("school_name", "school_city", "latest_student_size", "latest_cost_attendance_academic_year")
 
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     for university in universities:
@@ -76,6 +82,9 @@ def universities_base():
             ),
             "image_url": url_for("static", filename=(university.school_name.replace("_"," ") + ".jpg")),
             "name": university.school_name.replace("_", " ").title(),
+            "attribute_1": {'name': "Location", 'value': university.school_city},
+            "attribute_2": {'name': "Student Population", 'value': university.latest_student_size},
+            "attribute_3": {'name': "Cost of Attendance", 'value': university.latest_cost_attendance_academic_year}
         }
         model["instances"].append(instance)
 

@@ -89,7 +89,14 @@
             style="background-image:'{{ instance.image_url }}';"
         >
             <img class="card-img-top d-block" src="{{instance.image_url}}" />
-            <div class="centered text-white highlight">{{instance.name}}</div>
+            <div class="card-body">
+                <h5 class="card-title">{{instance.name}}</h5>
+                <ul>
+                    <li>{{instance.attribute_1['name']}}: {{instance.attribute_1['value']}}</li>
+                    <li>{{instance.attribute_2['name']}}: {{instance.attribute_2['value']}}</li>
+                    <li>{{instance.attribute_3['name']}}: {{instance.attribute_3['value']}}</li>
+                </ul>
+            </div>
             <a href="{{instance.page_url}}" class="stretched-link"></a>
         </div>
         {% endfor %}
