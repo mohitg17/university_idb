@@ -1,6 +1,7 @@
 from idb_app.models import University, City, Major
 from idb_app.mongo import Connector
 from idb_app.models import choices
+from mongoengine import NotUniqueError
 import requests
 
 def create_majors():
@@ -100,9 +101,7 @@ def query(fields:list, arguments:dict) -> dict:
 if __name__ == "__main__":
     # requires that you have a .env file with a mongo DB user/password
     Connector.load_database_creds()
-    Connector.connect_test_database()
-
-    create_majors()
+    Connector.connect_prod_database()
 
     for i in range(1,21):
         raw_data = query(["school.name", "school.city", "school.state", "school.locale", "school.school_url", "latest.student.size", "latest.admissions.admission_rate.overall",
@@ -143,6 +142,9 @@ if __name__ == "__main__":
             uni_data['school_city'] = create_city(uni_data)
 
             uni = University(**uni_data)
-            uni.save()
+            try: 
+                uni.save()
+            except NotUniqueError:
+                print('not unique')
 
     Connector.disconnect_database()
