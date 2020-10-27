@@ -39,11 +39,11 @@ def majors_base():
         }
         model["instances"].append(instance)
 
-    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    page, _, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
     total = len(majors)
-    model["instances"] = model["instances"][offset: offset + per_page]
-    pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
-    return render_template('model.html', model=model, page=page, per_page=per_page, pagination=pagination)
+    model["instances"] = model["instances"][offset: offset + 9]
+    pagination = Pagination(page=page, per_page=9, total=total, css_framework='bootstrap4')
+    return render_template('model.html', model=model, page=page, per_page=9, pagination=pagination)
 
 
 @app.route("/cities")
@@ -62,17 +62,17 @@ def cities_base():
         }
         model["instances"].append(instance)
 
-    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    page, _, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
     total = len(cities)
-    model["instances"] = model["instances"][offset: offset + per_page]
-    pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
-    return render_template('model.html', model=model, page=page, per_page=per_page, pagination=pagination)
+    model["instances"] = model["instances"][offset: offset + 12]
+    pagination = Pagination(page=page, per_page=12, total=total, css_framework='bootstrap4')
+    return render_template('model.html', model=model, page=page, per_page=12, pagination=pagination)
 
 
 @app.route("/universities")
 def universities_base():
     model = {"title": "Universities", "instances": []}
-    universities = University.objects().only("school_name", "school_city", "latest_student_size", "latest_cost_attendance_academic_year")
+    universities = University.objects().only("school_name", "school_state", "latest_student_size", "latest_cost_attendance_academic_year")
 
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     for university in universities:
@@ -82,17 +82,17 @@ def universities_base():
             ),
             "image_url": url_for("static", filename=(university.school_name.replace("_"," ") + ".jpg")),
             "name": university.school_name.replace("_", " ").title(),
-            "attribute_1": {'name': "Location", 'value': university.school_city},
+            "attribute_1": {'name': "State", 'value': university.school_state},
             "attribute_2": {'name': "Student Population", 'value': university.latest_student_size},
             "attribute_3": {'name': "Cost of Attendance", 'value': university.latest_cost_attendance_academic_year}
         }
         model["instances"].append(instance)
 
-    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    page, _, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
     total = len(universities)
-    model["instances"] = model["instances"][offset: offset + per_page]
-    pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
-    return render_template('model.html', model=model, page=page, per_page=per_page, pagination=pagination)
+    model["instances"] = model["instances"][offset: offset + 18]
+    pagination = Pagination(page=page, per_page=18, total=total, css_framework='bootstrap4')
+    return render_template('model.html', model=model, page=page, per_page=18, pagination=pagination)
 
 
 @app.route("/major/<string:major_name>")
