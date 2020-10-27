@@ -39,7 +39,9 @@ def majors_base():
         }
         model["instances"].append(instance)
 
-    page, _, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    page, _, _ = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    per_page = 12
+    offset = (page - 1) * per_page    
     total = len(majors)
     model["instances"] = model["instances"][offset: offset + 9]
     pagination = Pagination(page=page, per_page=9, total=total, css_framework='bootstrap4')
@@ -62,7 +64,9 @@ def cities_base():
         }
         model["instances"].append(instance)
 
-    page, _, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    page, _, _ = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    per_page = 15
+    offset = (page - 1) * per_page    
     total = len(cities)
     model["instances"] = model["instances"][offset: offset + 12]
     pagination = Pagination(page=page, per_page=12, total=total, css_framework='bootstrap4')
@@ -93,11 +97,13 @@ def universities_base():
         }
         model["instances"].append(instance)
 
-    page, _, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    page, _, _ = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    per_page = 18
+    offset = (page - 1) * per_page
     total = len(universities)
-    model["instances"] = model["instances"][offset: offset + 18]
-    pagination = Pagination(page=page, per_page=18, total=total, css_framework='bootstrap4')
-    return render_template('model.html', model=model, page=page, per_page=18, pagination=pagination)
+    model["instances"] = model["instances"][offset: offset + per_page]
+    pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
+    return render_template('model.html', model=model, page=page, per_page=per_page, pagination=pagination)
 
 
 @app.route("/major/<string:major_name>")
