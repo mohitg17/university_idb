@@ -51,7 +51,7 @@
                 </div>
                 <div class="row">
                     <div class="col text-center"><h1>{{university.latest_student_size}}</h1></div>
-                    <div class="col text-center"><h1>{{university.latest_admissions_admission_rate_overall}}%</h1></div>
+                    <div class="col text-center"><h1>{{university.latest_admissions_admission_rate_overall*100}}%</h1></div>
                     <div class="col text-center"><h1>${{university.latest_cost_tuition_in_state}}</h1></div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                     </h5>
                 </div>
                 <div>
-                    <img class="img-fluid d-block" style="width: 60%;" src="{{url_for('static', filename=(university.school_city.name + '.jpg'))}}" />
+                    <img class="img-fluid d-block" style="width: 60%;" src="/images/university/{{university.id}}" />
                 </div>
             </div>
             <!-- TODO link to majors pages and make dynamic -->
