@@ -72,7 +72,11 @@ def cities_base():
 @app.route("/universities")
 def universities_base():
     model = {"title": "Universities", "instances": []}
-    universities = University.objects().only("school_name", "school_state", "latest_student_size", "latest_cost_attendance_academic_year")
+    universities = University.objects().only("school_name",
+                                             "school_state",
+                                             "latest_student_size",
+                                             "latest_cost_attendance_academic_year",
+                                             "id")
 
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     for university in universities:
@@ -82,6 +86,7 @@ def universities_base():
             ),
             "image_url": url_for("static", filename=(university.school_name.replace("_"," ") + ".jpg")),
             "name": university.school_name.replace("_", " ").title(),
+            "id": university.id,
             "attribute_1": {'name': "State", 'value': university.school_state},
             "attribute_2": {'name': "Student Population", 'value': university.latest_student_size},
             "attribute_3": {'name': "Cost of Attendance", 'value': university.latest_cost_attendance_academic_year}
@@ -145,7 +150,7 @@ def university(university_name):
         )
 
 
-@app.route('/university/image/<string:university_id>')
+@app.route('/images/university/<string:university_id>')
 def get_uni_image(university_id: str):
     uni_image = UniversityImage.objects(university=university_id).first()
     if uni_image is None:

@@ -49,6 +49,9 @@ STATE_WEST_VIRGINIA = "West Virginia"
 STATE_WISCONSIN = "Wisconsin"
 STATE_WYOMING = "Wyoming"
 
+STATE_DC = "District of Columbia"
+STATE_PR = "Puerto Rico"
+
 STATE_CHOICES = [
     STATE_ALABAMA,
     STATE_ALASKA,
@@ -100,6 +103,8 @@ STATE_CHOICES = [
     STATE_WEST_VIRGINIA,
     STATE_WISCONSIN,
     STATE_WYOMING,
+    STATE_DC,
+    STATE_PR,
 ]
 
 UNCLASSIFIED = "Unclassified"
