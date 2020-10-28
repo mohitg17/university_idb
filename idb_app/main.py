@@ -150,9 +150,9 @@ def university(university_name):
     else:
         for property in uni_loaded:
             if uni_loaded[property] == 0:
-                uni_loaded[property] = ""
+                uni_loaded[property] = "NA"
             if isinstance(uni_loaded[property], float):
-                uni_loaded[property] = round(uni_loaded[property], 4)
+                uni_loaded[property] = round(float(uni_loaded[property]*100), 4)
         uni_loaded.majors_offered = [uni_loaded.majors_offered[i:i + 3] for i in range(0, len(uni_loaded.majors_offered), 3)]
         return render_template(
             "university_instance.html",

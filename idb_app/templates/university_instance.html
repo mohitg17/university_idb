@@ -51,7 +51,7 @@
                 </div>
                 <div class="row">
                     <div class="col text-center"><h1>{{university.latest_student_size}}</h1></div>
-                    <div class="col text-center"><h1>{{university.latest_admissions_admission_rate_overall*100}}%</h1></div>
+                    <div class="col text-center"><h1>{{university.latest_admissions_admission_rate_overall}}%</h1></div>
                     <div class="col text-center"><h1>${{university.latest_cost_tuition_in_state}}</h1></div>
                 </div>
             </div>
@@ -105,17 +105,17 @@
                 <div class="row">
                     <div class="col text-center" style="padding-left: 20px;"><h3>By Race</h3></div>
                     <div class="col">
-                        <div class="row div-text">Black: {{university.latest_student_demographics_race_ethnicity_black*100}}%</div>
-                        <div class="row div-text">White: {{university.latest_student_demographics_race_ethnicity_white*100}}%</div>
-                        <div class="row div-text">Asian: {{university.latest_student_demographics_race_ethnicity_asian*100}}%</div>
+                        <div class="row div-text">Black: {{university.latest_student_demographics_race_ethnicity_black}}%</div>
+                        <div class="row div-text">White: {{university.latest_student_demographics_race_ethnicity_white}}%</div>
+                        <div class="row div-text">Asian: {{university.latest_student_demographics_race_ethnicity_asian}}%</div>
                         <div class="row div-text">Hispanic: {{university.latest_student_demographics_race_ethnicity_hispanic}}%</div>
                     </div>
                 </div>
                 <div class="row" style="padding: 20px;">
                     <div class="col text-center" style="padding-left: 20px;"><h3>By Gender</h3></div>
                     <div class="col">
-                        <div class="row div-text">Men: {{university.latest_student_demographics_men*100}}%</div>
-                        <div class="row div-text">Female: {{university.latest_student_demographics_women*100}}%</div>
+                        <div class="row div-text">Men: {{university.latest_student_demographics_men}}%</div>
+                        <div class="row div-text">Female: {{university.latest_student_demographics_women}}%</div>
                     </div>
                 </div>
             </div>
@@ -143,10 +143,10 @@
             <div class="container" style="border:2px solid lightgrey; margin-bottom: 20px;">
                 <h3>Completion Rates</h3>
                 <div>Completion Overall 2019: {{university.latest_completion_4_yr_completion_overall}} </div>
-                <div>White students: {{university.latest_completion_completion_rate_4yr_150_white*100}}%</div>
-                <div>Black students: {{university.latest_completion_completion_rate_4yr_150_black*100}}%</div>
-                <div>Asian students: {{university.latest_completion_completion_rate_4yr_150_asian*100}}%</div>
-                <div>Hispanic students: {{university.latest_completion_completion_rate_4yr_150_hispanic*100}}%</div>
+                <div>White students: {{university.latest_completion_completion_rate_4yr_150_white}}%</div>
+                <div>Black students: {{university.latest_completion_completion_rate_4yr_150_black}}%</div>
+                <div>Asian students: {{university.latest_completion_completion_rate_4yr_150_asian}}%</div>
+                <div>Hispanic students: {{university.latest_completion_completion_rate_4yr_150_hispanic}}%</div>
             </div>
             <div class="container" style="border:2px solid lightgrey; margin-bottom: 20px;">
                 <h3>Earnings</h3>
@@ -154,7 +154,7 @@
             </div>
             <div class="container" style="border:2px solid lightgrey; margin-bottom: 20px;">
                 <h3>Retention Rate</h3>
-                <div>Overall: {{university.latest_student_retention_rate_four_year_full_time*100}}%</div>
+                <div>Overall: {{university.latest_student_retention_rate_four_year_full_time}}%</div>
             </div>
         </div>
     </div>
