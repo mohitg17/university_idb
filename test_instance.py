@@ -65,5 +65,18 @@ class TestDB(unittest.TestCase):
             }
         self.assertEqual(instance, expected)
 
+    def test_uni_modify(self):
+        university = University.objects(school_name="Marian University").first()
+        actual = []
+        for property in university:
+            if university[property] == 0:
+                university[property] = "NA"
+            if isinstance(university[property], float):
+                university[property] = round(float(university[property]*100), 4)
+                actual.append(university[property])
+        
+        expected = [65.04, 5.65, 78.76, 2.12, 7.41, 30.56, 69.44, 62.63, 26.19, 33.33, 40.0, 65.34]
+        self.assertEqual(actual, expected)
+
 if __name__ == '__main__':
     unittest.main()
