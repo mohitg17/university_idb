@@ -314,7 +314,7 @@
       "id": "297da4f4-adc1-4681-9469-cb63bee43365",
       "comment": "",
       "command": "click",
-      "target": "xpath=//a[contains(@href, '/city/austin')]",
+      "target": "css=.card:nth-child(1) > .stretched-link",
       "targets": [
         ["css=.card:nth-child(1) > .stretched-link", "css:finder"],
         ["xpath=//a[contains(@href, '/city/austin')]", "xpath:href"],
@@ -433,9 +433,510 @@
       "value": ""
     }]
   }, {
-    "id": "2293f903-4f9b-41a6-be3c-054eddd81f04",
-    "name": "universities",
-    "commands": []
+    "id": "38aa21bc-47b2-4cf0-bea3-092f3b96c640",
+    "name": "pagination_cities",
+    "commands": [{
+      "id": "436746d6-8a5c-4275-a0ac-d7a5572060ef",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8905db40-063f-4e12-ada5-7165bbbcb84f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "714x826",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "18efd361-06d6-46f1-9354-399cd3d32484",
+      "comment": "",
+      "command": "click",
+      "target": "id=home-cities-card",
+      "targets": [
+        ["id=home-universities-card", "id"],
+        ["linkText=Find Universities", "linkText"],
+        ["css=#home-universities-card", "css:finder"],
+        ["xpath=//a[@id='home-universities-card']", "xpath:attributes"],
+        ["xpath=(//a[contains(@href, '/universities')])[2]", "xpath:href"],
+        ["xpath=//div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Find Universities')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "aa51dceb-4d6e-420e-809f-110439204a73",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[3]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e515b32c-ea37-4b3b-8a67-b50a552c20a4",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": "1\\n(current)"
+    }, {
+      "id": "ffade1b3-f43a-4e69-b7f0-8dc5bcccacb0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.page-item:nth-child(10) span:nth-child(1)",
+      "targets": [
+        ["css=.page-item:nth-child(10) span:nth-child(1)", "css:finder"],
+        ["xpath=//li[10]/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'»')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1ec9f560-73dc-4c7e-91b1-c2154b3ff109",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": "2\\n(current)"
+    }, {
+      "id": "75cc4086-47d0-40f4-ba02-3edf3432c76a",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=5",
+      "targets": [
+        ["linkText=5", "linkText"],
+        ["css=.page-item:nth-child(6) > .page-link", "css:finder"],
+        ["xpath=//a[contains(text(),'5')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/universities?page=5')]", "xpath:href"],
+        ["xpath=//li[6]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'5')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5a8e8fdb-b742-4165-b664-9e189c74a61b",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": "5\\n(current)"
+    }, {
+      "id": "1a0e1eb8-0822-49cf-b030-de4317ef6373",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "linkText=1",
+      "targets": [
+        ["linkText=1", "linkText"],
+        ["css=.page-item:nth-child(2) > .page-link", "css:finder"],
+        ["xpath=//a[contains(text(),'1')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/universities')])[3]", "xpath:href"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'1')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "32c7589a-d03b-4b67-90c0-342e80afdf35",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "linkText=89",
+      "targets": [
+        ["linkText=109", "linkText"],
+        ["css=.page-item:nth-child(12) > .page-link", "css:finder"],
+        ["xpath=//a[contains(text(),'109')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/universities?page=109')]", "xpath:href"],
+        ["xpath=//li[12]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'109')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "91acfc91-c911-4e3d-9459-ab3abe597af8",
+      "comment": "",
+      "command": "click",
+      "target": "css=.page-item:nth-child(1) span:nth-child(1)",
+      "targets": [
+        ["css=.page-item:nth-child(1) span:nth-child(1)", "css:finder"],
+        ["xpath=//a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'«')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "911ed56a-21f8-4dcc-bf84-d944a2b03a49",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": "4\\n(current)"
+    }, {
+      "id": "2933c505-b548-4ed4-a2a6-62579cda2ce1",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=1",
+      "targets": [
+        ["linkText=1", "linkText"],
+        ["css=.page-item:nth-child(2) > .page-link", "css:finder"],
+        ["xpath=//a[contains(text(),'1')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/universities')])[3]", "xpath:href"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'1')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "926e89d4-1926-4a9e-8f0a-c9fa9886cd07",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": "1\\n(current)"
+    }, {
+      "id": "2bace5cb-8ec2-4ddc-a2c9-57f46c84e6ec",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=89",
+      "targets": [
+        ["linkText=109", "linkText"],
+        ["css=.page-item:nth-child(9) > .page-link", "css:finder"],
+        ["xpath=//a[contains(text(),'109')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/universities?page=109')]", "xpath:href"],
+        ["xpath=//li[9]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'109')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4937dc34-1c22-49f7-b803-7dff2846e194",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": "89\\n(current)"
+    }]
+  }, {
+    "id": "09bed444-70e2-4944-b8c4-aa64b03b51df",
+    "name": "pagination_universities",
+    "commands": [{
+      "id": "afc448d5-f014-493b-ad21-8ba6fcad3c39",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "07f88c98-20f2-4527-92e8-44371170dad9",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "714x826",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8c6e0d61-6e98-4a5c-bbbd-9e1e7ec87480",
+      "comment": "",
+      "command": "click",
+      "target": "id=home-universities-card",
+      "targets": [
+        ["id=home-universities-card", "id"],
+        ["linkText=Find Universities", "linkText"],
+        ["css=#home-universities-card", "css:finder"],
+        ["xpath=//a[@id='home-universities-card']", "xpath:attributes"],
+        ["xpath=(//a[contains(@href, '/universities')])[2]", "xpath:href"],
+        ["xpath=//div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Find Universities')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d4d275f9-9791-4b65-873e-76b5283674af",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[3]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f444aa51-e2f8-4847-8269-1569a50d59a1",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": "1\\n(current)"
+    }, {
+      "id": "f6306fe2-0c8d-404d-b410-6eebe11e98cc",
+      "comment": "",
+      "command": "click",
+      "target": "css=.page-item:nth-child(10) span:nth-child(1)",
+      "targets": [
+        ["css=.page-item:nth-child(10) span:nth-child(1)", "css:finder"],
+        ["xpath=//li[10]/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'»')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c2e7d444-76d4-409d-9ce4-0d3d82737d46",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": "2\\n(current)"
+    }, {
+      "id": "de21bbb6-d9e7-4016-bb6e-2dd02cff1c59",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=5",
+      "targets": [
+        ["linkText=5", "linkText"],
+        ["css=.page-item:nth-child(6) > .page-link", "css:finder"],
+        ["xpath=//a[contains(text(),'5')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/universities?page=5')]", "xpath:href"],
+        ["xpath=//li[6]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'5')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8590bc04-1255-45e8-9bc1-eae884b89095",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": "5\\n(current)"
+    }, {
+      "id": "f4e03015-ba69-4a21-acb1-fd90d4087637",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "linkText=1",
+      "targets": [
+        ["linkText=1", "linkText"],
+        ["css=.page-item:nth-child(2) > .page-link", "css:finder"],
+        ["xpath=//a[contains(text(),'1')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/universities')])[3]", "xpath:href"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'1')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d3bd2020-e40d-4463-8cd1-6af135c09e31",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "linkText=109",
+      "targets": [
+        ["linkText=109", "linkText"],
+        ["css=.page-item:nth-child(12) > .page-link", "css:finder"],
+        ["xpath=//a[contains(text(),'109')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/universities?page=109')]", "xpath:href"],
+        ["xpath=//li[12]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'109')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d80f70f2-126e-488f-bfb8-9a22a183e9c7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.page-item:nth-child(1) span:nth-child(1)",
+      "targets": [
+        ["css=.page-item:nth-child(1) span:nth-child(1)", "css:finder"],
+        ["xpath=//a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'«')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9c2cd697-c3e5-4ea3-af92-fa9909b0c7ee",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": "4\\n(current)"
+    }, {
+      "id": "c4873144-d4e0-48dc-8ba6-9a1ae81593bd",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=1",
+      "targets": [
+        ["linkText=1", "linkText"],
+        ["css=.page-item:nth-child(2) > .page-link", "css:finder"],
+        ["xpath=//a[contains(text(),'1')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/universities')])[3]", "xpath:href"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'1')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "625587bc-c0f3-4b52-b5d0-041097f9c185",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": "1\\n(current)"
+    }, {
+      "id": "3a3b0965-c1b5-419c-bf80-469e5b13a0a7",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=109",
+      "targets": [
+        ["linkText=109", "linkText"],
+        ["css=.page-item:nth-child(9) > .page-link", "css:finder"],
+        ["xpath=//a[contains(text(),'109')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/universities?page=109')]", "xpath:href"],
+        ["xpath=//li[9]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'109')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b07a92b0-7f39-4d55-a25b-cfb047b67223",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": "109\\n(current)"
+    }]
+  }, {
+    "id": "b9fb7ff4-d5fe-4397-a6f0-661402586332",
+    "name": "pagination_majors",
+    "commands": [{
+      "id": "0ddd4dca-eda9-46d8-839f-6467808151f7",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "729187a4-54ee-4fba-b314-e69ccd6a5175",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "714x826",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d6149953-c875-46cd-9b34-2c23abd4e39b",
+      "comment": "",
+      "command": "click",
+      "target": "id=home-majors-card",
+      "targets": [
+        ["id=home-universities-card", "id"],
+        ["linkText=Find Universities", "linkText"],
+        ["css=#home-universities-card", "css:finder"],
+        ["xpath=//a[@id='home-universities-card']", "xpath:attributes"],
+        ["xpath=(//a[contains(@href, '/universities')])[2]", "xpath:href"],
+        ["xpath=//div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Find Universities')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f4f5e39b-599e-4447-86fa-a437962999fb",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[3]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "16d84ccc-02af-47b1-abf4-3368ce1dde32",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": "1\\n(current)"
+    }, {
+      "id": "8e55f52a-bdbf-4a40-bed8-fdabb19cfd81",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=5",
+      "targets": [
+        ["linkText=5", "linkText"],
+        ["css=.page-item:nth-child(6) > .page-link", "css:finder"],
+        ["xpath=//a[contains(text(),'5')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/universities?page=5')]", "xpath:href"],
+        ["xpath=//li[6]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'5')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a828e05a-d2bc-4e09-b371-4168f6b602c4",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": "5\\n(current)"
+    }, {
+      "id": "b54dfef8-5faa-4311-9b7d-eecc55cacb4f",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "linkText=1",
+      "targets": [
+        ["linkText=1", "linkText"],
+        ["css=.page-item:nth-child(2) > .page-link", "css:finder"],
+        ["xpath=//a[contains(text(),'1')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/universities')])[3]", "xpath:href"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'1')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d97cf86e-b462-48ce-b06f-64a7b92cc9b3",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=1",
+      "targets": [
+        ["linkText=1", "linkText"],
+        ["css=.page-item:nth-child(2) > .page-link", "css:finder"],
+        ["xpath=//a[contains(text(),'1')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/universities')])[3]", "xpath:href"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'1')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f9aafa25-1a45-442f-a8c4-3539453cbf7c",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.active > .page-link",
+      "targets": [
+        ["css=.active > .page-link", "css:finder"],
+        ["xpath=//nav/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": "1\\n(current)"
+    }]
   }],
   "suites": [{
     "id": "9d6ac61e-e3ba-46fd-a14f-93fa2b3e4b50",
