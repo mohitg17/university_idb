@@ -71,17 +71,21 @@
             <!-- TODO link to majors pages and make dynamic -->
             <div class="container" id="majors" style="margin-bottom: 10px;">
                 <h3 class="headers">Majors</h3>
-                {% for i in range(university.majors_offered|length//3) %}
+                {% for major_set in university.majors_offered %}
                 <div class="row">
                     <div class="col div-text">
-                        <a href="/major/{{university.majors_offered[3*i].name}}" class="stretched-link">{{ university.majors_offered[3*i].name|title }}</a>
+                        <a href="/major/{{major_set[0].name}}" class="stretched-link">{{ major_set[0].name|title }}</a>
                     </div>
+                    {% if major_set[1] %}
                     <div class="col div-text">
-                        <a href="/major/{{university.majors_offered[3*i+1].name}}" class="stretched-link">{{ university.majors_offered[3*i+1].name|title }}</a>
+                        <a href="/major/{{major_set[1].name}}" class="stretched-link">{{ major_set[1].name|title }}</a>
                     </div>
+                    {% endif %}
+                    {% if major_set[2] %}
                     <div class="col div-text">
-                        <a href="/major/{{university.majors_offered[3*i+2].name}}" class="stretched-link">{{ university.majors_offered[3*i+2].name|title }}</a>
+                        <a href="/major/{{major_set[2].name}}" class="stretched-link">{{ major_set[2].name|title }}</a>
                     </div>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>

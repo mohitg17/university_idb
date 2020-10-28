@@ -148,6 +148,12 @@ def university(university_name):
     if uni_loaded is None:
         return f"Could not find university {university_name.replace('_', ' ').title()}"
     else:
+        for property in uni_loaded:
+            if uni_loaded[property] == 0:
+                uni_loaded[property] = ""
+            if isinstance(uni_loaded[property], float):
+                uni_loaded[property] = round(uni_loaded[property], 4)
+        uni_loaded.majors_offered = [uni_loaded.majors_offered[i:i + 3] for i in range(0, len(uni_loaded.majors_offered), 3)]
         return render_template(
             "university_instance.html",
             university_name=university_name.replace("_", " ").title(),
