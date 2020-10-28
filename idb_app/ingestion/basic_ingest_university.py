@@ -56,6 +56,15 @@ def compress_majors(data):
     compressed['majors_offered'] = majors_offered
     return compressed
 
+def fix_major_references(uni, data):
+    majors_offered = []
+    for key in data:
+        if "latest.academics.program.bachelors" in key:
+            if data[key] and data[key] > 0:
+                majors_offered.append(Major.objects(name=key.split('.')[-1]).first())
+    uni.majors_offered = majors_offered
+    uni.save()
+
 def translate(cleaned):
     degrees = {
         0: choices.UNCLASSIFIED,
@@ -134,8 +143,11 @@ if __name__ == "__main__":
         )
 
         print(raw_data['metadata'])
+        
 
         for j in range(len(raw_data['results'])):
+            # uni = University.objects(school_name=raw_data['results'][j]['school.name'], school_city=City.objects(name=raw_data['results'][j]['school.city']).first()).first()
+            # fix_major_references(uni, raw_data['results'][j])
             uni_data = rename_fields(raw_data['results'][j])
             uni_data = compress_majors(uni_data)
             uni_data = translate(uni_data)
