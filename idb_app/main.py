@@ -56,7 +56,7 @@ def cities_base():
     for city in cities:
         instance = {
             "page_url": url_for("city", city_state=city),
-            "image_url": url_for("static", filename=(city.name + ".jpg")),
+            "image_url": url_for("static", filename=(city.name + "_" + city.state + ".png")),
             "name": str(city),
             "attribute_1": {'name': "Population", 'value': city.population},
             "attribute_2": {'name': "Community Type", 'value': city.community_type},
