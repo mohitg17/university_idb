@@ -1,7 +1,7 @@
 import unittest
-from unittest.mock import MagicMock, patch
 from idb_app.mongo import Connector
-from idb_app.models import University, City, Major
+from idb_app.models import University, City, Major, UniversityImage
+from bson.objectid import ObjectId
 
 class TestDB(unittest.TestCase):
 
@@ -29,6 +29,10 @@ class TestDB(unittest.TestCase):
     def test_major_query(self):
         self.major = Major.objects(name="education").first()
         self.assertEqual(self.major.name, "education")
+
+    def test_uni_image_query(self):
+        self.image = UniversityImage.objects(university=ObjectId('5f965e1b81739c6287e0ccf8')).first()
+        self.assertEqual(self.image.id, ObjectId('5f972c43c2f60552d0590828'))
 
     def test_city_ref(self):
         self.uni = University.objects(school_name="Harvard University").first()
