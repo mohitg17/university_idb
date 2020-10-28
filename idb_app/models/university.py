@@ -36,3 +36,4 @@ class University(Document):
     latest_completion_completion_rate_4yr_150_hispanic = FloatField(default=0.0, min_value=0.0, max_value=100.0)
     latest_earnings_10_yrs_after_entry_median = IntField(default=0, min_value=0)
     latest_student_retention_rate_four_year_full_time = FloatField(default=0.0, min_value=0.0, max_value=100.0)
+    doe_id = IntField()
