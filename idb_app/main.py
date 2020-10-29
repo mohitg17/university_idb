@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, make_response, redirect
 from flask_paginate import Pagination, get_page_args
 from idb_app.mongo import Connector
-from idb_app.models import Major, City, University, UniversityImage, CityImage
+from idb_app.models import Major, City, University, UniversityImage, CityImage, MajorImage
 
 app = Flask(__name__)
 
@@ -25,10 +25,9 @@ def about():
 @app.route("/majors")
 def majors_base():
     model = {"title": "Fields of Study & Majors", "instances": []}
-    majors = Major.objects().only(
+    majors = Major.objects(cip_code__ne=None).only(
         "name",
-        "median_starting_salary",
-        "median_midcareer_salary",
+        # "median_midcareer_salary",
         "num_bachelor_programs",
     )
 
@@ -59,12 +58,12 @@ def majors_base():
     per_page = 12
     offset = (page - 1) * per_page
     total = len(majors)
-    model["instances"] = model["instances"][offset : offset + 9]
+    model["instances"] = model["instances"][offset : offset + per_page]
     pagination = Pagination(
-        page=page, per_page=9, total=total, css_framework="bootstrap4"
+        page=page, per_page=per_page, total=total, css_framework="bootstrap4"
     )
     return render_template(
-        "model.html", model=model, page=page, per_page=9, pagination=pagination
+        "model.html", model=model, page=page, per_page=per_page, pagination=pagination
     )
 
 
@@ -98,12 +97,12 @@ def cities_base():
     per_page = 15
     offset = (page - 1) * per_page
     total = len(cities)
-    model["instances"] = model["instances"][offset : offset + 12]
+    model["instances"] = model["instances"][offset : offset + per_page]
     pagination = Pagination(
-        page=page, per_page=12, total=total, css_framework="bootstrap4"
+        page=page, per_page=per_page, total=total, css_framework="bootstrap4"
     )
     return render_template(
-        "model.html", model=model, page=page, per_page=12, pagination=pagination
+        "model.html", model=model, page=page, per_page=per_page, pagination=pagination
     )
 
 
@@ -156,20 +155,20 @@ def universities_base():
 
 @app.route("/major/<string:major_name>")
 def major(major_name):
-    major_loaded = Major.objects(name=major_name.lower()).first()
+    major_loaded = Major.objects(name=major_name, cip_code__ne=None).first()
     if major_loaded is None:
         return f"Could not find major {major_name}"
     else:
         # TODO figure out a less hacky way to do this
-        def format_dollar_amt(amt: int) -> str:
-            return f"${amt:,}"
+        def format_dollar_amt(amt: float) -> str:
+            return f"${int(amt):,}"
 
         return render_template(
             "major_instance.html",
-            major_name=major_name.replace("_", " ").title(),
+            major_name=major_name.replace(".", ""),
             major=major_loaded,
             # TODO - would need to load this model from University data
-            schools=[],
+            schools=University.objects(majors_cip__ne=None, majors_cip=major_loaded.id),
             format_dollar_amt=format_dollar_amt,
         )
 
@@ -203,9 +202,9 @@ def university(university_name):
                 uni_loaded[property] = "NA"
             if isinstance(uni_loaded[property], float):
                 uni_loaded[property] = round(float(uni_loaded[property] * 100), 4)
-        uni_loaded.majors_offered = [
-            uni_loaded.majors_offered[i : i + 3]
-            for i in range(0, len(uni_loaded.majors_offered), 3)
+        uni_loaded.majors_cip = [
+            uni_loaded.majors_cip[i : i + 3]
+            for i in range(0, len(uni_loaded.majors_cip), 3)
         ]
         return render_template(
             "university_instance.html",
@@ -238,6 +237,18 @@ def get_city_image(city_id: str):
     response = make_response(image_binary)
     response.headers.set("Content-Type", "image/png")
     response.headers.set("Content-Disposition", "attachment", filename=f"{city_id}.png")
+    return response
+
+
+@app.route("/images/major/<string:major_id>")
+def get_major_image(major_id: str):
+    major_image = MajorImage.objects(major=major_id).first()
+    if major_image is None:
+        return redirect(url_for("static", filename="generic_city.jpg"))
+    image_binary = major_image.image.read()
+    response = make_response(image_binary)
+    response.headers.set("Content-Type", "image/png")
+    response.headers.set("Content-Disposition", "attachment", filename=f"{major_id}.png")
     return response
 
 

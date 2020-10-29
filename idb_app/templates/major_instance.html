@@ -69,22 +69,16 @@
 <div class="row">
   <div class="col" style="background-color: #80A4ED; padding: 40px">
     <h4 class="text-center">{{major_name}} at a Glance</h4>
-    <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#starting-salary">Median Starting Salary</button>
-      <div id="starting-salary" class="collapse">{{format_dollar_amt(major.median_starting_salary)}}</div>
-      <br>
-    <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#midcareer-salary">Median Mid-Career Salary</button>
-      <div id="midcareer-salary" class="collapse">{{format_dollar_amt(major.median_midcareer_salary)}}</div>
+    <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#starting-salary">Average Starting Salary</button>
+      <div id="starting-salary" class="collapse">{{format_dollar_amt(major.average_earnings())}}</div>
       <br>
 
-    <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#certificate">Number of Certificate Programs</button>
-      <div id="certificate" class="collapse">{{major.num_certificate_programs}}</div>
-    <br>
-    <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#associates">Number of Associate's Programs</button>
-      <div id="associates" class="collapse">{{major.num_associate_programs}}</div>
+      <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#mid-salary">Average Mid-Career Salary</button>
+      <div id="mid-salary" class="collapse">{{format_dollar_amt(major.average_mid_earnings())}}</div>
       <br>
 
       <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#bachelors">Number of Bachelor's Programs</button>
-      <div id="bachelors" class="collapse">{{major.num_bachelor_programs}}</div>
+      <div id="bachelors" class="collapse">{{len(schools)}}</div>
   </div>
   <div class="col-xl-9" style="padding: 40px">
      <h3 class="text-center">Colleges & Universities offering Bachelor's Degrees in {{major_name}}</h3>
@@ -94,11 +88,11 @@
         <!-- TODO make image a background-image instead of img -->
         <div
             class="card h-100 main-button"
-            style="background-image:'{{url_for('static', filename=(uni.lower() + '.jpg'))}}';"
+            style="background-image:'/images/university/{{ uni.id }}';"
         >
-            <img class="card-img-top d-block" src="{{url_for('static', filename=(uni.lower() + '.jpg'))}}" />
-            <div class="centered text-white highlight">{{uni}}</div>
-            <a href="/university/{{uni.lower().replace(' ', '_')}}" class="stretched-link"></a>
+            <img class="card-img-top d-block" src="/images/university/{{ uni.id }}" />
+            <div class="centered text-white highlight">{{uni.school_name}}</div>
+            <a href="/university/{{uni.school_name}}" class="stretched-link"></a>
         </div>
         {% endfor %}
     </div>

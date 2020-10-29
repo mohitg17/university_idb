@@ -90,7 +90,7 @@
         >
             <img class="card-img-top d-block" src="/images/{{ instance.model_type }}/{{ instance.id }}" />
             <div class="card-body">
-                <h5 class="card-title">{{instance.name}}</h5>
+                <h5 class="card-title">{{instance.name.replace(".", "")}}</h5>
                 <ul>
                     <li>{{instance.attribute_1['name']}}: {{instance.attribute_1['value']}}</li>
                     <li>{{instance.attribute_2['name']}}: {{instance.attribute_2['value']}}</li>
