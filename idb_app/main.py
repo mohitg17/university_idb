@@ -59,12 +59,12 @@ def majors_base():
     per_page = 12
     offset = (page - 1) * per_page
     total = len(majors)
-    model["instances"] = model["instances"][offset : offset + 9]
+    model["instances"] = model["instances"][offset : offset + per_page]
     pagination = Pagination(
-        page=page, per_page=9, total=total, css_framework="bootstrap4"
+        page=page, per_page=per_page, total=total, css_framework="bootstrap4"
     )
     return render_template(
-        "model.html", model=model, page=page, per_page=9, pagination=pagination
+        "model.html", model=model, page=page, per_page=per_page, pagination=pagination
     )
 
 
@@ -98,12 +98,12 @@ def cities_base():
     per_page = 15
     offset = (page - 1) * per_page
     total = len(cities)
-    model["instances"] = model["instances"][offset : offset + 12]
+    model["instances"] = model["instances"][offset : offset + per_page]
     pagination = Pagination(
-        page=page, per_page=12, total=total, css_framework="bootstrap4"
+        page=page, per_page=per_page, total=total, css_framework="bootstrap4"
     )
     return render_template(
-        "model.html", model=model, page=page, per_page=12, pagination=pagination
+        "model.html", model=model, page=page, per_page=per_page, pagination=pagination
     )
 
 
