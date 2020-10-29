@@ -202,9 +202,9 @@ def university(university_name):
                 uni_loaded[property] = "NA"
             if isinstance(uni_loaded[property], float):
                 uni_loaded[property] = round(float(uni_loaded[property] * 100), 4)
-        uni_loaded.majors_offered = [
-            uni_loaded.majors_offered[i : i + 3]
-            for i in range(0, len(uni_loaded.majors_offered), 3)
+        uni_loaded.majors_cip = [
+            uni_loaded.majors_cip[i : i + 3]
+            for i in range(0, len(uni_loaded.majors_cip), 3)
         ]
         return render_template(
             "university_instance.html",
