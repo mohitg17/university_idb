@@ -11,3 +11,6 @@ class Major(Document):
     num_certificate_programs = IntField(required=True, min_value=0)
     num_associate_programs = IntField(required=True, min_value=0)
     num_bachelor_programs = IntField(required=True, min_value=0)
+    cip_code = StringField()
+    earnings_weighted_sum = IntField(min_value=0)
+    earnings_count = IntField(min_value=0)

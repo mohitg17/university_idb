@@ -37,3 +37,8 @@ class University(Document):
     latest_earnings_10_yrs_after_entry_median = IntField(default=0, min_value=0)
     latest_student_retention_rate_four_year_full_time = FloatField(default=0.0, min_value=0.0, max_value=100.0)
     doe_id = IntField()
+    latitude = FloatField()
+    longitude = FloatField()
+    majors_cip = ListField(
+        ReferenceField(Major, reverse_delete_rule=DENY), default=[]
+    )
