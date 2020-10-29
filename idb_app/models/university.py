@@ -48,3 +48,4 @@ class University(Document):
     majors_cip = ListField(
         ReferenceField(Major, reverse_delete_rule=DENY), default=[]
     )
+

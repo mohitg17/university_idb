@@ -37,3 +37,4 @@ class Major(Document):
             created = cls(cip_code=cip_code, name=title, earnings_weighted_sum=0, earnings_count=0)
             # created.save()
         return created
+
