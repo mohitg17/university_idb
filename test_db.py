@@ -16,19 +16,19 @@ class TestDB(unittest.TestCase):
 
     def test_uni_query(self):
         self.uni = University.objects(school_name="Harvard University").first()
-        self.assertEqual(self.uni.school_name, "Harvard University")
+        self.assertEqual(self.uni.id, ObjectId("5f965e1b81739c6287e0ccf8"))
         self.uni = University.objects(school_name="Harvard University", school_state="Massachusetts").first()
-        self.assertEqual(self.uni.school_name, "Harvard University")
+        self.assertEqual(self.uni.id, ObjectId("5f965e1b81739c6287e0ccf8"))
 
     def test_city_query(self):
         self.city = City.objects(name="Austin").first()
-        self.assertEqual(self.city.name, "Austin")
+        self.assertEqual(self.city.id, ObjectId("5f964eb5e2830ac6278784b3"))
         self.city = City.objects(name="Austin", state="Texas").first()
-        self.assertEqual(self.city.name, "Austin")
+        self.assertEqual(self.city.id, ObjectId("5f964eb5e2830ac6278784b3"))
 
     def test_major_query(self):
         self.major = Major.objects(name="education").first()
-        self.assertEqual(self.major.name, "education")
+        self.assertEqual(self.major.id, ObjectId('5f963df0608c791e121cacc7'))
 
     def test_uni_image_query(self):
         self.image = UniversityImage.objects(university=ObjectId('5f965e1b81739c6287e0ccf8')).first()
