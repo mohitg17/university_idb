@@ -70,7 +70,12 @@
   <div class="col" style="background-color: #80A4ED; padding: 40px">
     <h4 class="text-center">{{major_name}} at a Glance</h4>
     <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#starting-salary">Average Starting Salary</button>
-      <div id="starting-salary" class="collapse">{{0}}</div>
+      <div id="starting-salary" class="collapse">{{format_dollar_amt(major.average_earnings())}}</div>
+      <br>
+
+      <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#mid-salary">Average Mid-Career Salary</button>
+        <!--TODO perform a more intelligent calculation -->
+      <div id="mid-salary" class="collapse">{{format_dollar_amt(1.6*major.average_earnings())}}</div>
       <br>
 
       <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#bachelors">Number of Bachelor's Programs</button>

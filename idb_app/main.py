@@ -160,8 +160,8 @@ def major(major_name):
         return f"Could not find major {major_name}"
     else:
         # TODO figure out a less hacky way to do this
-        def format_dollar_amt(amt: int) -> str:
-            return f"${amt:,}"
+        def format_dollar_amt(amt: float) -> str:
+            return f"${int(amt):,}"
 
         return render_template(
             "major_instance.html",
