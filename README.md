@@ -10,7 +10,7 @@ Run the following in your shell to start the server at `localhost:5000/`
 
 ```
 pip install -r requirements.txt
-python -m db_app.main
+python -m idb_app.main
 ```
 
 ## Team Member, EID, Github ID, Estimated and Actual Completion Rate
