@@ -50,7 +50,7 @@ example_cities = [
 #     c = City(**city)
 #     c.save()
 
-c = City.objects(area__not__ne=1000000).limit(10)
+c = City.objects()
 base_url = "http://api.wolframalpha.com/v2/query?appid=38LR3Q-5V34V3KX75"
 
 # example query
@@ -82,10 +82,13 @@ def format_nums(stat):
         return 0
 
 for city in c:
+    print(city["name"] + ", " + city["state"])
     r = requests.get(base_url + "&input=" + city["name"] + "+" + city["state"] + "&output=json")
     json_res = r.json()
+    if json_res["queryresult"]["success"] == False:
+        continue
     for p in json_res["queryresult"]["pods"]:
-        if p["title"] == "Populations":
+        if p["title"] == "Populations" or p["title"] == "Population":
             population_data = p["subpods"][0]["plaintext"]
             # find population from list and save
             temp_pop = format_nums(population_data.split('|')[1].lstrip(' ').split(' ')[:2])
@@ -96,11 +99,17 @@ for city in c:
             area_data = p["subpods"][0]["plaintext"]
             density_data = p["subpods"][0]["plaintext"]
             # find area and density from list and save
-            temp_area = format_nums(area_data.split('|')[2].lstrip(' ').split(' ')[:2])
+            if len(area_data.split('|')) < 3:
+                temp_area = 0
+            else:
+                temp_area = format_nums(area_data.split('|')[2].lstrip(' ').split(' ')[:2])
             if temp_area != 0:
                 city["area"] = temp_area
                 city.save()
-            temp_density = format_nums(density_data.split('|')[3].lstrip(' ').split(' ')[:2])
+            if len(density_data.split('|')) < 3 or not density_data.__contains__("density"):
+                temp_density = 0
+            else:
+                temp_density = format_nums(density_data.split('|')[len(density_data.split('|'))-1].lstrip(' ').split(' ')[:2])
             if temp_density != 0:
                 city["population_density"] = temp_density
                 city.save()
@@ -108,10 +117,10 @@ for city in c:
             continue
 
 
-for city in c:
-    print(city["name"])
-    print(city["population"])
-    print(city["area"])
-    print(city["population_density"])
-    print()
+# for city in c:
+#     print(city["name"])
+#     print(city["population"])
+#     print(city["area"])
+#     print(city["population_density"])
+#     print()
 Connector.disconnect_database()
