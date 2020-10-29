@@ -94,9 +94,9 @@
         <!-- TODO make image a background-image instead of img -->
         <div
             class="card h-100 main-button"
-            style="background-image:'{{url_for('static', filename=(uni.lower() + '.jpg'))}}';"
+            style="background-image:'/images/major/{{ major.id }}';"
         >
-            <img class="card-img-top d-block" src="{{url_for('static', filename=(uni.lower() + '.jpg'))}}" />
+            <img class="card-img-top d-block" src="/images/major/{{ major.id }}" />
             <div class="centered text-white highlight">{{uni}}</div>
             <a href="/university/{{uni.lower().replace(' ', '_')}}" class="stretched-link"></a>
         </div>

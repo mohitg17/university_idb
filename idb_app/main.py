@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, make_response, redirect
 from flask_paginate import Pagination, get_page_args
 from idb_app.mongo import Connector
-from idb_app.models import Major, City, University, UniversityImage, CityImage
+from idb_app.models import Major, City, University, UniversityImage, CityImage, MajorImage
 
 app = Flask(__name__)
 
@@ -238,6 +238,18 @@ def get_city_image(city_id: str):
     response = make_response(image_binary)
     response.headers.set("Content-Type", "image/png")
     response.headers.set("Content-Disposition", "attachment", filename=f"{city_id}.png")
+    return response
+
+
+@app.route("/images/major/<string:major_id>")
+def get_major_image(major_id: str):
+    major_image = MajorImage.objects(major=major_id).first()
+    if major_image is None:
+        return redirect(url_for("static", filename="generic_city.jpg"))
+    image_binary = major_image.image.read()
+    response = make_response(image_binary)
+    response.headers.set("Content-Type", "image/png")
+    response.headers.set("Content-Disposition", "attachment", filename=f"{major_id}.png")
     return response
 
 
