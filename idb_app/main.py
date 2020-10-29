@@ -163,13 +163,26 @@ def major(major_name):
         def format_dollar_amt(amt: float) -> str:
             return f"${int(amt):,}"
 
+        schools = University.objects(majors_cip__ne=None, majors_cip=major_loaded.id)
+        page, _, _ = get_page_args(page_parameter="page", per_page_parameter="per_page")
+        per_page = 6
+        offset = (page - 1) * per_page
+        total = len(schools)
+        schools = schools[offset: offset + per_page]
+        pagination = Pagination(
+            page=page, per_page=per_page, total=total, css_framework="bootstrap4"
+        )
+
         return render_template(
             "major_instance.html",
             major_name=major_name.replace(".", ""),
             major=major_loaded,
             # TODO - would need to load this model from University data
-            schools=University.objects(majors_cip__ne=None, majors_cip=major_loaded.id),
+            schools=schools,
+            num_schools=total,
             format_dollar_amt=format_dollar_amt,
+            page=page,
+            pagination=pagination,
         )
 
 
