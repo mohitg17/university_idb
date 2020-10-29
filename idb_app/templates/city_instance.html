@@ -48,13 +48,15 @@
         <!-- TODO make image a background-image instead of img -->
         <div
             class="card h-100 main-button"
-            style="background-image:'{{url_for('static', filename=(uni.lower() + '.jpg'))}}';"
+            style="background-image:'/images/university/{{ uni.id }}';"
         >
-            <img class="card-img-top d-block" src="{{url_for('static', filename=(uni.lower() + '.jpg'))}}" />
-            <div class="centered text-white highlight">{{uni}}</div>
-            <a href="/university/{{uni.lower().replace(' ', '_')}}" class="stretched-link"></a>
+            <img class="card-img-top d-block" src="/images/university/{{ uni.id }}" />
+            <div class="centered text-white highlight">{{uni.school_name}}</div>
+            <a href="/university/{{uni.school_name}}" class="stretched-link"></a>
         </div>
         {% endfor %}
     </div>
-    </div>
+    {{ pagination.links }}
+  </div>
+</div>
 {% endblock %}

@@ -196,12 +196,20 @@ def city(city_state):
     if city_loaded is None:
         return f"Could not find city {city_state}"
     else:
+        page, _, _ = get_page_args(page_parameter="page", per_page_parameter="per_page")
+        per_page = 6
+        offset = (page - 1) * per_page
+        schools = University.objects(school_city=city_loaded)[offset: offset + per_page]
+        pagination = Pagination(
+            page=page, per_page=per_page, total=len(University.objects(school_city=city_loaded)), css_framework="bootstrap4"
+        )
         return render_template(
             "city_instance.html",
             city_name=str(city_loaded),
             city=city_loaded,
-            # TODO
-            schools=[],
+            schools=schools,
+            page=page,
+            pagination=pagination,
         )
 
 
