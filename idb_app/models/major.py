@@ -20,6 +20,7 @@ class Major(Document):
     cip_code = StringField()
     earnings_weighted_sum = IntField(default=0)
     earnings_count = IntField(default=0)
+    program_count_estimate = IntField(default=0)
 
     def average_earnings(self):
         if self.earnings_count == 0:

@@ -25,3 +25,8 @@ class Connector:
     @classmethod
     def disconnect_database(cls):
         disconnect()
+
+    @classmethod
+    def reconnect_prod_database(cls):
+        cls.disconnect_database()
+        cls.connect_prod_database()

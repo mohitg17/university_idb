@@ -14,23 +14,27 @@ Connector.connect_prod_database()
 
 @app.route("/")
 def index():
+    # Connector.reconnect_prod_database()
     return render_template("index.html")
 
 
 @app.route("/about")
 def about():
+    # Connector.reconnect_prod_database()
     return render_template("about.html")
 
 
 @app.route("/majors")
 def majors_base():
+    # Connector.reconnect_prod_database()
     model = {"title": "Fields of Study & Majors", "instances": []}
     majors = Major.objects(cip_code__ne=None).only(
         "name",
         "earnings_weighted_sum",
         "earnings_count",
-        # "median_midcareer_salary",
         "num_bachelor_programs",
+        "cip_code",
+        "program_count_estimate",
     )
 
     # Mapping majors to an object that is passed to the template. Assumes naming scheme for page_url and image_url
@@ -42,16 +46,16 @@ def majors_base():
             "name": major.name.replace("_", " ").title(),
             "id": major.id,
             "attribute_1": {
-                "name": "Earnings Weighted Sum",
-                "value": major.earnings_weighted_sum,
+                "name": "Average Starting Salary",
+                "value": f"${int(major.average_earnings()):,}",
             },
             "attribute_2": {
-                "name": "Earnings Count",
-                "value": major.earnings_count,
+                "name": "Average Mid-Career Salary",
+                "value": f"${int(major.average_mid_earnings()):,}",
             },
             "attribute_3": {
                 "name": "Number of Bachelor's Programs",
-                "value": major.num_bachelor_programs,
+                "value": f"~{major.program_count_estimate:,}",
             },
         }
         model["instances"].append(instance)
@@ -71,6 +75,7 @@ def majors_base():
 
 @app.route("/cities")
 def cities_base():
+    # Connector.reconnect_prod_database()
     model = {"title": "Cities", "instances": []}
     cities = City.objects().only(
         "name", "state", "population", "community_type", "area"
@@ -110,6 +115,7 @@ def cities_base():
 
 @app.route("/universities")
 def universities_base():
+    # Connector.reconnect_prod_database()
     model = {"title": "Universities", "instances": []}
     universities = University.objects().only(
         "school_name",
@@ -157,6 +163,7 @@ def universities_base():
 
 @app.route("/major/<string:major_name>")
 def major(major_name):
+    # Connector.reconnect_prod_database()
     major_loaded = Major.objects(name=major_name, cip_code__ne=None).first()
     if major_loaded is None:
         return f"Could not find major {major_name}"
@@ -190,6 +197,7 @@ def major(major_name):
 
 @app.route("/city/<string:city_state>")
 def city(city_state):
+    # Connector.reconnect_prod_database()
     city_loaded = City.objects(
         name=city_state.split(",")[0], state=city_state.split(",")[1].lstrip(" ")
     ).first()
@@ -215,6 +223,7 @@ def city(city_state):
 
 @app.route("/university/<string:university_name>")
 def university(university_name):
+    # Connector.reconnect_prod_database()
     # TODO may need more than just name to differentiate universities
     uni_loaded = University.objects(school_name=university_name).first()
     if uni_loaded is None:
@@ -239,6 +248,7 @@ def university(university_name):
 
 @app.route("/images/university/<string:university_id>")
 def get_uni_image(university_id: str):
+    # Connector.reconnect_prod_database()
     uni_image = UniversityImage.objects(university=university_id).first()
     if uni_image is None:
         return redirect(url_for("static", filename="generic_college.jpg"))
@@ -253,6 +263,7 @@ def get_uni_image(university_id: str):
 
 @app.route("/images/city/<string:city_id>")
 def get_city_image(city_id: str):
+    # Connector.reconnect_prod_database()
     city_image = CityImage.objects(city=city_id).first()
     if city_image is None:
         return redirect(url_for("static", filename="generic_city.jpg"))
@@ -265,6 +276,7 @@ def get_city_image(city_id: str):
 
 @app.route("/images/major/<string:major_id>")
 def get_major_image(major_id: str):
+    # Connector.reconnect_prod_database()
     major_image = MajorImage.objects(major=major_id).first()
     if major_image is None:
         return redirect(url_for("static", filename="generic_city.jpg"))
