@@ -69,22 +69,12 @@
 <div class="row">
   <div class="col" style="background-color: #80A4ED; padding: 40px">
     <h4 class="text-center">{{major_name}} at a Glance</h4>
-    <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#starting-salary">Median Starting Salary</button>
-      <div id="starting-salary" class="collapse">{{format_dollar_amt(major.median_starting_salary)}}</div>
-      <br>
-    <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#midcareer-salary">Median Mid-Career Salary</button>
-      <div id="midcareer-salary" class="collapse">{{format_dollar_amt(major.median_midcareer_salary)}}</div>
-      <br>
-
-    <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#certificate">Number of Certificate Programs</button>
-      <div id="certificate" class="collapse">{{major.num_certificate_programs}}</div>
-    <br>
-    <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#associates">Number of Associate's Programs</button>
-      <div id="associates" class="collapse">{{major.num_associate_programs}}</div>
+    <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#starting-salary">Average Starting Salary</button>
+      <div id="starting-salary" class="collapse">{{0}}</div>
       <br>
 
       <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#bachelors">Number of Bachelor's Programs</button>
-      <div id="bachelors" class="collapse">{{major.num_bachelor_programs}}</div>
+      <div id="bachelors" class="collapse">{{No data}}</div>
   </div>
   <div class="col-xl-9" style="padding: 40px">
      <h3 class="text-center">Colleges & Universities offering Bachelor's Degrees in {{major_name}}</h3>

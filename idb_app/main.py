@@ -25,10 +25,9 @@ def about():
 @app.route("/majors")
 def majors_base():
     model = {"title": "Fields of Study & Majors", "instances": []}
-    majors = Major.objects().only(
+    majors = Major.objects(cip_code__ne=None).only(
         "name",
-        "median_starting_salary",
-        "median_midcareer_salary",
+        # "median_midcareer_salary",
         "num_bachelor_programs",
     )
 
@@ -156,7 +155,7 @@ def universities_base():
 
 @app.route("/major/<string:major_name>")
 def major(major_name):
-    major_loaded = Major.objects(name=major_name.lower()).first()
+    major_loaded = Major.objects(name=major_name, cip_code__ne=None).first()
     if major_loaded is None:
         return f"Could not find major {major_name}"
     else:
@@ -166,7 +165,7 @@ def major(major_name):
 
         return render_template(
             "major_instance.html",
-            major_name=major_name.replace("_", " ").title(),
+            major_name=major_name.replace(".", ""),
             major=major_loaded,
             # TODO - would need to load this model from University data
             schools=[],
