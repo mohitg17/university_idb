@@ -27,6 +27,8 @@ def majors_base():
     model = {"title": "Fields of Study & Majors", "instances": []}
     majors = Major.objects(cip_code__ne=None).only(
         "name",
+        "earnings_weighted_sum",
+        "earnings_count",
         # "median_midcareer_salary",
         "num_bachelor_programs",
     )
@@ -40,12 +42,12 @@ def majors_base():
             "name": major.name.replace("_", " ").title(),
             "id": major.id,
             "attribute_1": {
-                "name": "Median Starting Salary",
-                "value": major.median_starting_salary,
+                "name": "Earnings Weighted Sum",
+                "value": major.earnings_weighted_sum,
             },
             "attribute_2": {
-                "name": "Median Midcareer Salary",
-                "value": major.median_midcareer_salary,
+                "name": "Earnings Count",
+                "value": major.earnings_count,
             },
             "attribute_3": {
                 "name": "Number of Bachelor's Programs",
@@ -71,7 +73,7 @@ def majors_base():
 def cities_base():
     model = {"title": "Cities", "instances": []}
     cities = City.objects().only(
-        "name", "state", "population", "community_type", "median_gross_rent"
+        "name", "state", "population", "community_type", "area"
     )
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     # TODO image_url is currently linked to the wrong images
@@ -87,8 +89,8 @@ def cities_base():
             "attribute_1": {"name": "Population", "value": city.population},
             "attribute_2": {"name": "Community Type", "value": city.community_type},
             "attribute_3": {
-                "name": "Median Gross Rent",
-                "value": city.median_gross_rent,
+                "name": "Area (square miles)",
+                "value": city.area,
             },
         }
         model["instances"].append(instance)
@@ -203,8 +205,8 @@ def university(university_name):
             if isinstance(uni_loaded[property], float):
                 uni_loaded[property] = round(float(uni_loaded[property] * 100), 4)
         uni_loaded.majors_cip = [
-            uni_loaded.majors_cip[i : i + 3]
-            for i in range(0, len(uni_loaded.majors_cip), 3)
+            list(set(uni_loaded.majors_cip))[i : i + 2]
+            for i in range(0, len(list(set(uni_loaded.majors_cip))), 2)
         ]
         return render_template(
             "university_instance.html",
