@@ -27,6 +27,10 @@ class Major(Document):
         else:
             return self.earnings_weighted_sum / self.earnings_count
 
+    # TODO - replace this approximation once we have more data
+    def average_mid_earnings(self):
+        return 1.6 * self.average_earnings()
+
     # assumes the callee will .save()
     @classmethod
     def get_or_create(cls, cip_code: int, title: str):

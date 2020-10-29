@@ -74,8 +74,7 @@
       <br>
 
       <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#mid-salary">Average Mid-Career Salary</button>
-        <!--TODO perform a more intelligent calculation -->
-      <div id="mid-salary" class="collapse">{{format_dollar_amt(1.6*major.average_earnings())}}</div>
+      <div id="mid-salary" class="collapse">{{format_dollar_amt(major.average_mid_earnings())}}</div>
       <br>
 
       <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#bachelors">Number of Bachelor's Programs</button>
@@ -89,11 +88,11 @@
         <!-- TODO make image a background-image instead of img -->
         <div
             class="card h-100 main-button"
-            style="background-image:'/images/major/{{ major.id }}';"
+            style="background-image:'/images/university/{{ uni.id }}';"
         >
-            <img class="card-img-top d-block" src="/images/major/{{ major.id }}" />
-            <div class="centered text-white highlight">{{uni}}</div>
-            <a href="/university/{{uni.lower().replace(' ', '_')}}" class="stretched-link"></a>
+            <img class="card-img-top d-block" src="/images/university/{{ uni.id }}" />
+            <div class="centered text-white highlight">{{uni.school_name}}</div>
+            <a href="/university/{{uni.school_name}}" class="stretched-link"></a>
         </div>
         {% endfor %}
     </div>

@@ -168,7 +168,7 @@ def major(major_name):
             major_name=major_name.replace(".", ""),
             major=major_loaded,
             # TODO - would need to load this model from University data
-            schools=[],
+            schools=University.objects(majors_cip__ne=None, majors_cip=major_loaded.id),
             format_dollar_amt=format_dollar_amt,
         )
 
