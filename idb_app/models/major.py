@@ -28,9 +28,10 @@ class Major(Document):
         else:
             return self.earnings_weighted_sum / self.earnings_count
 
-    # TODO - replace this approximation once we have more data
+    # factor based on payscale data
+    # TODO - more intelligent calculation
     def average_mid_earnings(self):
-        return 1.6 * self.average_earnings()
+        return 1.693 * self.average_earnings()
 
     # assumes the callee will .save()
     @classmethod
