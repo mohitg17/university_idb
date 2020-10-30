@@ -1,7 +1,10 @@
+import urllib.parse
 from flask import Flask, render_template, url_for, make_response, redirect
 from flask_paginate import Pagination, get_page_args
+
 from idb_app.mongo import Connector
 from idb_app.models import Major, City, University, UniversityImage, CityImage, MajorImage
+
 
 app = Flask(__name__)
 
@@ -41,7 +44,7 @@ def majors_base():
     for major in majors:
         instance = {
             "model_type": "major",
-            "page_url": url_for("major", major_name=major.name),
+            "page_url": url_for("major", major_name=urllib.parse.quote_plus(major.name)),
             "image_url": url_for("static", filename=(major.name + ".jpg")),
             "name": major.name.replace("_", " ").title(),
             "id": major.id,
@@ -164,9 +167,10 @@ def universities_base():
 @app.route("/major/<string:major_name>")
 def major(major_name):
     # Connector.reconnect_prod_database()
-    major_loaded = Major.objects(name=major_name, cip_code__ne=None).first()
+    decoded_name = urllib.parse.unquote_plus(major_name)
+    major_loaded = Major.objects(name=decoded_name, cip_code__ne=None).first()
     if major_loaded is None:
-        return f"Could not find major {major_name}"
+        return f"Could not find major {decoded_name}"
     else:
         # TODO figure out a less hacky way to do this
         def format_dollar_amt(amt: float) -> str:
@@ -184,7 +188,7 @@ def major(major_name):
 
         return render_template(
             "major_instance.html",
-            major_name=major_name.replace(".", ""),
+            major_name=decoded_name.replace(".", ""),
             major=major_loaded,
             # TODO - would need to load this model from University data
             schools=schools,
@@ -243,6 +247,7 @@ def university(university_name):
             university_name=university_name.replace("_", " ").title(),
             university=uni_loaded,
             city_name=str(uni_loaded.school_city),
+            encode=urllib.parse.quote_plus,
         )
 
 
