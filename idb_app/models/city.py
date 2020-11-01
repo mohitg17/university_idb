@@ -6,7 +6,9 @@ from idb_app.models import choices
 
 class City(Document):
     name = StringField(required=True)
-    state = StringField(required=True, choices=choices.STATE_CHOICES, unique_with='name')
+    state = StringField(
+        required=True, choices=choices.STATE_CHOICES, unique_with="name"
+    )
     area = FloatField(required=True, min_value=0.0)
     population = IntField(required=True, min_value=0)
     population_density = IntField(required=True, min_value=0)

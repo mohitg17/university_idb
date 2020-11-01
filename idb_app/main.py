@@ -3,7 +3,14 @@ from flask import Flask, render_template, url_for, make_response, redirect
 from flask_paginate import Pagination, get_page_args
 
 from idb_app.mongo import Connector
-from idb_app.models import Major, City, University, UniversityImage, CityImage, MajorImage
+from idb_app.models import (
+    Major,
+    City,
+    University,
+    UniversityImage,
+    CityImage,
+    MajorImage,
+)
 
 
 app = Flask(__name__)
@@ -44,7 +51,9 @@ def majors_base():
     for major in majors:
         instance = {
             "model_type": "major",
-            "page_url": url_for("major", major_name=urllib.parse.quote_plus(major.name)),
+            "page_url": url_for(
+                "major", major_name=urllib.parse.quote_plus(major.name)
+            ),
             "image_url": url_for("static", filename=(major.name + ".jpg")),
             "name": major.name.replace("_", " ").title(),
             "id": major.id,
@@ -181,7 +190,7 @@ def major(major_name):
         per_page = 6
         offset = (page - 1) * per_page
         total = len(schools)
-        schools = schools[offset: offset + per_page]
+        schools = schools[offset : offset + per_page]
         pagination = Pagination(
             page=page, per_page=per_page, total=total, css_framework="bootstrap4"
         )
@@ -211,9 +220,14 @@ def city(city_state):
         page, _, _ = get_page_args(page_parameter="page", per_page_parameter="per_page")
         per_page = 6
         offset = (page - 1) * per_page
-        schools = University.objects(school_city=city_loaded)[offset: offset + per_page]
+        schools = University.objects(school_city=city_loaded)[
+            offset : offset + per_page
+        ]
         pagination = Pagination(
-            page=page, per_page=per_page, total=len(University.objects(school_city=city_loaded)), css_framework="bootstrap4"
+            page=page,
+            per_page=per_page,
+            total=len(University.objects(school_city=city_loaded)),
+            css_framework="bootstrap4",
         )
         return render_template(
             "city_instance.html",
@@ -288,7 +302,9 @@ def get_major_image(major_id: str):
     image_binary = major_image.image.read()
     response = make_response(image_binary)
     response.headers.set("Content-Type", "image/png")
-    response.headers.set("Content-Disposition", "attachment", filename=f"{major_id}.png")
+    response.headers.set(
+        "Content-Disposition", "attachment", filename=f"{major_id}.png"
+    )
     return response
 
 

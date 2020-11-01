@@ -20,18 +20,25 @@ for u in universities:
         if count % 100 == 0:
             print(f"=================== Done with {count} schools ===================")
         print(f"querying image for {u.school_name}")
-        gis = GoogleImagesSearch(os.environ["GOOGLE_API_KEY"], os.environ["GOOGLE_SEARCH_CX"])
+        gis = GoogleImagesSearch(
+            os.environ["GOOGLE_API_KEY"], os.environ["GOOGLE_SEARCH_CX"]
+        )
         # TODO consider limiting image sizes here
         search_params = {
-             'q': u.school_name,
-             'num': 1,
-             'safe': 'high',
-             'imgType': 'photo',
-             'rights': 'cc_publicdomain|cc_attribute|cc_sharealike|cc_noncommercial|cc_nonderived'
+            "q": u.school_name,
+            "num": 1,
+            "safe": "high",
+            "imgType": "photo",
+            "rights": "cc_publicdomain|cc_attribute|cc_sharealike|cc_noncommercial|cc_nonderived",
         }
         download_path = "/tmp/"
 
-        gis.search(search_params=search_params, path_to_dir=download_path, width=400, height=200)
+        gis.search(
+            search_params=search_params,
+            path_to_dir=download_path,
+            width=400,
+            height=200,
+        )
         query_results = gis.results()
 
         # skip if no images found

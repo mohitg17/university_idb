@@ -15,7 +15,10 @@ from idb_app.models import University, City, Major
 def query(fields: list, arguments: dict) -> dict:
     base_url = "https://api.data.gov/ed/collegescorecard/v1/"
     api_key = os.environ["DEPT_ED_API_KEY"]
-    resp = requests.get(f"{base_url}schools?api_key={api_key}&fields={','.join(fields)}", params=arguments)
+    resp = requests.get(
+        f"{base_url}schools?api_key={api_key}&fields={','.join(fields)}",
+        params=arguments,
+    )
     if resp.status_code == 429:
         print("Hit rate limit!")
     return resp.json()
@@ -28,7 +31,10 @@ def query_all_schools(fields: list) -> list:
     resp = None
     while resp is None or resp["metadata"]["total"] != len(results):
         # 3 for bachelors
-        resp = query(fields, {"per_page": 100, "page": page, "school.degrees_awarded.predominant": 3})
+        resp = query(
+            fields,
+            {"per_page": 100, "page": page, "school.degrees_awarded.predominant": 3},
+        )
         page += 1
 
         for school in resp["results"]:
@@ -54,7 +60,9 @@ def match_university(doe_id, school_name, school_city, school_state) -> Universi
         return by_state_qs.first()
 
     city = City.objects(name=school_city, state=state_name).first()
-    by_city_qs = University.objects(school_name=school_name, school_state=state_name, school_city=city)
+    by_city_qs = University.objects(
+        school_name=school_name, school_state=state_name, school_city=city
+    )
     if len(by_city_qs) == 1:
         return by_city_qs.first()
 
@@ -69,17 +77,20 @@ Connector.connect_prod_database()
 def load_data() -> list:
     data_file = "/tmp/school_data.json"
     if not path.exists(data_file):
-        query_results = query_all_schools(["id",
-                                           "school.name",
-                                           "school.state",
-                                           "school.city",
-                                           "latest.programs.cip_4_digit.earnings",
-                                           "latest.programs.cip_4_digit.title",
-                                           "latest.programs.cip_4_digit.credential.level",
-                                           "latest.programs.cip_4_digit.ope6_id",
-                                           "location.lat",
-                                           "location.lon",
-                                           ])
+        query_results = query_all_schools(
+            [
+                "id",
+                "school.name",
+                "school.state",
+                "school.city",
+                "latest.programs.cip_4_digit.earnings",
+                "latest.programs.cip_4_digit.title",
+                "latest.programs.cip_4_digit.credential.level",
+                "latest.programs.cip_4_digit.ope6_id",
+                "location.lat",
+                "location.lon",
+            ]
+        )
         with open(data_file, "w") as f:
             json.dump(query_results, f)
     else:
@@ -92,12 +103,22 @@ def update_university(school_dict, u: University):
     u.doe_id = school_dict["id"]
     u.latitude = school_dict["location.lat"]
     u.longitude = school_dict["location.lon"]
-    major_stats = [s for s in school_dict["latest.programs.cip_4_digit"] if s["credential"]["level"] == 3]
+    major_stats = [
+        s
+        for s in school_dict["latest.programs.cip_4_digit"]
+        if s["credential"]["level"] == 3
+    ]
     for major_raw in major_stats:
         m = Major.get_or_create(cip_code=major_raw["ope6_id"], title=major_raw["title"])
-        if major_raw["earnings"]["count"] is not None and major_raw["earnings"]["median_earnings"] is not None:
+        if (
+            major_raw["earnings"]["count"] is not None
+            and major_raw["earnings"]["median_earnings"] is not None
+        ):
             m.earnings_count += major_raw["earnings"]["count"]
-            m.earnings_weighted_sum += (major_raw["earnings"]["count"] * major_raw["earnings"]["median_earnings"])
+            m.earnings_weighted_sum += (
+                major_raw["earnings"]["count"]
+                * major_raw["earnings"]["median_earnings"]
+            )
         m.save()
         u.majors_cip.append(m)
     u.save()
@@ -111,11 +132,12 @@ for raw_school in raw_school_stats:
     if count % 100 == 0:
         print(f"======== done with {count} schools ========")
     count += 1
-    uni = match_university(doe_id=raw_school["id"],
-                           school_name=raw_school["school.name"],
-                           school_city=raw_school["school.city"],
-                           school_state=raw_school["school.state"],
-                           )
+    uni = match_university(
+        doe_id=raw_school["id"],
+        school_name=raw_school["school.name"],
+        school_city=raw_school["school.city"],
+        school_state=raw_school["school.state"],
+    )
     if uni is None:
         failures += 1
         continue

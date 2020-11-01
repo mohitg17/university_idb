@@ -2,7 +2,7 @@ from idb_app.models import University
 from idb_app.mongo import Connector
 
 # standalone script to test university querying
-# gets the first 3 universities it finds and prints some details 
+# gets the first 3 universities it finds and prints some details
 
 Connector.load_database_creds()
 
@@ -15,7 +15,6 @@ for u in universities:
     print(f"Location: {str(u.city)}")
     print(f"Acceptance_rate: {u.acceptance_rate} %")
     print(f"Median admitted SAT score: {u.sat_median}")
-    print("="*80)
+    print("=" * 80)
 
 Connector.disconnect_database()
-

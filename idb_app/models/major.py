@@ -40,7 +40,8 @@ class Major(Document):
         if created is None:
             created = cls.objects(name=title).first()
         if created is None:
-            created = cls(cip_code=cip_code, name=title, earnings_weighted_sum=0, earnings_count=0)
+            created = cls(
+                cip_code=cip_code, name=title, earnings_weighted_sum=0, earnings_count=0
+            )
             # created.save()
         return created
-

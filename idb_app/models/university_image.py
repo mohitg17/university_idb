@@ -8,7 +8,9 @@ from idb_app.models import University
 
 
 class UniversityImage(Document):
-    university = ReferenceField(University, reverse_delete_rule=DENY, required=True, unique=True)
+    university = ReferenceField(
+        University, reverse_delete_rule=DENY, required=True, unique=True
+    )
     image = ImageField(required=True)
     # the image was from the {result_number}th image for a particular query
     # tracking this allows us to get better images if needed

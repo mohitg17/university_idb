@@ -49,22 +49,29 @@ for raw in schools:
             print(f"ERROR: no image for school id={uni_entry.id}")
         else:
             offset = uni_image.result_number
-            gis = GoogleImagesSearch(os.environ["GOOGLE_API_KEY"], os.environ["GOOGLE_SEARCH_CX"])
+            gis = GoogleImagesSearch(
+                os.environ["GOOGLE_API_KEY"], os.environ["GOOGLE_SEARCH_CX"]
+            )
             search_params = {
-                'q': uni_entry.school_name,
-                'num': offset + 2,
-                'safe': 'high',
-                'imgType': 'photo',
-                'rights': 'cc_publicdomain|cc_attribute|cc_sharealike|cc_noncommercial|cc_nonderived'
+                "q": uni_entry.school_name,
+                "num": offset + 2,
+                "safe": "high",
+                "imgType": "photo",
+                "rights": "cc_publicdomain|cc_attribute|cc_sharealike|cc_noncommercial|cc_nonderived",
             }
             download_path = "/tmp/"
 
-            gis.search(search_params=search_params, path_to_dir=download_path, width=400, height=200)
+            gis.search(
+                search_params=search_params,
+                path_to_dir=download_path,
+                width=400,
+                height=200,
+            )
             query_results = gis.results()
 
             # skip if no images found
-            if query_results is not None and len(query_results) > offset+1:
-                image_file = query_results[offset+1].path
+            if query_results is not None and len(query_results) > offset + 1:
+                image_file = query_results[offset + 1].path
                 uni_image.result_number += 1
                 uni_image.image = image_file
                 uni_image.save()
