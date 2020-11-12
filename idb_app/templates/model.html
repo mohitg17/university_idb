@@ -81,7 +81,55 @@
 </div>
 
 <div class="container">
-    <div class="card-columns">
+    <div class="d-flex justify-content-center p-2 border">
+        <div class="col-md-6 col-sm-7">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <form class="form-inline d-flex justify-content-center">
+                <input class="form-control" id="search-form-input" type="text" placeholder="Search" aria-label="Search">
+                <button id="search-button" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+    <div id="place_for_suggestions">
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <script>
+        $("#search-form-input").keyup(function(){
+            var text = $(this).val();
+
+            $.ajax({
+                url: "/suggestions/{{ model.instances[0].model_type }}",
+                type: "get",
+                data: {jsdata: text},
+                success: function(response) {
+                    //$("#place_for_suggestions").html(response);
+            },
+            error: function(xhr) {
+                //Do Something to handle error
+            }
+            });
+        });
+
+        $("#search-button").click(function(){
+            var text = $("#search-form-input").val();
+
+            $.ajax({
+                url: "/search/{{ model.instances[0].model_type }}",
+                type: "get",
+                data: {jsdata: text},
+                success: function(response) {
+                    $("html").html(response);
+            },
+            error: function(xhr) {
+                //Do Something to handle error
+            }
+            });
+        })
+    </script>
+
+    <div class="card-columns" id="instances">
         {% for instance in model.instances %}
         <!-- TODO make image a background-image instead of img -->
         <div

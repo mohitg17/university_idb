@@ -1,5 +1,6 @@
 import urllib.parse
-from flask import Flask, render_template, url_for, make_response, redirect
+import requests
+from flask import Flask, render_template, url_for, make_response, redirect, request
 from flask_paginate import Pagination, get_page_args
 
 from idb_app.mongo import Connector
@@ -125,6 +126,8 @@ def cities_base():
     )
 
 
+# TODO migrate some of the functionality in this method to the helper methods at the bottom of the file
+# TODO then repeat with other models
 @app.route("/universities")
 def universities_base():
     # Connector.reconnect_prod_database()
@@ -306,6 +309,81 @@ def get_major_image(major_id: str):
         "Content-Disposition", "attachment", filename=f"{major_id}.png"
     )
     return response
+
+
+# Does a search every time a key is pressed in the search bar and returns the search_results template rendered with the results of the search
+@app.route("/suggestions/university")
+def suggestions_university():
+    text = request.args.get("jsdata")
+    objects = University.objects(school_name__icontains=text).only("school_name")
+    names = []
+    for obj in objects:
+        names.append(obj.school_name)
+    return render_template("search_results.html", text=names)
+
+
+# Does a search and returns the rendered html of the model template with the search results
+@app.route("/search/university")
+def search_university():
+    # Query for universities that we want
+    text = request.args.get("jsdata")
+    objects = University.objects(school_name__icontains=text).only(
+        "school_name",
+        "school_state",
+        "latest_student_size",
+        "latest_cost_attendance_academic_year",
+        "id",
+    )
+    # Create a university model
+    model = create_university_model(objects)
+    # Render the university model
+    print(render_model(model))
+    return render_model(model)
+
+
+# Returns a render of the model that is passed to it by handling the creation of pagination and calling render_template
+def render_model(model):
+    page, _, _ = get_page_args(page_parameter="page", per_page_parameter="per_page")
+    per_page = 18
+    offset = (page - 1) * per_page
+    total = len(model["instances"])
+    model["instances"] = model["instances"][offset : offset + per_page]
+    pagination = Pagination(
+        page=page, per_page=per_page, total=total, css_framework="bootstrap4"
+    )
+    return render_template(
+        "model.html", model=model, page=page, per_page=per_page, pagination=pagination
+    )
+
+
+# Returns a university model where the instances are the universities that are passed as an argument
+def create_university_model(universities):
+    model = {"title": "Universities", "instances": []}
+
+    # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
+    # TODO image_url is currently linked to the wrong images
+    for university in universities:
+        instance = {
+            "model_type": "university",
+            "page_url": url_for("university", university_name=university.school_name),
+            "image_url": url_for(
+                "static", filename=(university.school_name.replace("_", " ") + ".jpg")
+            ),
+            "name": university.school_name.replace("_", " ").title(),
+            "id": university.id,
+            "attribute_1": {"name": "State", "value": university.school_state},
+            "attribute_2": {
+                "name": "Student Population",
+                "value": university.latest_student_size,
+            },
+            "attribute_3": {
+                "name": "Cost of Attendance",
+                "value": university.latest_cost_attendance_academic_year,
+            },
+        }
+        model["instances"].append(instance)
+
+    return model
 
 
 if __name__ == "__main__":
