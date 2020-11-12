@@ -323,10 +323,13 @@ def suggestions_university():
 
 
 # Does a search and returns the rendered html of the model template with the search results
-@app.route("/search/university")
+@app.route("/searchuniversity")
 def search_university():
+    print("req ", request)
+    print("args ", request.args)
     # Query for universities that we want
-    text = request.args.get("jsdata")
+    text = request.args.get("searchin")
+    print("text ", text)
     objects = University.objects(school_name__icontains=text).only(
         "school_name",
         "school_state",
@@ -337,7 +340,6 @@ def search_university():
     # Create a university model
     model = create_university_model(objects)
     # Render the university model
-    print(render_model(model))
     return render_model(model)
 
 
