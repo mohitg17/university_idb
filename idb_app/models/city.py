@@ -15,6 +15,8 @@ class City(Document):
     community_type = StringField(required=True, choices=choices.COMMUNITY_TYPE_CHOICES)
     median_age = IntField(required=True, min_value=0)
     median_gross_rent = IntField(required=True, min_value=0)
+    latitude = FloatField()
+    longitude = FloatField()
 
     def __str__(self) -> str:
         return f"{self.name.replace('_', ' ').title()}, {self.state}"

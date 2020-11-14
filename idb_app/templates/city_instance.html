@@ -5,6 +5,11 @@
             height: 100%;
         }
 
+        #map {
+            height: 75%;
+            margin-bottom: 50px;
+        }
+
         .card-img-top {
             height: 12vw;
             object-fit: cover;
@@ -21,14 +26,27 @@
             --primary-background-color: rgb(100, 100, 100);
         }
     </style>
+    <script>
+        let map;
+    
+        function initMap() {
+            var latitude = parseFloat("{{city.latitude|float}}")
+            var longitude = parseFloat("{{city.longitude|float}}")
+            console.log(latitude, longitude)
+            map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: latitude, lng: longitude },
+            zoom: 8,
+            });
+        }
+    </script>
 {% endblock %}
 
 {% block body %}
 <div class="jumbotron" style="background-color: #395C6B; margin-bottom: 0px">
     <div class="row">
-      <h1>{{city_name}}</h1>
+      <h1 style="color: white;">{{city_name}}</h1>
     </div>
-  </div>
+</div>
 
   <div class="row">
     <div class="col" style="background-color: #80A4ED; padding: 40px">
@@ -42,23 +60,24 @@
     </div>
  
     <div class="col-xl-9" style="padding: 40px">
+        <div id="map"></div>
         <h3 class="text-center">Colleges & Universities in {{city_name}}</h3>
         <div class="card-columns">
-        {% for uni in schools %}
-        <!-- TODO make image a background-image instead of img -->
-        <div
-            class="card h-100 main-button"
-            style="background-image:'/images/university/{{ uni.id }}';"
-        >
-            <img class="card-img-top d-block" src="/images/university/{{ uni.id }}" />
-            <div class="centered text-white highlight">{{uni.school_name}}</div>
-            <a href="/university/{{uni.school_name}}" class="stretched-link"></a>
+            {% for uni in schools %}
+            <!-- TODO make image a background-image instead of img -->
+            <div
+                class="card h-100 main-button"
+                style="background-image:'/images/university/{{ uni.id }}';"
+            >
+                <img class="card-img-top d-block" src="/images/university/{{ uni.id }}" />
+                <div class="centered text-white highlight">{{uni.school_name}}</div>
+                <a href="/university/{{uni.school_name}}" class="stretched-link"></a>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-    <div class="d-flex justify-content-center">
-        {{ pagination.links }}
+        <div class="d-flex justify-content-center">
+            {{ pagination.links }}
+        </div>
     </div>
   </div>
-</div>
 {% endblock %}
