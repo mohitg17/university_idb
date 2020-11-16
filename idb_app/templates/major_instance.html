@@ -76,11 +76,18 @@
       <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#mid-salary">Average Mid-Career Salary</button>
       <div id="mid-salary" class="collapse">{{format_dollar_amt(major.average_mid_earnings())}}</div>
       <br>
-
-      <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#bachelors">Number of Bachelor's Programs</button>
-      <div id="bachelors" class="collapse">{{num_schools}}</div>
   </div>
   <div class="col-xl-9" style="padding: 40px">
+    <div>
+        <div style="float: left; height: 40%; width: 40%;">
+            <img src="/images/major/{{major.id}}" style="width: 100%; height: 100%; margin-bottom: 40px;"/>
+        </div>
+        <div class="align-middle" style="margin-bottom: 10%;">
+            <br /><br />
+            <h1 class="text-center" style="font-size: 500%;">~{{num_schools}}</h1>
+            <h1 class="text-center">Bachelor's Programs</h1>
+        </div>
+    </div>
      <h3 class="text-center">Colleges & Universities offering Bachelor's Degrees in {{major_name}}</h3>
       <div class="container">
     <div class="card-columns">
