@@ -6,8 +6,14 @@
         }
 
         #map {
-            height: 75%;
+            height: 500px;
             margin-bottom: 50px;
+        }
+
+        .headers {
+            color: white;
+            background-color: #395C6B;
+            padding: 4px 0px 4px 5px;
         }
 
         .card-img-top {
@@ -19,6 +25,10 @@
             background-color: var(--primary-highlight-color);
             border-radius: 5px;
             padding: 5px;
+        }
+
+        .progress {
+            margin-bottom: 40px;
         }
 
         :root {
@@ -50,18 +60,40 @@
 
   <div class="row">
     <div class="col" style="background-color: #80A4ED; padding: 40px">
-      <h4 class="text-center">{{city_name}} stats</h4>
-      <h5>Area (sq mi): {{city.area}}</h5>
-      <h5>Population: {{city.population}}</h5>
-      <h5>Population Density: {{city.population_density}}</h5>
-      <h5>Community Type: {{city.community_type}}</h5>
+      <h4 class="text-center" style="padding-bottom: 20px;">{{city.name}} at a Glance</h4>
       <h5>Median Age: {{city.median_age}}</h5>
-      <h5>Median Gross Rent: {{city.median_gross_rent}}</h5>
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{city.median_age}}" aria-valuemin="0" aria-valuemax="100" style="width: {{city.median_age}}%"></div>
+      </div>
+      <h5>Median Gross Rent: ${{city.median_gross_rent}}</h5>
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="{{city.median_gross_rent}}" aria-valuemin="100" aria-valuemax="2500" style="width: {{city.median_gross_rent/25}}%"></div>
+      </div>
+      <h5>Community Type: {{city.community_type}}</h5>
     </div>
  
     <div class="col-xl-9" style="padding: 40px">
         <div id="map"></div>
-        <h3 class="text-center">Colleges & Universities in {{city_name}}</h3>
+        <div class="container" id="overview" style="margin-bottom: 10px; padding: 0px;">
+            <h3 class="headers text-center">Overview</h3>
+            <div class="row">
+                <div class="col text-center"><img style="width:50%;height:100%;" src="/static/city.png"/></div>
+                <div class="col text-center"><img style="width:40%;height:90%;padding-top:5%;" src="/static/person.png"/></div>
+                <div class="col text-center"><img style="width:45%;height:95%;padding-top:5%;" src="/static/people.png"/></div>
+            </div>
+            <div class="row">
+                <div class="col text-center"><h1>{{city.area}}</h1></div>
+                <div class="col text-center"><h1>{{city.population}}</h1></div>
+                <div class="col text-center"><h1>{{city.population_density}}</h1></div>
+            </div>
+            <div class="row">
+                <div class="col text-center"><h4>Area (sq mi)</h4></div>
+                <div class="col text-center"><h4>Population</h4></div>
+                <div class="col text-center"><h4>Population Density</h4></div>
+            </div>
+            <hr />
+        </div>
+        <h3 class="text-center" style="padding: 20px 0px;">Colleges & Universities in {{city_name}}</h3>
         <div class="card-columns">
             {% for uni in schools %}
             <!-- TODO make image a background-image instead of img -->
