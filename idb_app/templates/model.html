@@ -19,6 +19,10 @@
         margin: 2rem;
     }
 
+    .list-group-item {
+        padding: .25em .25em;
+    }
+
     .card-img-top {
         height: 12vw;
         object-fit: cover;
@@ -137,15 +141,15 @@
         <!-- TODO make image a background-image instead of img -->
         <div
             class="card h-100 main-button"
-            style="background-image:'{{ instance.image_url }}';  min-height: 27rem; max-height: 27rem;"
+            style="background-image:'{{ instance.image_url }}';  min-height: 29rem; max-height: 29rem;"
         >
             <img class="card-img-top d-block" src="/images/{{ instance.model_type }}/{{ instance.id }}" />
             <div class="card-body">
                 <h5 class="card-title">{{instance.name.replace(".", "")}}</h5>
-                <ul>
-                    <li>{{instance.attribute_1['name']}}: {{instance.attribute_1['value']}}</li>
-                    <li>{{instance.attribute_2['name']}}: {{instance.attribute_2['value']}}</li>
-                    <li>{{instance.attribute_3['name']}}: {{instance.attribute_3['value']}}</li>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{instance.attribute_1['name']}}: {{instance.attribute_1['value']}}</li>
+                    <li class="list-group-item">{{instance.attribute_2['name']}}: {{instance.attribute_2['value']}}</li>
+                    <li class="list-group-item">{{instance.attribute_3['name']}}: {{instance.attribute_3['value']}}</li>
                 </ul>
             </div>
             <a href="{{instance.page_url}}" class="stretched-link"></a>
