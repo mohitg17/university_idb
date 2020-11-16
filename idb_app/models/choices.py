@@ -51,6 +51,13 @@ STATE_WYOMING = "Wyoming"
 
 STATE_DC = "District of Columbia"
 STATE_PR = "Puerto Rico"
+STATE_AS = "American Samoa"
+STATE_FM = "Federated States of Micronesia"
+STATE_GU = "Guam"
+STATE_MH = "Marshall Islands"
+STATE_MP = "Northern Mariana Islands"
+STATE_PW = "Palau"
+STATE_VI = "U.S. Virgin Islands"
 
 STATE_CHOICES = [
     STATE_ALABAMA,
@@ -105,6 +112,13 @@ STATE_CHOICES = [
     STATE_WYOMING,
     STATE_DC,
     STATE_PR,
+    STATE_AS,
+    STATE_FM,
+    STATE_GU,
+    STATE_MH,
+    STATE_MP,
+    STATE_PW,
+    STATE_VI
 ]
 
 UNCLASSIFIED = "Unclassified"
