@@ -88,7 +88,7 @@
     <div class="d-flex justify-content-center p-2 border">
         <div class="col-md-6 col-sm-7">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-            <form class="form-inline d-flex justify-content-center" action="search{{ model.instances[0].model_type }}" method="GET">
+            <form class="form-inline d-flex justify-content-center" action="search{{ model.type }}" method="GET">
                 <input class="form-control" id="search-form-input" type="text" placeholder="Search" aria-label="Search" name="searchin">
                 <button id="search-button" type="submit"><i class="fa fa-search"></i></button>
             </form>
@@ -105,7 +105,7 @@
             var text = $(this).val();
 
             $.ajax({
-                url: "/suggestions/{{ model.instances[0].model_type }}",
+                url: "/suggestions/{{ model.type }}",
                 type: "get",
                 data: {jsdata: text},
                 success: function(response) {
@@ -123,7 +123,7 @@
             var text = $("#search-form-input").val();
 
             $.ajax({
-                //url: "/search/{{ model.instances[0].model_type }}",
+                //url: "/search/{{ model.type }}",
                 type: "get",
                 data: {jsdata: text},
                 success: function(response) {

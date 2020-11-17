@@ -38,7 +38,6 @@ def about():
 @app.route("/majors")
 def majors_base():
     # Connector.reconnect_prod_database()
-    model = {"title": "Fields of Study & Majors", "instances": []}
     majors = Major.objects(cip_code__ne=None).only(
         "name",
         "earnings_weighted_sum",
@@ -47,91 +46,24 @@ def majors_base():
         "cip_code",
         "program_count_estimate",
     )
-
-    # Mapping majors to an object that is passed to the template. Assumes naming scheme for page_url and image_url
-    for major in majors:
-        instance = {
-            "model_type": "major",
-            "page_url": url_for(
-                "major", major_name=urllib.parse.quote_plus(major.name)
-            ),
-            "image_url": url_for("static", filename=(major.name + ".jpg")),
-            "name": major.name.replace("_", " ").title(),
-            "id": major.id,
-            "attribute_1": {
-                "name": "Average Starting Salary",
-                "value": f"${int(major.average_earnings()):,}",
-            },
-            "attribute_2": {
-                "name": "Average Mid-Career Salary",
-                "value": f"${int(major.average_mid_earnings()):,}",
-            },
-            "attribute_3": {
-                "name": "Number of Bachelor's Programs",
-                "value": f"~{major.program_count_estimate:,}",
-            },
-        }
-        model["instances"].append(instance)
-
-    page, _, _ = get_page_args(page_parameter="page", per_page_parameter="per_page")
-    per_page = 12
-    offset = (page - 1) * per_page
-    total = len(majors)
-    model["instances"] = model["instances"][offset : offset + per_page]
-    pagination = Pagination(
-        page=page, per_page=per_page, total=total, css_framework="bootstrap4"
-    )
-    return render_template(
-        "model.html", model=model, page=page, per_page=per_page, pagination=pagination
-    )
+    model = create_major_model(majors)
+    return render_model(model)
 
 
 @app.route("/cities")
 def cities_base():
     # Connector.reconnect_prod_database()
-    model = {"title": "Cities", "instances": []}
     cities = City.objects().only(
         "name", "state", "population", "community_type", "area"
     )
-    # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
+    model = create_city_model(cities)
     # TODO image_url is currently linked to the wrong images
-    for city in cities:
-        instance = {
-            "model_type": "city",
-            "page_url": url_for("city", city_state=city),
-            "image_url": url_for(
-                "static", filename=(city.name + "_" + city.state + ".png")
-            ),
-            "name": str(city),
-            "id": city.id,
-            "attribute_1": {"name": "Population", "value": city.population},
-            "attribute_2": {"name": "Community Type", "value": city.community_type},
-            "attribute_3": {
-                "name": "Area (square miles)",
-                "value": city.area,
-            },
-        }
-        model["instances"].append(instance)
-
-    page, _, _ = get_page_args(page_parameter="page", per_page_parameter="per_page")
-    per_page = 15
-    offset = (page - 1) * per_page
-    total = len(cities)
-    model["instances"] = model["instances"][offset : offset + per_page]
-    pagination = Pagination(
-        page=page, per_page=per_page, total=total, css_framework="bootstrap4"
-    )
-    return render_template(
-        "model.html", model=model, page=page, per_page=per_page, pagination=pagination
-    )
+    return render_model(model)
 
 
-# TODO migrate some of the functionality in this method to the helper methods at the bottom of the file
-# TODO then repeat with other models
 @app.route("/universities")
 def universities_base():
     # Connector.reconnect_prod_database()
-    model = {"title": "Universities", "instances": []}
     universities = University.objects().only(
         "school_name",
         "school_state",
@@ -139,41 +71,9 @@ def universities_base():
         "latest_cost_attendance_academic_year",
         "id",
     )
-
-    # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
+    model = create_university_model(universities)
     # TODO image_url is currently linked to the wrong images
-    for university in universities:
-        instance = {
-            "model_type": "university",
-            "page_url": url_for("university", university_name=university.school_name),
-            "image_url": url_for(
-                "static", filename=(university.school_name.replace("_", " ") + ".jpg")
-            ),
-            "name": university.school_name.replace("_", " ").title(),
-            "id": university.id,
-            "attribute_1": {"name": "State", "value": university.school_state},
-            "attribute_2": {
-                "name": "Student Population",
-                "value": university.latest_student_size,
-            },
-            "attribute_3": {
-                "name": "Cost of Attendance",
-                "value": university.latest_cost_attendance_academic_year,
-            },
-        }
-        model["instances"].append(instance)
-
-    page, _, _ = get_page_args(page_parameter="page", per_page_parameter="per_page")
-    per_page = 18
-    offset = (page - 1) * per_page
-    total = len(universities)
-    model["instances"] = model["instances"][offset : offset + per_page]
-    pagination = Pagination(
-        page=page, per_page=per_page, total=total, css_framework="bootstrap4"
-    )
-    return render_template(
-        "model.html", model=model, page=page, per_page=per_page, pagination=pagination
-    )
+    return render_model(model)
 
 
 @app.route("/major/<string:major_name>")
@@ -461,7 +361,8 @@ def render_model(model):
     per_page = 18
     offset = (page - 1) * per_page
     total = len(model["instances"])
-    model["instances"] = model["instances"][offset : offset + per_page]
+    if total is not 0:
+        model["instances"] = model["instances"][offset : offset + per_page]
     pagination = Pagination(
         page=page, per_page=per_page, total=total, css_framework="bootstrap4"
     )
@@ -477,7 +378,7 @@ def create_model(objects):
 
 # Returns a university model where the instances are the universities that are passed as an argument
 def create_university_model(universities):
-    model = {"title": "Universities", "instances": []}
+    model = {"title": "Universities", "type": "university", "instances": []}
 
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     # TODO image_url is currently linked to the wrong images
@@ -507,7 +408,7 @@ def create_university_model(universities):
 
 # Returns a city model where the instances are the cities that are passed as an argument
 def create_city_model(cities):
-    model = {"title": "Cities", "instances": []}
+    model = {"title": "Cities", "type": "city", "instances": []}
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     # TODO image_url is currently linked to the wrong images
     for city in cities:
@@ -533,7 +434,7 @@ def create_city_model(cities):
 
 # Returns a major model where the instances are the majors that are passed as an argument
 def create_major_model(majors):
-    model = {"title": "Fields of Study & Majors", "instances": []}
+    model = {"title": "Fields of Study & Majors", "type": "major", "instances": []}
 
     # Mapping majors to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     for major in majors:
