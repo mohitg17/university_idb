@@ -39,8 +39,7 @@ def about():
 def majors_base():
     # Connector.reconnect_prod_database()
     order_by = request.args.get("order_by")
-    raw_filter_params = request.args.get("filter_params")
-    filter_params = json.loads(raw_filter_params) if raw_filter_params is not None else dict()
+    filter_params = get_filter_parameters(request.args)
     majors = Major.objects(cip_code__ne=None, **filter_params).order_by(order_by).only(
         "name",
         "earnings_weighted_sum",
@@ -458,7 +457,12 @@ def create_city_model(cities):
 
 # Returns a major model where the instances are the majors that are passed as an argument
 def create_major_model(majors):
-    model = {"title": "Fields of Study & Majors", "type": "major", "instances": []}
+    model = {"title": "Fields of Study & Majors",
+             "type": "major",
+             "instances": [],
+             "filter_buttons": Major.get_filtering_buttons(),
+             "filter_text": Major.get_filtering_text()
+             }
 
     # Mapping majors to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     for major in majors:
