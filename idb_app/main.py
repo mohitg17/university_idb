@@ -1,5 +1,5 @@
 import urllib.parse
-import requests
+import json
 from flask import Flask, render_template, url_for, make_response, redirect, request
 from flask_paginate import Pagination, get_page_args
 
@@ -38,7 +38,10 @@ def about():
 @app.route("/majors")
 def majors_base():
     # Connector.reconnect_prod_database()
-    majors = Major.objects(cip_code__ne=None).only(
+    order_by = request.args.get("order_by")
+    raw_filter_params = request.args.get("filter_params")
+    filter_params = json.loads(raw_filter_params) if raw_filter_params is not None else dict()
+    majors = Major.objects(cip_code__ne=None, **filter_params).order_by(order_by).only(
         "name",
         "earnings_weighted_sum",
         "earnings_count",
@@ -53,7 +56,10 @@ def majors_base():
 @app.route("/cities")
 def cities_base():
     # Connector.reconnect_prod_database()
-    cities = City.objects().only(
+    order_by = request.args.get("order_by")
+    raw_filter_params = request.args.get("filter_params")
+    filter_params = json.loads(raw_filter_params) if raw_filter_params is not None else dict()
+    cities = City.objects(**filter_params).order_by(order_by).only(
         "name", "state", "population", "community_type", "area"
     )
     model = create_city_model(cities)
@@ -64,7 +70,10 @@ def cities_base():
 @app.route("/universities")
 def universities_base():
     # Connector.reconnect_prod_database()
-    universities = University.objects().only(
+    order_by = request.args.get("order_by")
+    raw_filter_params = request.args.get("filter_params")
+    filter_params = json.loads(raw_filter_params) if raw_filter_params is not None else dict()
+    universities = University.objects(**filter_params).order_by(order_by).only(
         "school_name",
         "school_state",
         "latest_student_size",
