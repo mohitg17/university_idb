@@ -419,7 +419,9 @@ def create_university_model(universities):
             },
             "attribute_3": {
                 "name": "Cost of Attendance",
-                "value": university.latest_cost_attendance_academic_year,
+                "value": 
+                university.latest_cost_attendance_academic_year if university.latest_cost_attendance_academic_year 
+                else "Unavailable",
             },
         }
         model["instances"].append(instance)

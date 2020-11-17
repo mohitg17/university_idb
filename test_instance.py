@@ -53,7 +53,7 @@ class TestDB(unittest.TestCase):
         }
         expected = {
             "name": "Austin, Texas",
-            "attribute_1": {"name": "Population", "value": 1000000},
+            "attribute_1": {"name": "Population", "value": 950715},
             "attribute_2": {"name": "Community Type", "value": "City"},
             "attribute_3": {"name": "Median Gross Rent", "value": 1000},
         }
@@ -106,6 +106,8 @@ class TestDB(unittest.TestCase):
             33.33,
             40.0,
             65.34,
+            4377.7411,
+            -8842.0638
         ]
         self.assertEqual(actual, expected)
 
