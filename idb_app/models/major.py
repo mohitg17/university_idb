@@ -4,6 +4,7 @@ from mongoengine.fields import StringField, IntField
 
 class Major(Document):
     name = StringField(required=True, unique=True)
+    description = StringField()
     # would be "science" or "social studies" or "engineering", etc. Exact choices we use depend on data set
     # major_type = StringField(required=True)
     median_starting_salary = IntField(min_value=0)
@@ -18,6 +19,7 @@ class Major(Document):
     # internal fields
     # TODO make unique once we remove the others
     cip_code = StringField()
+    cip_family = IntField()
     earnings_weighted_sum = IntField(default=0)
     earnings_count = IntField(default=0)
     program_count_estimate = IntField(default=0)
