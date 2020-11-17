@@ -311,6 +311,40 @@ def get_major_image(major_id: str):
     return response
 
 
+# Use this instead of individual suggestions
+@app.route("/suggestions<string:model>")
+def suggestions(model: str):
+    numResults = 5  # The number of suggestion results we want
+    # Text is stored in jsdata of the request
+    text = request.args.get("jsdata")
+
+    # Depending on the model, we will look through different objects
+    objects = []
+    if model is "university":
+        # Search Uni
+        objects = (
+            University.objects(school_name__icontains=text)
+            .only("school_name")
+            .limit(numResults)
+        )
+    elif model is "city":
+        # Search city
+        objects = City.objects(name__icontains=text).only("name").limit(numResults)
+    elif model is "major":
+        # Search major
+        objects = Major.objects(name__icontains=text).only("name").limit(numResults)
+
+    # Collect names of search results because the objects haven't been playing nicely with the template for some reason
+    names = []
+    for o in objects:
+        if model is "university":
+            names.append(o.school_name)
+        else:
+            names.append(o.name)
+    # Render the suggestions in the template
+    return render_template("search_results.html", text=names)
+
+
 # Does a search every time a key is pressed in the search bar and returns the search_results template rendered with the results of the search
 @app.route("/suggestions/university")
 def suggestions_university():
@@ -322,14 +356,53 @@ def suggestions_university():
     return render_template("search_results.html", text=names)
 
 
+# Does a search on a model and returns the rendered html of the model template with the search results
+@app.route("/search<string:model>")
+def search(model: str):
+    # Search text is passed in variable searchin
+    text = request.args.get("searchin")
+    # Query for universities that we want and create a model
+    objects = []
+    model = None
+    if model is "university":
+        objects = University.objects(school_name__icontains=text).only(
+            "school_name",
+            "school_state",
+            "latest_student_size",
+            "latest_cost_attendance_academic_year",
+            "id",
+        )
+        model = create_university_model(objects)
+    elif model is "city":
+        objects = City.objects(name__icontains=text).only(
+            "name",
+            "state",
+            "population",
+            "community_type",
+            "area",
+        )
+        model = create_city_model(objects)
+    elif model is "major":
+        objects = Major.objects(name__icontains=text).only(
+            "name",
+            "earnings_weighted_sum",
+            "earnings_count",
+            "num_bachelor_programs",
+            "cip_code",
+            "program_count_estimate",
+        )
+        model = create_major_model(objects)
+
+    # Render the model
+    return render_model(model)
+
+
 # Does a search and returns the rendered html of the model template with the search results
 @app.route("/searchuniversity")
 def search_university():
-    print("req ", request)
-    print("args ", request.args)
-    # Query for universities that we want
+    # Search text is passed in variable searchin
     text = request.args.get("searchin")
-    print("text ", text)
+    # Query for universities that we want
     objects = University.objects(school_name__icontains=text).only(
         "school_name",
         "school_state",
@@ -340,6 +413,45 @@ def search_university():
     # Create a university model
     model = create_university_model(objects)
     # Render the university model
+    return render_model(model)
+
+
+# Does a search and returns the rendered html of the model template with the search results
+@app.route("/searchcity")
+def search_city():
+    # Search text is passed in variable searchin
+    text = request.args.get("searchin")
+    # Query for universities that we want
+    objects = City.objects(name__icontains=text).only(
+        "name",
+        "state",
+        "population",
+        "community_type",
+        "area",
+    )
+    # Create a city model
+    model = create_city_model(objects)
+    # Render the city model
+    return render_model(model)
+
+
+# Does a search and returns the rendered html of the model template with the search results
+@app.route("/searchmajor")
+def search_major():
+    # Search text is passed in variable searchin
+    text = request.args.get("searchin")
+    # Query for universities that we want
+    objects = Major.objects(name__icontains=text).only(
+        "name",
+        "earnings_weighted_sum",
+        "earnings_count",
+        "num_bachelor_programs",
+        "cip_code",
+        "program_count_estimate",
+    )
+    # Create a major model
+    model = create_major_model(objects)
+    # Render the major model
     return render_model(model)
 
 
@@ -356,6 +468,11 @@ def render_model(model):
     return render_template(
         "model.html", model=model, page=page, per_page=per_page, pagination=pagination
     )
+
+
+# TODO write this as an interface so that it can be called and will check the type of an object before calling the correct helper function
+def create_model(objects):
+    return objects
 
 
 # Returns a university model where the instances are the universities that are passed as an argument
@@ -381,6 +498,64 @@ def create_university_model(universities):
             "attribute_3": {
                 "name": "Cost of Attendance",
                 "value": university.latest_cost_attendance_academic_year,
+            },
+        }
+        model["instances"].append(instance)
+
+    return model
+
+
+# Returns a city model where the instances are the cities that are passed as an argument
+def create_city_model(cities):
+    model = {"title": "Cities", "instances": []}
+    # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
+    # TODO image_url is currently linked to the wrong images
+    for city in cities:
+        instance = {
+            "model_type": "city",
+            "page_url": url_for("city", city_state=city),
+            "image_url": url_for(
+                "static", filename=(city.name + "_" + city.state + ".png")
+            ),
+            "name": str(city),
+            "id": city.id,
+            "attribute_1": {"name": "Population", "value": city.population},
+            "attribute_2": {"name": "Community Type", "value": city.community_type},
+            "attribute_3": {
+                "name": "Area (square miles)",
+                "value": city.area,
+            },
+        }
+        model["instances"].append(instance)
+
+    return model
+
+
+# Returns a major model where the instances are the majors that are passed as an argument
+def create_major_model(majors):
+    model = {"title": "Fields of Study & Majors", "instances": []}
+
+    # Mapping majors to an object that is passed to the template. Assumes naming scheme for page_url and image_url
+    for major in majors:
+        instance = {
+            "model_type": "major",
+            "page_url": url_for(
+                "major", major_name=urllib.parse.quote_plus(major.name)
+            ),
+            "image_url": url_for("static", filename=(major.name + ".jpg")),
+            "name": major.name.replace("_", " ").title(),
+            "id": major.id,
+            "attribute_1": {
+                "name": "Average Starting Salary",
+                "value": f"${int(major.average_earnings()):,}",
+            },
+            "attribute_2": {
+                "name": "Average Mid-Career Salary",
+                "value": f"${int(major.average_mid_earnings()):,}",
+            },
+            "attribute_3": {
+                "name": "Number of Bachelor's Programs",
+                "value": f"~{major.program_count_estimate:,}",
             },
         }
         model["instances"].append(instance)
