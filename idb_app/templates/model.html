@@ -87,6 +87,20 @@
 <div class="container">
     <div class="d-flex justify-content-center p-2 border">
         <div class="col-md-6 col-sm-7">
+            <form method="GET">
+                {% for radio_button_set in model["filter_buttons"] %}
+                    <h4>{{radio_button_set.title}}</h4>
+                    {% for button in radio_button_set.buttons %}
+                        <input type="radio" id="{{button.html_id}}" name="{{button.name}}" value="{{button.value}}">
+                        <label for="{{button.html_id}}">{{button.label}}</label><br>
+                    {% endfor %}
+                {% endfor %}
+                {% for text_input in model["filter_text"] %}
+                    <h4>{{text_input.placeholder}}</h4>
+                    <input class="form-control" id="{{text_input.html_id}}" type="text" placeholder="{{text_input.placeholder}}" aria-label="{{text_input.placeholder}}" name="{{text_input.name}}">
+                {% endfor %}
+                <button id="filter-button" type="submit">Filter</button>
+            </form>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
             <form class="form-inline d-flex justify-content-center" action="search{{ model.type }}" method="GET">
                 <input class="form-control" id="search-form-input" type="text" placeholder="Search" aria-label="Search" name="searchin">

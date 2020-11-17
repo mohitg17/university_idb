@@ -1,3 +1,4 @@
+from typing import List
 from mongoengine import Document, DENY
 from mongoengine.fields import (
     StringField,
@@ -8,7 +9,7 @@ from mongoengine.fields import (
     URLField,
 )
 
-from idb_app.models import City, Major, choices
+from idb_app.models import City, Major, RadioButtonSet, TextInput, choices
 
 
 class University(Document):
@@ -73,6 +74,24 @@ class University(Document):
     latest_student_retention_rate_four_year_full_time = FloatField(
         default=0.0, min_value=0.0, max_value=100.0
     )
+    size = StringField(choices=choices.UNI_SIZE_CHOICES)
+    cost_category = StringField(choices=choices.COST_CATEGORY_CHOICES)
+
+    def calculate_size(self):
+        if self.latest_student_size < 5000:
+            return choices.UNI_SIZE_SMALL
+        elif self.latest_student_size < 15000:
+            return choices.UNI_SIZE_MEDIUM
+        else:
+            return choices.UNI_SIZE_LARGE
+
+    def calculate_cost_cat(self):
+        if self.latest_cost_attendance_academic_year < 15000:
+            return choices.COST_CATEGORY_LOW
+        elif self.latest_cost_attendance_academic_year < 40000:
+            return choices.COST_CATEGORY_MEDIUM
+        else:
+            return choices.COST_CATEGORY_HIGH
 
     # collegescorecard (by Dept of Ed) internal id -- helpful for re-querying their API
     # TODO make required once all the data is in
@@ -83,3 +102,19 @@ class University(Document):
 
     # TODO phase out other major list
     majors_cip = ListField(ReferenceField(Major, reverse_delete_rule=DENY), default=[])
+
+    @classmethod
+    def get_filtering_buttons(cls) -> List[RadioButtonSet]:
+        size_button_set = RadioButtonSet(title="School Size",
+                                         set_name="filter__size",
+                                         values=choices.UNI_SIZE_CHOICES,
+                                         labels=choices.UNI_SIZE_CHOICES)
+        cost_button_set = RadioButtonSet(title="Cost of Attendance",
+                                         set_name="filter__cost_category",
+                                         values=choices.COST_CATEGORY_CHOICES,
+                                         labels=choices.COST_CATEGORY_CHOICES)
+        return [size_button_set, cost_button_set]
+
+    @classmethod
+    def get_filtering_text(cls) -> List[TextInput]:
+        return [TextInput(html_id="state_filter_input", name="filter__school_state__iexact", placeholder="State")]
