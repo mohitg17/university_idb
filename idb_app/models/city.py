@@ -33,3 +33,12 @@ class City(Document):
     @classmethod
     def get_filtering_text(cls) -> List[TextInput]:
         return [TextInput(html_id="state_filter_input", name="filter__state__iexact", placeholder="State")]
+
+    @classmethod
+    def get_sort_buttons(cls) -> RadioButtonSet:
+        return RadioButtonSet(title="Sort By",
+                              set_name="order_by",
+                              values=["median_gross_rent",
+                                      "median_age",
+                                      "population"],
+                              labels=["Median Gross Rent", "Median Age", "Population"])

@@ -38,7 +38,10 @@ def about():
 @app.route("/majors")
 def majors_base():
     # Connector.reconnect_prod_database()
-    order_by = request.args.get("order_by")
+    order = request.args.get('order')
+    if order is None:
+        order = "+"
+    order_by = f"{order}{request.args.get('order_by')}"
     filter_params = get_filter_parameters(request.args)
     majors = Major.objects(cip_code__ne=None, **filter_params).order_by(order_by).only(
         "name",
@@ -55,7 +58,10 @@ def majors_base():
 @app.route("/cities")
 def cities_base():
     # Connector.reconnect_prod_database()
-    order_by = request.args.get("order_by")
+    order = request.args.get('order')
+    if order is None:
+        order = "+"
+    order_by = f"{order}{request.args.get('order_by')}"
     filter_params = get_filter_parameters(request.args)
     cities = City.objects(**filter_params).order_by(order_by).only(
         "name", "state", "population", "community_type", "area"
@@ -68,7 +74,10 @@ def cities_base():
 @app.route("/universities")
 def universities_base():
     # Connector.reconnect_prod_database()
-    order_by = request.args.get("order_by")
+    order = request.args.get('order')
+    if order is None:
+        order = "+"
+    order_by = f"{order}{request.args.get('order_by')}"
     filter_params = get_filter_parameters(request.args)
     universities = University.objects(**filter_params).order_by(order_by).only(
         "school_name",
@@ -397,6 +406,7 @@ def create_university_model(universities):
              "instances": [],
              "filter_buttons": University.get_filtering_buttons(),
              "filter_text": University.get_filtering_text(),
+             "sort_buttons": University.get_sort_buttons(),
              }
 
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
@@ -431,7 +441,8 @@ def create_university_model(universities):
 def create_city_model(cities):
     model = {"title": "Cities", "type": "city", "instances": [],
              "filter_buttons": City.get_filtering_buttons(),
-             "filter_text": City.get_filtering_text()}
+             "filter_text": City.get_filtering_text(),
+             "sort_buttons": City.get_sort_buttons(),}
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     # TODO image_url is currently linked to the wrong images
     for city in cities:
@@ -461,7 +472,8 @@ def create_major_model(majors):
              "type": "major",
              "instances": [],
              "filter_buttons": Major.get_filtering_buttons(),
-             "filter_text": Major.get_filtering_text()
+             "filter_text": Major.get_filtering_text(),
+             "sort_buttons": Major.get_sort_buttons(),
              }
 
     # Mapping majors to an object that is passed to the template. Assumes naming scheme for page_url and image_url

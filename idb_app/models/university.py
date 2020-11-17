@@ -118,3 +118,13 @@ class University(Document):
     @classmethod
     def get_filtering_text(cls) -> List[TextInput]:
         return [TextInput(html_id="state_filter_input", name="filter__school_state__iexact", placeholder="State")]
+
+    @classmethod
+    def get_sort_buttons(cls) -> RadioButtonSet:
+        return RadioButtonSet(title="Sort By",
+                              set_name="order_by",
+                              values=["school_name",
+                                      "latest_admissions_admission_rate_overall",
+                                      "latest_student_size",
+                                      "latest_cost_attendance_academic_year"],
+                              labels=["School Name", "Acceptance Rate", "Size", "Cost of Attendance"])

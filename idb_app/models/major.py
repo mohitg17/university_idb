@@ -67,3 +67,12 @@ class Major(Document):
     @classmethod
     def get_filtering_text(cls) -> List[TextInput]:
         return []
+
+    @classmethod
+    def get_sort_buttons(cls) -> RadioButtonSet:
+        return RadioButtonSet(title="Sort By",
+                              set_name="order_by",
+                              values=["median_starting_salary",
+                                      "median_midcareer_salary",
+                                      "num_bachelor_programs",],
+                              labels=["Starting Salary", "Mid-Career Salary", "Number of Bachelor's Programs"])
