@@ -1,7 +1,8 @@
+from typing import List
 from mongoengine import Document
 from mongoengine.fields import StringField, FloatField, IntField
 
-from idb_app.models import choices
+from idb_app.models import choices, TextInput, RadioButtonSet
 
 
 class City(Document):
@@ -20,3 +21,15 @@ class City(Document):
 
     def __str__(self) -> str:
         return f"{self.name.replace('_', ' ').title()}, {self.state}"
+
+    @classmethod
+    def get_filtering_buttons(cls) -> List[RadioButtonSet]:
+        size_button_set = RadioButtonSet(title="Community Type",
+                                         set_name="filter__community_type",
+                                         values=choices.COMMUNITY_TYPE_CHOICES,
+                                         labels=choices.COMMUNITY_TYPE_CHOICES)
+        return [size_button_set]
+
+    @classmethod
+    def get_filtering_text(cls) -> List[TextInput]:
+        return [TextInput(html_id="state_filter_input", name="filter__state__iexact", placeholder="State")]

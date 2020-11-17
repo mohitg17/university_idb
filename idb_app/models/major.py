@@ -1,6 +1,8 @@
+from typing import List
 from mongoengine import Document
 from mongoengine.fields import StringField, IntField
 
+from idb_app.models import RadioButtonSet, TextInput, choices
 
 class Major(Document):
     name = StringField(required=True, unique=True)
@@ -47,3 +49,19 @@ class Major(Document):
             )
             # created.save()
         return created
+
+    # @classmethod
+    # def get_filtering_buttons(cls) -> List[RadioButtonSet]:
+    #     size_button_set = RadioButtonSet(title="School Size",
+    #                                      set_name="filter__size",
+    #                                      values=choices.UNI_SIZE_CHOICES,
+    #                                      labels=choices.UNI_SIZE_CHOICES)
+    #     cost_button_set = RadioButtonSet(title="Cost of Attendance",
+    #                                      set_name="filter__cost_category",
+    #                                      values=choices.COST_CATEGORY_CHOICES,
+    #                                      labels=choices.COST_CATEGORY_CHOICES)
+    #     return [size_button_set, cost_button_set]
+    #
+    # @classmethod
+    # def get_filtering_text(cls) -> List[TextInput]:
+    #     return [TextInput(html_id="state_filter_input", name="filter__school_state__iexact", placeholder="State")]

@@ -57,8 +57,7 @@ def majors_base():
 def cities_base():
     # Connector.reconnect_prod_database()
     order_by = request.args.get("order_by")
-    raw_filter_params = request.args.get("filter_params")
-    filter_params = json.loads(raw_filter_params) if raw_filter_params is not None else dict()
+    filter_params = get_filter_parameters(request.args)
     cities = City.objects(**filter_params).order_by(order_by).only(
         "name", "state", "population", "community_type", "area"
     )
@@ -431,7 +430,9 @@ def create_university_model(universities):
 
 # Returns a city model where the instances are the cities that are passed as an argument
 def create_city_model(cities):
-    model = {"title": "Cities", "type": "city", "instances": []}
+    model = {"title": "Cities", "type": "city", "instances": [],
+             "filter_buttons": City.get_filtering_buttons(),
+             "filter_text": City.get_filtering_text()}
     # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
     # TODO image_url is currently linked to the wrong images
     for city in cities:
