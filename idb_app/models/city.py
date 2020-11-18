@@ -12,10 +12,12 @@ class City(Document):
     )
     area = FloatField(required=True, min_value=0.0)
     population = IntField(required=True, min_value=0)
+    population_ranking = IntField(min_value=0)
     population_density = IntField(required=True, min_value=0)
     community_type = StringField(required=True, choices=choices.COMMUNITY_TYPE_CHOICES)
     median_age = IntField(required=True, min_value=0)
     median_gross_rent = IntField(required=True, min_value=0)
+    num_schools = IntField(default=0, min_value=0)
     latitude = FloatField()
     longitude = FloatField()
 
