@@ -123,9 +123,24 @@
             </div>
         </div>
     </div>
-    <hr style="margin-bottom: 30px;"/>
-     <h3 class="text-center" style="margin-bottom: 30px;">Colleges & Universities offering Bachelor's Degrees in {{major_name}}</h3>
-      <div class="container">
+    <h2 class="headers" style="margin-top: 30px; margin-bottom: 30px;">Suggested Cities with Universities offering Bachelor's Degrees in {{major_name}}</h2>
+    <div class="container">
+        <div class="card-columns">
+            {% for city in cities %}
+            <!-- TODO make image a background-image instead of img -->
+            <div
+                class="card h-100 main-button"
+                style="background-image:'/images/city/{{ city.id }}';"
+            >
+                <img class="card-img-top d-block" src="/images/city/{{ city.id }}" />
+                <div class="centered text-white highlight">{{city.name}}</div>
+                <a href="/city/{{city.name}}" class="stretched-link"></a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <h2 class="headers" style="margin-top: 30px; margin-bottom: 30px;">Colleges & Universities offering Bachelor's Degrees in {{major_name}}</h2>
+    <div class="container">
     <div class="card-columns">
         {% for uni in schools %}
         <!-- TODO make image a background-image instead of img -->
