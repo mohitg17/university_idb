@@ -108,8 +108,10 @@
                     style="background-image:'/images/major/{{ major.id }}';"
                 >
                     <img class="card-img-top d-block" src="/images/major/{{ major.id }}" />
-                    <div class="centered text-white highlight">{{major.name}}</div>
-                    <a href="/major/{{major.name}}" class="stretched-link"></a>
+                    <div class="card-body bg-dark">
+                        <h6 class="centered text-white card-title">{{major.name}}</h6>
+                        <a href="/major/{{major.name}}" class="stretched-link"></a>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
@@ -123,8 +125,10 @@
                 style="background-image:'/images/university/{{ uni.id }}';"
             >
                 <img class="card-img-top d-block" src="/images/university/{{ uni.id }}" />
-                <div class="centered text-white highlight">{{uni.school_name}}</div>
-                <a href="/university/{{uni.school_name}}" class="stretched-link"></a>
+                <div class="card-body bg-dark">
+                    <h6 class="centered text-white card-title">{{uni.school_name}}</h6>
+                    <a href="/university/{{uni.school_name}}" class="stretched-link"></a>
+                </div>
             </div>
             {% endfor %}
         </div>
