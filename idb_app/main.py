@@ -96,6 +96,7 @@ def major(major_name):
     # Connector.reconnect_prod_database()
     decoded_name = urllib.parse.unquote_plus(major_name)
     major_loaded = Major.objects(name=decoded_name, cip_code__ne=None).first()
+    related_majors = Major.objects(cip_family=major_loaded.cip_family).limit(10)
     if major_loaded is None:
         return f"Could not find major {decoded_name}"
     else:
@@ -117,6 +118,7 @@ def major(major_name):
             "major_instance.html",
             major_name=decoded_name.replace(".", ""),
             major=major_loaded,
+            related_majors=related_majors,
             # TODO - would need to load this model from University data
             schools=schools,
             num_schools=total,
