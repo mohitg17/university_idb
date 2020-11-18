@@ -1,5 +1,6 @@
 astroid==2.4.2
 attrs==20.2.0
+beautifulsoup4==4.9.3
 cachetools==4.1.1
 certifi==2020.6.20
 chardet==3.0.4
@@ -26,6 +27,7 @@ itsdangerous==1.1.0
 Jinja2==2.11.2
 kiwisolver==1.2.0
 lazy-object-proxy==1.4.3
+lxml==4.6.1
 MarkupSafe==1.1.1
 matplotlib==3.3.2
 mccabe==0.6.1

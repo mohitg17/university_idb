@@ -1,5 +1,6 @@
 from idb_app.models import City, choices
 from idb_app.mongo import Connector
+from bs4 import BeautifulSoup
 import requests
 import re
 
@@ -50,7 +51,8 @@ example_cities = [
 #     c = City(**city)
 #     c.save()
 
-c = City.objects()
+c = City.objects().skip(3)
+
 base_url = "http://api.wolframalpha.com/v2/query?appid=38LR3Q-5V34V3KX75"
 
 # example query
@@ -70,65 +72,65 @@ base_url = "http://api.wolframalpha.com/v2/query?appid=38LR3Q-5V34V3KX75"
 # print(re.findall("\d+\d+", test2)[2])
 
 
-def format_nums(stat):
-    try:
-        if stat[0].__contains__("."):
-            if stat[1] == "million":
-                return int(float(stat[0]) * 1000000)
-            else:
-                return float(stat[0])
-        else:
-            return int(stat[0])
-    except ValueError:
-        return 0
+# def format_nums(stat):
+#     try:
+#         if stat[0].__contains__("."):
+#             if stat[1] == "million":
+#                 return int(float(stat[0]) * 1000000)
+#             else:
+#                 return float(stat[0])
+#         else:
+#             return int(stat[0])
+#     except ValueError:
+#         return 0
 
 
-for city in c:
-    print(city["name"] + ", " + city["state"])
-    r = requests.get(
-        base_url + "&input=" + city["name"] + "+" + city["state"] + "&output=json"
-    )
-    json_res = r.json()
-    if json_res["queryresult"]["success"] == False:
-        continue
-    for p in json_res["queryresult"]["pods"]:
-        if p["title"] == "Populations" or p["title"] == "Population":
-            population_data = p["subpods"][0]["plaintext"]
-            # find population from list and save
-            temp_pop = format_nums(
-                population_data.split("|")[1].lstrip(" ").split(" ")[:2]
-            )
-            if temp_pop != 0:
-                city["population"] = temp_pop
-                city.save()
-        elif p["title"] == "Geographic properties":
-            area_data = p["subpods"][0]["plaintext"]
-            density_data = p["subpods"][0]["plaintext"]
-            # find area and density from list and save
-            if len(area_data.split("|")) < 3:
-                temp_area = 0
-            else:
-                temp_area = format_nums(
-                    area_data.split("|")[2].lstrip(" ").split(" ")[:2]
-                )
-            if temp_area != 0:
-                city["area"] = temp_area
-                city.save()
-            if len(density_data.split("|")) < 3 or not density_data.__contains__(
-                "density"
-            ):
-                temp_density = 0
-            else:
-                temp_density = format_nums(
-                    density_data.split("|")[len(density_data.split("|")) - 1]
-                    .lstrip(" ")
-                    .split(" ")[:2]
-                )
-            if temp_density != 0:
-                city["population_density"] = temp_density
-                city.save()
-        else:
-            continue
+# for city in c:
+#     print(city["name"] + ", " + city["state"])
+#     r = requests.get(
+#         base_url + "&input=" + city["name"] + "+" + city["state"] + "&output=json"
+#     )
+#     json_res = r.json()
+#     if json_res["queryresult"]["success"] == False:
+#         continue
+#     for p in json_res["queryresult"]["pods"]:
+#         if p["title"] == "Populations" or p["title"] == "Population":
+#             population_data = p["subpods"][0]["plaintext"]
+#             # find population from list and save
+#             temp_pop = format_nums(
+#                 population_data.split("|")[1].lstrip(" ").split(" ")[:2]
+#             )
+#             if temp_pop != 0:
+#                 city["population"] = temp_pop
+#                 city.save()
+#         elif p["title"] == "Geographic properties":
+#             area_data = p["subpods"][0]["plaintext"]
+#             density_data = p["subpods"][0]["plaintext"]
+#             # find area and density from list and save
+#             if len(area_data.split("|")) < 3:
+#                 temp_area = 0
+#             else:
+#                 temp_area = format_nums(
+#                     area_data.split("|")[2].lstrip(" ").split(" ")[:2]
+#                 )
+#             if temp_area != 0:
+#                 city["area"] = temp_area
+#                 city.save()
+#             if len(density_data.split("|")) < 3 or not density_data.__contains__(
+#                 "density"
+#             ):
+#                 temp_density = 0
+#             else:
+#                 temp_density = format_nums(
+#                     density_data.split("|")[len(density_data.split("|")) - 1]
+#                     .lstrip(" ")
+#                     .split(" ")[:2]
+#                 )
+#             if temp_density != 0:
+#                 city["population_density"] = temp_density
+#                 city.save()
+#         else:
+#             continue
 
 
 # for city in c:
@@ -137,4 +139,41 @@ for city in c:
 #     print(city["area"])
 #     print(city["population_density"])
 #     print()
+
+# short_ans_url = "http://api.wolframalpha.com/v1/result?appid=38LR3Q-5V34V3KX75"
+
+# for city in c:
+#     print(city["name"] + ", " + city["state"])
+#     r = requests.get(
+#         short_ans_url + "&i=median+age+" + city["name"] + "+" + city["state"] + "%3f"
+#     )
+#     try:   
+#         city["median_age"] = round(float(re.match(r'[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?', r.text).group()), 0)
+#         city.save()
+#     except AttributeError:
+#         continue
+
+for city in c:
+    print(city["name"] + ", " + city["state"])
+    source = requests.get('https://city-data.com/city/'+ city["name"].replace(' ', '-') + "-" + city["state"].replace(' ', '-') + ".html")
+    soup = BeautifulSoup(source.content, 'lxml')
+
+    try:
+        rent_data = soup.find('section', class_='median-rent')
+        rent_stat = rent_data.text.split(':')[1]
+        gross_rent = int(rent_stat.strip().lstrip('$').rstrip('.').replace(',', ''))
+        print(gross_rent)
+        city["median_gross_rent"] = gross_rent
+        city.save()
+    except AttributeError:
+        continue
+
+# source = requests.get('https://city-data.com/city/austin-texas.html')
+# soup = BeautifulSoup(source.content, 'lxml')
+
+# rent_data = soup.find('section', class_='median-rent')
+# rent_stat = rent_data.p.text.split(':')[1]
+
+# print(int(rent_stat.strip().lstrip('$').rstrip('.').replace(',', '')))
+
 Connector.disconnect_database()
