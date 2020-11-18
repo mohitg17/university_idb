@@ -937,6 +937,631 @@
       ],
       "value": "1\\n(current)"
     }]
+  }, {
+    "id": "6bd33d78-c101-4eb5-960c-27880bb02314",
+    "name": "search_uni",
+    "commands": [{
+      "id": "7c66b46c-12fe-45b4-a4a8-de4a49aaadb9",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f54b7022-8874-4192-bbbb-0b8139218473",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x826",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f1557469-feb7-4d14-9b40-1b0e4abc802a",
+      "comment": "",
+      "command": "click",
+      "target": "id=nav-link-universities",
+      "targets": [
+        ["id=nav-link-universities", "id"],
+        ["linkText=Universities", "linkText"],
+        ["css=#nav-link-universities", "css:finder"],
+        ["xpath=//a[contains(text(),'Universities')]", "xpath:link"],
+        ["xpath=//a[@id='nav-link-universities']", "xpath:attributes"],
+        ["xpath=//div[@id='collapsibleNavbar']/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/universities')]", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Universities')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d1a4288c-ee8e-4297-9304-406b2872b7c5",
+      "comment": "",
+      "command": "click",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5cfa7d4a-3376-45b9-9d73-11949adde28a",
+      "comment": "",
+      "command": "type",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": "rice"
+    }, {
+      "id": "a0f07e71-9ebc-4e52-a05b-de6e781b9a36",
+      "comment": "",
+      "command": "click",
+      "target": "id=search-button",
+      "targets": [
+        ["id=search-button", "id"],
+        ["css=#search-button", "css:finder"],
+        ["xpath=//button[@id='search-button']", "xpath:attributes"],
+        ["xpath=//form[3]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5ecaf500-f8c7-48e0-8e5a-df5b1d08ae16",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=5f9660bb81739c6287e0defa",
+      "targets": [
+        ["id=5f9660bb81739c6287e0defa", "id"],
+        ["css=#\\35 f9660bb81739c6287e0defa", "css:finder"],
+        ["xpath=//a[@id='5f9660bb81739c6287e0defa']", "xpath:attributes"],
+        ["xpath=//div[@id='instances']/div[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/university/Rice%20University')]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "498b8aa4-bb5b-44d0-80f3-844726096fef",
+      "comment": "",
+      "command": "click",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d711e745-44ff-4f91-9953-58bb2b26140f",
+      "comment": "",
+      "command": "type",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": "boston college"
+    }, {
+      "id": "acfdf05d-18e4-4b1e-8cde-dd5e1cded7f1",
+      "comment": "",
+      "command": "click",
+      "target": "css=.fa",
+      "targets": [
+        ["css=.fa", "css:finder"],
+        ["xpath=//button[@id='search-button']/i", "xpath:idRelative"],
+        ["xpath=//i", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a7a1b714-06c1-4d69-be67-8cc20b976b24",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=5f965cf181739c6287e0c510",
+      "targets": [
+        ["id=5f965cf181739c6287e0c510", "id"],
+        ["css=#\\35 f965cf181739c6287e0c510", "css:finder"],
+        ["xpath=//a[@id='5f965cf181739c6287e0c510']", "xpath:attributes"],
+        ["xpath=//div[@id='instances']/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/university/Boston%20College')]", "xpath:href"],
+        ["xpath=//div/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "500ea073-0501-40da-982e-b4c302173254",
+      "comment": "",
+      "command": "click",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "14f6a280-1455-488f-90d6-c3c917ff3bde",
+      "comment": "",
+      "command": "type",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": "austin"
+    }, {
+      "id": "6d53c846-25b4-495c-90bd-89bdc62788cc",
+      "comment": "",
+      "command": "click",
+      "target": "id=search-button",
+      "targets": [
+        ["css=.fa", "css:finder"],
+        ["xpath=//button[@id='search-button']/i", "xpath:idRelative"],
+        ["xpath=//i", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e9d7f0a5-555f-40e6-96e7-3d1a83cc55d3",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=5f965d5281739c6287e0c7c0",
+      "targets": [
+        ["id=5f965d5281739c6287e0c7c0", "id"],
+        ["css=#\\35 f965d5281739c6287e0c7c0", "css:finder"],
+        ["xpath=//a[@id='5f965d5281739c6287e0c7c0']", "xpath:attributes"],
+        ["xpath=//div[@id='instances']/div[7]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/university/The%20University%20of%20Texas%20at%20Austin')]", "xpath:href"],
+        ["xpath=//div[7]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "369df604-9be0-4c29-b8ef-18b677e69e3d",
+      "comment": "",
+      "command": "click",
+      "target": "id=5f965d5281739c6287e0c7c0",
+      "targets": [
+        ["id=5f965d5281739c6287e0c7c0", "id"],
+        ["css=#\\35 f965d5281739c6287e0c7c0", "css:finder"],
+        ["xpath=//a[@id='5f965d5281739c6287e0c7c0']", "xpath:attributes"],
+        ["xpath=//div[@id='instances']/div[7]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/university/The%20University%20of%20Texas%20at%20Austin')]", "xpath:href"],
+        ["xpath=//div[7]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6bafcd2c-3a93-417c-b625-dedab00e38a6",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.jumbotron > h1",
+      "targets": [
+        ["css=.jumbotron > h1", "css:finder"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'The University Of Texas At Austin')]", "xpath:innerText"]
+      ],
+      "value": "The University Of Texas At Austin"
+    }]
+  }, {
+    "id": "65c453b5-4b0c-49f8-a172-fc8ef7670abb",
+    "name": "search_city",
+    "commands": [{
+      "id": "28cd68e6-747b-42b7-a46a-aa991a752b4e",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a43c6e20-ecce-4936-9dc1-f40466319817",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x826",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3dda3ff9-a684-4b92-b689-f88b3a212b11",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Find Cities",
+      "targets": [
+        ["linkText=Find Cities", "linkText"],
+        ["css=.card-body > #home-cities-card", "css:finder"],
+        ["xpath=(//a[@id='home-cities-card'])[2]", "xpath:attributes"],
+        ["xpath=(//a[contains(@href, '/cities')])[3]", "xpath:href"],
+        ["xpath=//div[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Find Cities')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2040d260-ba18-41c6-95f8-f0b197c6724e",
+      "comment": "",
+      "command": "click",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1a57bbc4-2eca-46bd-a4ea-11c870959351",
+      "comment": "",
+      "command": "type",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": "boston"
+    }, {
+      "id": "a22eb705-912a-4274-9a4d-e7a1ba8d50be",
+      "comment": "",
+      "command": "click",
+      "target": "id=search-button",
+      "targets": [
+        ["id=search-button", "id"],
+        ["css=#search-button", "css:finder"],
+        ["xpath=//button[@id='search-button']", "xpath:attributes"],
+        ["xpath=//form[3]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e1b5e806-843a-439f-b79f-ddc1ad3210cd",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=5f964da7e2830ac627877e2f",
+      "targets": [
+        ["id=5f964da7e2830ac627877e2f", "id"],
+        ["css=#\\35 f964da7e2830ac627877e2f", "css:finder"],
+        ["xpath=//a[@id='5f964da7e2830ac627877e2f']", "xpath:attributes"],
+        ["xpath=//div[@id='instances']/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/city/Boston%2C%20Massachusetts')]", "xpath:href"],
+        ["xpath=//div/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "de9d371a-3ac1-4d84-a43e-1e747efa456c",
+      "comment": "",
+      "command": "click",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "70f9dbd1-0f38-4334-92eb-be8c28f7ed4f",
+      "comment": "",
+      "command": "type",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": "college station"
+    }, {
+      "id": "0236d506-d8a7-4a0f-acf7-ad3fee8ac495",
+      "comment": "",
+      "command": "click",
+      "target": "id=search-button",
+      "targets": [
+        ["css=.fa", "css:finder"],
+        ["xpath=//button[@id='search-button']/i", "xpath:idRelative"],
+        ["xpath=//i", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2b0addae-5108-4f4c-b9b2-07c1f555ba46",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=5f964ffae2830ac627878cb0",
+      "targets": [
+        ["id=5f964ffae2830ac627878cb0", "id"],
+        ["css=#\\35 f964ffae2830ac627878cb0", "css:finder"],
+        ["xpath=//a[@id='5f964ffae2830ac627878cb0']", "xpath:attributes"],
+        ["xpath=//div[@id='instances']/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/city/College%20Station%2C%20Texas')]", "xpath:href"],
+        ["xpath=//div/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fa892849-a630-4694-beb5-5d57f1a9fca5",
+      "comment": "",
+      "command": "click",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b14a54b0-adf3-444c-9fa3-3d76bae80d8f",
+      "comment": "",
+      "command": "type",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": "austin"
+    }, {
+      "id": "847c47fb-10fc-4067-9d06-bf9d17ac4f5b",
+      "comment": "",
+      "command": "click",
+      "target": "id=search-button",
+      "targets": [
+        ["id=search-button", "id"],
+        ["css=#search-button", "css:finder"],
+        ["xpath=//button[@id='search-button']", "xpath:attributes"],
+        ["xpath=//form[3]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bbf01110-b453-4f28-bb78-14b3e1f8301f",
+      "comment": "",
+      "command": "click",
+      "target": "id=5f964eb5e2830ac6278784b3",
+      "targets": [
+        ["id=5f964eb5e2830ac6278784b3", "id"],
+        ["css=#\\35 f964eb5e2830ac6278784b3", "css:finder"],
+        ["xpath=//a[@id='5f964eb5e2830ac6278784b3']", "xpath:attributes"],
+        ["xpath=//div[@id='instances']/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/city/Austin%2C%20Texas')]", "xpath:href"],
+        ["xpath=//div/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "67eb01dd-7062-469a-8931-1cac71daca02",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.row > h1",
+      "targets": [
+        ["css=.row > h1", "css:finder"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'Austin, Texas')]", "xpath:innerText"]
+      ],
+      "value": "Austin, Texas"
+    }]
+  }, {
+    "id": "3b11516f-3538-4cbf-baed-5a1c0e06eb0c",
+    "name": "search_major",
+    "commands": [{
+      "id": "56b61c4d-768c-43c3-b65a-2dd26c5edccf",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "319e9648-fac8-45d6-8533-e4747b62c886",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x826",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a5f13bb1-878b-4d41-bbe2-4ebee9a038b2",
+      "comment": "",
+      "command": "click",
+      "target": "id=nav-link-majors",
+      "targets": [
+        ["id=nav-link-majors", "id"],
+        ["linkText=Majors", "linkText"],
+        ["css=#nav-link-majors", "css:finder"],
+        ["xpath=//a[contains(text(),'Majors')]", "xpath:link"],
+        ["xpath=//a[@id='nav-link-majors']", "xpath:attributes"],
+        ["xpath=//div[@id='collapsibleNavbar']/ul/li[5]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/majors')]", "xpath:href"],
+        ["xpath=//li[5]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Majors')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "978ade7b-1473-443c-a8e6-ea8eeac24f85",
+      "comment": "",
+      "command": "click",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "df7bd2c7-e8a1-4e53-be30-c1510c31213c",
+      "comment": "",
+      "command": "type",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": "electric"
+    }, {
+      "id": "738633d9-3577-4000-8405-26569fd8bcdb",
+      "comment": "",
+      "command": "click",
+      "target": "css=.fa",
+      "targets": [
+        ["css=.fa", "css:finder"],
+        ["xpath=//button[@id='search-button']/i", "xpath:idRelative"],
+        ["xpath=//i", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4f90a462-a265-4569-b8e7-e37b27b417fe",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=5f99f946f30edd7dc73f92c2",
+      "targets": [
+        ["id=5f99f946f30edd7dc73f92c2", "id"],
+        ["css=#\\35 f99f946f30edd7dc73f92c2", "css:finder"],
+        ["xpath=//a[@id='5f99f946f30edd7dc73f92c2']", "xpath:attributes"],
+        ["xpath=//div[@id='instances']/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/major/Electrical%2BEngineering%2BTechnologies%252FTechnicians.')]", "xpath:href"],
+        ["xpath=//div/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "41b1a73d-e199-4d81-bbec-20e5a9333791",
+      "comment": "",
+      "command": "click",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b5b01112-6be5-445b-a185-09df2795d0bd",
+      "comment": "",
+      "command": "type",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": "mechanical engineering"
+    }, {
+      "id": "156d53c3-a3f2-44ea-beee-321193009c03",
+      "comment": "",
+      "command": "click",
+      "target": "css=.fa",
+      "targets": [
+        ["css=.fa", "css:finder"],
+        ["xpath=//button[@id='search-button']/i", "xpath:idRelative"],
+        ["xpath=//i", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f37b082c-2518-4dc4-9c3a-3c02d99f032c",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=5f99f8acf30edd7dc73f92a2",
+      "targets": [
+        ["id=5f99f8acf30edd7dc73f92a2", "id"],
+        ["css=#\\35 f99f8acf30edd7dc73f92a2", "css:finder"],
+        ["xpath=//a[@id='5f99f8acf30edd7dc73f92a2']", "xpath:attributes"],
+        ["xpath=//div[@id='instances']/div[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/major/Mechanical%2BEngineering.')]", "xpath:href"],
+        ["xpath=//div[3]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3c617003-ea69-41c3-9110-88d916304180",
+      "comment": "",
+      "command": "click",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "78d62c9f-6770-455e-87d3-a56bacbbf40b",
+      "comment": "",
+      "command": "type",
+      "target": "id=search-form-input",
+      "targets": [
+        ["id=search-form-input", "id"],
+        ["name=searchin", "name"],
+        ["css=#search-form-input", "css:finder"],
+        ["xpath=//input[@id='search-form-input']", "xpath:attributes"],
+        ["xpath=//form[3]/input", "xpath:position"]
+      ],
+      "value": "music"
+    }, {
+      "id": "f1aff873-e5f8-460d-8a62-b52c91fe423f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.fa",
+      "targets": [
+        ["css=.fa", "css:finder"],
+        ["xpath=//button[@id='search-button']/i", "xpath:idRelative"],
+        ["xpath=//i", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a7a32af3-7ff9-457e-95b8-9765c28ab358",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=5f99fa48f30edd7dc73f92f3",
+      "targets": [
+        ["id=5f99fa48f30edd7dc73f92f3", "id"],
+        ["css=#\\35 f99fa48f30edd7dc73f92f3", "css:finder"],
+        ["xpath=//a[@id='5f99fa48f30edd7dc73f92f3']", "xpath:attributes"],
+        ["xpath=//div[@id='instances']/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/major/Music.')]", "xpath:href"],
+        ["xpath=//div/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9ef6b8c5-8553-47a6-a531-41323284f4e9",
+      "comment": "",
+      "command": "click",
+      "target": "id=5f99fa48f30edd7dc73f92f3",
+      "targets": [
+        ["id=5f99fa48f30edd7dc73f92f3", "id"],
+        ["css=#\\35 f99fa48f30edd7dc73f92f3", "css:finder"],
+        ["xpath=//a[@id='5f99fa48f30edd7dc73f92f3']", "xpath:attributes"],
+        ["xpath=//div[@id='instances']/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/major/Music.')]", "xpath:href"],
+        ["xpath=//div/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f2fa3ba7-8d96-48e5-aa59-665b713bb435",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.jumbotron > h1",
+      "targets": [
+        ["css=h1:nth-child(1)", "css:finder"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'Music')]", "xpath:innerText"]
+      ],
+      "value": "Music"
+    }]
   }],
   "suites": [{
     "id": "9d6ac61e-e3ba-46fd-a14f-93fa2b3e4b50",

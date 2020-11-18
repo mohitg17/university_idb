@@ -49,6 +49,12 @@
         padding: 5px;
     }
 
+    .headers {
+            color: white;
+            background-color: #395C6B;
+            padding: 4px 0px 4px 5px;
+    }
+
     .footer {
         position: fixed;
         left: 0;
@@ -56,6 +62,10 @@
         width: 100%;
         text-align: center;
         background-color: var(--primary-background-color);
+    }
+
+    hr {
+        margin: 30px 0px;
     }
 </style>
 {% endblock %}
@@ -68,28 +78,71 @@
 
 <div class="row">
   <div class="col" style="background-color: #80A4ED; padding: 40px">
-    <h4 class="text-center">{{major_name}} at a Glance</h4>
-    <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#starting-salary">Average Starting Salary</button>
-      <div id="starting-salary" class="collapse">{{format_dollar_amt(major.average_earnings())}}</div>
-      <br>
-
-      <button data-toggle="collapse" type="button" class="btn btn-block" style="background-color: #395C6B" data-target="#mid-salary">Average Mid-Career Salary</button>
-      <div id="mid-salary" class="collapse">{{format_dollar_amt(major.average_mid_earnings())}}</div>
-      <br>
+    <h4 class="text-center" style="color: #0b5777;">Related Majors</h4>
+    <ul class="list-group list-group-flush">
+    {% for major in related_majors %}
+        <li class="list-group-item" style="background-color: #80A4ED;">
+            <a href="/major/{{major.name}}">
+                <h5 class="text-center" style="color: black; margin: 5px;">{{major.name}}</h5>
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
   </div>
   <div class="col-xl-9" style="padding: 40px">
-    <div>
-        <div style="float: left; height: 40%; width: 40%;">
-            <img src="/images/major/{{major.id}}" style="width: 100%; height: 100%; margin-bottom: 40px;"/>
-        </div>
-        <div class="align-middle" style="margin-bottom: 10%;">
-            <br /><br />
-            <h1 class="text-center" style="font-size: 500%;">~{{num_schools}}</h1>
-            <h1 class="text-center">Bachelor's Programs</h1>
+    <h2 class="headers" style="margin-bottom: 20px;">Description</h1>
+    <p style="margin-left: 4px; font-size: 20px; margin-bottom: 40px;">{{major.description}}</p>
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div>
+                    <img src="/images/major/{{major.id}}" style="width: 100%; height: 100%;"/>
+                </div>
+            </div>
+            <div class="col">
+                <div class="align-middle"">
+                    <br /><br />
+                    <h1 class="text-center" style="font-size: 500%;">~{{num_schools}}</h1>
+                    <h1 class="text-center">Bachelor's Programs</h1>
+                </div>
+            </div>
         </div>
     </div>
-     <h3 class="text-center">Colleges & Universities offering Bachelor's Degrees in {{major_name}}</h3>
-      <div class="container">
+    <hr />
+    <h2 class="headers" style="margin-bottom: 30px;">Salary Statistics</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3 id="starting-salary" class="text-center" style="font-size: 400%;">{{format_dollar_amt(major.average_earnings())}}</h3>
+                <h3 class="text-center">Average Starting Salary</h3>
+            </div>
+            <div class="col">
+                <h3 id="mid-salary" class="text-center" style="font-size: 400%;">{{format_dollar_amt(major.average_mid_earnings())}}</h3>
+                <h3 class="text-center">Average Mid-Career Salary</h3>
+            </div>
+        </div>
+    </div>
+    <h3 class="headers" style="margin-top: 30px; margin-bottom: 30px;">Suggested Cities with Universities offering Bachelor's Degrees in {{major_name}}</h3>
+    <div class="container">
+        <div class="card-columns">
+            {% for city in cities %}
+            <!-- TODO make image a background-image instead of img -->
+            <div
+                class="card h-100 main-button"
+                style="background-image:'/images/city/{{ city.id }}';"
+            >
+                <img class="card-img-top d-block" src="/images/city/{{ city.id }}" />
+                <div class="card-body bg-dark">
+                    <h6 class="centered text-white card-title">{{city.name}}</h6>
+                    <a href="/city/{{city.name}}" class="stretched-link"></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <h3 class="headers" style="margin-top: 30px; margin-bottom: 30px;">Colleges & Universities offering Bachelor's Degrees in {{major_name}}</h3>
+    <div class="container">
     <div class="card-columns">
         {% for uni in schools %}
         <!-- TODO make image a background-image instead of img -->
@@ -98,8 +151,10 @@
             style="background-image:'/images/university/{{ uni.id }}';"
         >
             <img class="card-img-top d-block" src="/images/university/{{ uni.id }}" />
-            <div class="centered text-white highlight">{{uni.school_name}}</div>
-            <a href="/university/{{uni.school_name}}" class="stretched-link"></a>
+            <div class="card-body bg-dark">
+                <h6 class="centered text-white card-title">{{uni.school_name}}</h6>
+                <a href="/university/{{uni.school_name}}" class="stretched-link"></a>
+            </div>
         </div>
         {% endfor %}
     </div>
