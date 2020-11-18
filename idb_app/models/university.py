@@ -128,3 +128,7 @@ class University(Document):
                                       "latest_student_size",
                                       "latest_cost_attendance_academic_year"],
                               labels=["School Name", "Acceptance Rate", "Size", "Cost of Attendance"])
+
+    @classmethod
+    def get_name_field(cls) -> str:
+        return "school_name"

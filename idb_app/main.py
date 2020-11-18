@@ -42,7 +42,7 @@ def majors_base():
     if order is None:
         order = "+"
     order_by = f"{order}{request.args.get('order_by')}"
-    filter_params = get_filter_parameters(request.args)
+    filter_params = get_filter_parameters(request.args, Major)
     majors = Major.objects(cip_code__ne=None, **filter_params).order_by(order_by).only(
         "name",
         "earnings_weighted_sum",
@@ -62,7 +62,7 @@ def cities_base():
     if order is None:
         order = "+"
     order_by = f"{order}{request.args.get('order_by')}"
-    filter_params = get_filter_parameters(request.args)
+    filter_params = get_filter_parameters(request.args, City)
     cities = City.objects(**filter_params).order_by(order_by).only(
         "name", "state", "population", "community_type", "area"
     )
@@ -78,7 +78,7 @@ def universities_base():
     if order is None:
         order = "+"
     order_by = f"{order}{request.args.get('order_by')}"
-    filter_params = get_filter_parameters(request.args)
+    filter_params = get_filter_parameters(request.args, University)
     universities = University.objects(**filter_params).order_by(order_by).only(
         "school_name",
         "school_state",
@@ -271,105 +271,6 @@ def suggestions_university():
     return render_template("search_results.html", text=names)
 
 
-# Does a search on a model and returns the rendered html of the model template with the search results
-@app.route("/search<string:model>")
-def search(model: str):
-    # Search text is passed in variable searchin
-    text = request.args.get("searchin")
-    # Query for universities that we want and create a model
-    objects = []
-    model = None
-    if model is "university":
-        objects = University.objects(school_name__icontains=text).only(
-            "school_name",
-            "school_state",
-            "latest_student_size",
-            "latest_cost_attendance_academic_year",
-            "id",
-        )
-        model = create_university_model(objects)
-    elif model is "city":
-        objects = City.objects(name__icontains=text).only(
-            "name",
-            "state",
-            "population",
-            "community_type",
-            "area",
-        )
-        model = create_city_model(objects)
-    elif model is "major":
-        objects = Major.objects(name__icontains=text).only(
-            "name",
-            "earnings_weighted_sum",
-            "earnings_count",
-            "num_bachelor_programs",
-            "cip_code",
-            "program_count_estimate",
-        )
-        model = create_major_model(objects)
-
-    # Render the model
-    return render_model(model)
-
-
-# Does a search and returns the rendered html of the model template with the search results
-@app.route("/searchuniversity")
-def search_university():
-    # Search text is passed in variable searchin
-    text = request.args.get("searchin")
-    # Query for universities that we want
-    objects = University.objects(school_name__icontains=text).only(
-        "school_name",
-        "school_state",
-        "latest_student_size",
-        "latest_cost_attendance_academic_year",
-        "id",
-    )
-    # Create a university model
-    model = create_university_model(objects)
-    # Render the university model
-    return render_model(model)
-
-
-# Does a search and returns the rendered html of the model template with the search results
-@app.route("/searchcity")
-def search_city():
-    # Search text is passed in variable searchin
-    text = request.args.get("searchin")
-    # Query for universities that we want
-    objects = City.objects(name__icontains=text).only(
-        "name",
-        "state",
-        "population",
-        "community_type",
-        "area",
-    )
-    # Create a city model
-    model = create_city_model(objects)
-    # Render the city model
-    return render_model(model)
-
-
-# Does a search and returns the rendered html of the model template with the search results
-@app.route("/searchmajor")
-def search_major():
-    # Search text is passed in variable searchin
-    text = request.args.get("searchin")
-    # Query for universities that we want
-    objects = Major.objects(name__icontains=text).only(
-        "name",
-        "earnings_weighted_sum",
-        "earnings_count",
-        "num_bachelor_programs",
-        "cip_code",
-        "program_count_estimate",
-    )
-    # Create a major model
-    model = create_major_model(objects)
-    # Render the major model
-    return render_model(model)
-
-
 # Returns a render of the model that is passed to it by handling the creation of pagination and calling render_template
 def render_model(model):
     page, _, _ = get_page_args(page_parameter="page", per_page_parameter="per_page")
@@ -391,11 +292,13 @@ def create_model(objects):
     return objects
 
 
-def get_filter_parameters(raw_params):
+def get_filter_parameters(raw_params, model):
     params = {}
     for k,v in raw_params.items():
         if "filter__" in k and v:
             params[k.replace("filter__","")] = v.strip()
+        elif k == "searchin" and v:
+            params[f"{model.get_name_field()}__icontains"] = v.strip()
     return params
 
 

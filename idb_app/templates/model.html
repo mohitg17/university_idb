@@ -87,38 +87,33 @@
 <div class="container">
     <div class="d-flex justify-content-center p-2 border">
         <div class="col-md-6 col-sm-7">
-            <h4>Sort</h4>
             <form method="GET">
+                <h4>Sort</h4>
                 {% for btn in model["sort_buttons"].buttons %}
                     <input type="radio" id="{{btn.html_id}}" name="{{btn.name}}" value="{{btn.value}}">
                     <label for="{{btn.html_id}}">{{btn.label}}</label><br>
                 {% endfor %}
                 <br>
                 <input type="radio" id="sort_descending" name="order" value="-">
-                <label for="sort_descending">Sort in descending order</label><br>
-                <button id="sort-button" type="submit">Sort</button>
-            </form>
-            <h4>Filter</h4>
-            <form method="GET">
-                {% for radio_button_set in model["filter_buttons"] %}
-                    <h6>{{radio_button_set.title}}</h6>
-                    {% for button in radio_button_set.buttons %}
-                        <input type="radio" id="{{button.html_id}}" name="{{button.name}}" value="{{button.value}}">
-                        <label for="{{button.html_id}}">{{button.label}}</label><br>
+                <label for="sort_descending">Sort in descending order</label><br><br>
+                <h4>Filter</h4>
+                    {% for radio_button_set in model["filter_buttons"] %}
+                        <h6>{{radio_button_set.title}}</h6>
+                        {% for button in radio_button_set.buttons %}
+                            <input type="radio" id="{{button.html_id}}" name="{{button.name}}" value="{{button.value}}">
+                            <label for="{{button.html_id}}">{{button.label}}</label><br>
+                        {% endfor %}
                     {% endfor %}
-                {% endfor %}
-                {% for text_input in model["filter_text"] %}
-                    <h6>{{text_input.placeholder}}</h6>
-                    <input class="form-control" id="{{text_input.html_id}}" type="text" placeholder="{{text_input.placeholder}}" aria-label="{{text_input.placeholder}}" name="{{text_input.name}}">
-                {% endfor %}
-                <button id="filter-button" type="submit">Filter</button>
-            </form>
-            <br>
-            <h4>Search</h4>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-            <form class="form-inline d-flex justify-content-center" action="search{{ model.type }}" method="GET">
+                    {% for text_input in model["filter_text"] %}
+                        <h6>{{text_input.placeholder}}</h6>
+                        <input class="form-control" id="{{text_input.html_id}}" type="text" placeholder="{{text_input.placeholder}}" aria-label="{{text_input.placeholder}}" name="{{text_input.name}}">
+                    {% endfor %}
+                <br>
+                <h4>Search</h4>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
                 <input class="form-control" id="search-form-input" type="text" placeholder="Search" aria-label="Search" name="searchin">
-                <button id="search-button" type="submit"><i class="fa fa-search"></i></button>
+                <br>
+                <button id="lookup-button" type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
     </div>

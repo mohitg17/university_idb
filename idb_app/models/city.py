@@ -42,3 +42,7 @@ class City(Document):
                                       "median_age",
                                       "population"],
                               labels=["Median Gross Rent", "Median Age", "Population"])
+
+    @classmethod
+    def get_name_field(cls) -> str:
+        return "name"

@@ -76,3 +76,7 @@ class Major(Document):
                                       "median_midcareer_salary",
                                       "num_bachelor_programs",],
                               labels=["Starting Salary", "Mid-Career Salary", "Number of Bachelor's Programs"])
+
+    @classmethod
+    def get_name_field(cls) -> str:
+        return "name"
