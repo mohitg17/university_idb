@@ -105,6 +105,7 @@ def major(major_name):
             return f"${int(amt):,}"
 
         schools = University.objects(majors_cip__ne=None, majors_cip=major_loaded.id)
+        cities = [school.school_city for school in schools[:3]]
         page, _, _ = get_page_args(page_parameter="page", per_page_parameter="per_page")
         per_page = 6
         offset = (page - 1) * per_page
@@ -121,6 +122,7 @@ def major(major_name):
             related_majors=related_majors,
             # TODO - would need to load this model from University data
             schools=schools,
+            cities=cities,
             num_schools=total,
             format_dollar_amt=format_dollar_amt,
             page=page,
@@ -143,6 +145,7 @@ def city(city_state):
         schools = University.objects(school_city=city_loaded)[
             offset : offset + per_page
         ]
+        suggested_majors = schools.first().majors_cip[:3] if (len(schools.first().majors_cip) > 3) else schools.first().majors_cip
         pagination = Pagination(
             page=page,
             per_page=per_page,
@@ -154,6 +157,7 @@ def city(city_state):
             city_name=str(city_loaded),
             city=city_loaded,
             schools=schools,
+            suggested_majors=suggested_majors,
             page=page,
             pagination=pagination,
         )

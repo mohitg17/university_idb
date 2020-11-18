@@ -14,6 +14,8 @@
             color: white;
             background-color: #395C6B;
             padding: 4px 0px 4px 5px;
+            margin-top: 30px;
+            margin-bottom: 30px;
         }
 
         .card-img-top {
@@ -95,10 +97,25 @@
                 <div class="col text-center"><h4>Population</h4></div>
                 <div class="col text-center"><h4>Population Density</h4></div>
             </div>
-            <hr />
         </div>
-        <h3 class="text-center" style="padding: 20px 0px;">Colleges & Universities in {{city_name}}</h3>
-        <div class="card-columns">
+        <div class="container">
+            <h3 class="text-center headers">Suggested Majors at Universities in {{city_name}}</h3>
+            <div class="card-columns">
+                {% for major in suggested_majors %}
+                <!-- TODO make image a background-image instead of img -->
+                <div
+                    class="card h-100 main-button"
+                    style="background-image:'/images/major/{{ major.id }}';"
+                >
+                    <img class="card-img-top d-block" src="/images/major/{{ major.id }}" />
+                    <div class="centered text-white highlight">{{major.name}}</div>
+                    <a href="/major/{{major.name}}" class="stretched-link"></a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <h3 class="text-center headers">Colleges & Universities in {{city_name}}</h3>
+        <div class="card-columns text-center">
             {% for uni in schools %}
             <!-- TODO make image a background-image instead of img -->
             <div
