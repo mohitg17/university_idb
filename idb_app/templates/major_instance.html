@@ -82,7 +82,7 @@
     <ul class="list-group list-group-flush">
     {% for major in related_majors %}
         <li class="list-group-item" style="background-color: #80A4ED;">
-            <a href="/major/{{major.name}}">
+            <a href="{{major.name|encode}}">
                 <h5 class="text-center" style="color: black; margin: 5px;">{{major.name}}</h5>
             </a>
         </li>

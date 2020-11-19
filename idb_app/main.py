@@ -3,6 +3,7 @@ import json
 from flask import Flask, render_template, url_for, make_response, redirect, request
 from flask_paginate import Pagination, get_page_args
 
+
 from idb_app.mongo import Connector
 from idb_app.models import (
     Major,
@@ -15,6 +16,10 @@ from idb_app.models import (
 
 
 app = Flask(__name__)
+
+@app.template_filter('encode')
+def encode(name):
+    return url_for("major", major_name=urllib.parse.quote_plus(name))
 
 # if connecting to remote DB, need a .env file to load password from
 Connector.load_database_creds()

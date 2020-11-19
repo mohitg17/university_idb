@@ -110,7 +110,7 @@
                     <img class="card-img-top d-block" src="/images/major/{{ major.id }}" />
                     <div class="card-body bg-dark">
                         <h6 class="centered text-white card-title">{{major.name}}</h6>
-                        <a href="/major/{{major.name}}" class="stretched-link"></a>
+                        <a href="{{major.name|encode}}" class="stretched-link"></a>
                     </div>
                 </div>
                 {% endfor %}
