@@ -84,39 +84,59 @@
     <h1 style="text-align: center">{{ model.title }}</h1>
 </div>
 
-<div class="container">
-    <div class="d-flex justify-content-center p-2 border">
-        <div class="col-md-6 col-sm-7">
-            <form method="GET">
-                <h4>Sort</h4>
-                {% for btn in model["sort_buttons"].buttons %}
-                    <input type="radio" id="{{btn.html_id}}" name="{{btn.name}}" value="{{btn.value}}">
-                    <label for="{{btn.html_id}}">{{btn.label}}</label><br>
-                {% endfor %}
-                <br>
-                <input type="radio" id="sort_descending" name="order" value="-">
-                <label for="sort_descending">Sort in descending order</label><br><br>
-                <h4>Filter</h4>
-                    {% for radio_button_set in model["filter_buttons"] %}
-                        <h6>{{radio_button_set.title}}</h6>
-                        {% for button in radio_button_set.buttons %}
-                            <input type="radio" id="{{button.html_id}}" name="{{button.name}}" value="{{button.value}}">
-                            <label for="{{button.html_id}}">{{button.label}}</label><br>
-                        {% endfor %}
+<div class="container" style="max-width: 1600px;">
+    <form method="GET">
+        <div class="row">
+            <div class="col-sm-*" style="margin-right: 5px;">
+                <label for="sort" style="font-weight: bold; margin-right: 5px;">Sort</label>
+                <select name="order_by" id="order_by">
+                    <option id="choose" name="choose" value="">Select</option>
+                    {% for btn in model["sort_buttons"].buttons %}
+                        <option id="{{btn.html_id}}" name="{{btn.name}}" value="{{btn.value}}">{{btn.label}}</option>
                     {% endfor %}
-                    {% for text_input in model["filter_text"] %}
-                        <h6>{{text_input.placeholder}}</h6>
-                        <input class="form-control" id="{{text_input.html_id}}" type="text" placeholder="{{text_input.placeholder}}" aria-label="{{text_input.placeholder}}" name="{{text_input.name}}">
+                </select>
+            </div>
+            <div class="col-xs-*" style="margin-right: 45px;">
+                <select name="order" id="order">
+                    <option value="">Ascending</option>
+                    <option value="-">Descending</option>
+                </select>
+            </div>
+            <div class="col-xs-4" style="margin-right: 20px;">
+                <h5 style="font-size: 18px;">Filter</h5>
+            </div>
+            {% for radio_button_set in model["filter_buttons"] %}
+            <div class="col-sm-*" style="margin-right: 10px;">
+                <label for="{{radio_button_set.set_name}}">{{radio_button_set.title}}</label>
+                <select name="{{radio_button_set.buttons[0].name}}" id="{{radio_button_set.buttons[0].name}}">
+                <option name="" id="" value="">Select</option>
+                    {% for button in radio_button_set.buttons %}
+                        <option id="{{button.html_id}}" name="{{button.name}}" value="{{button.value}}">{{button.label}}</option>
                     {% endfor %}
-                <br>
-                <h4>Search</h4>
+                </select>
+            </div>
+            {% endfor %}
+            {% for text_input in model["filter_text"] %}
+                <div class="col-xs-*">
+                    <h6>{{text_input.placeholder}}</h6>
+                </div>
+                <div class="col">
+                    <input class="form-control" id="{{text_input.html_id}}" type="text" placeholder="{{text_input.placeholder}}" aria-label="{{text_input.placeholder}}" name="{{text_input.name}}">
+                </div>
+            {% endfor %}
+            <div class="col-xs-*">
+                <h6>Search</h6>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            </div>
+            <div class="col">
                 <input class="form-control" id="search-form-input" type="text" placeholder="Search" aria-label="Search" name="searchin">
-                <br>
+            </div>
+            <div class="col-xs-*">
                 <button id="lookup-button" type="submit"><i class="fa fa-search"></i></button>
-            </form>
+            </div>
         </div>
-    </div>
+    </form>
+    <br />
     <div id="place_for_suggestions">
     </div>
 
