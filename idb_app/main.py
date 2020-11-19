@@ -369,11 +369,11 @@ def create_city_model(cities):
             ),
             "name": str(city),
             "id": city.id,
-            "attribute_1": {"name": "Population", "value": city.population},
+            "attribute_1": {"name": "Population", "value": city.population if not city.population == 10000 else "Unavailable"},
             "attribute_2": {"name": "Community Type", "value": city.community_type},
             "attribute_3": {
                 "name": "Area (square miles)",
-                "value": city.area,
+                "value": city.area if not city.area == 1000000 else "Unavailable",
             },
         }
         model["instances"].append(instance)
