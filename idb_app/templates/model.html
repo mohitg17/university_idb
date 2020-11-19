@@ -77,6 +77,20 @@
         background-color: var(--primary-background-color);
     }
 </style>
+
+<script>
+    // keep form input selected on page reload
+    window.onload = function () {
+	  	var url_string = window.location.href;
+		var url = new URL(url_string);
+		var params = url.searchParams;
+		params.forEach(function(value, key) {
+	  		var element = document.getElementById(key);
+	  		element.value = value;
+		});
+	}
+</script>
+
 <title>{{model.title}}</title>
 {% endblock %} {% block body %}
 
@@ -121,7 +135,7 @@
                     <h6>{{text_input.placeholder}}</h6>
                 </div>
                 <div class="col">
-                    <input class="form-control" id="{{text_input.html_id}}" type="text" placeholder="{{text_input.placeholder}}" aria-label="{{text_input.placeholder}}" name="{{text_input.name}}">
+                    <input class="form-control" id="{{text_input.name}}" type="text" placeholder="{{text_input.placeholder}}" aria-label="{{text_input.placeholder}}" name="{{text_input.name}}">
                 </div>
             {% endfor %}
             <div class="col-xs-*">
@@ -129,7 +143,7 @@
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
             </div>
             <div class="col">
-                <input class="form-control" id="search-form-input" type="text" placeholder="Search" aria-label="Search" name="searchin">
+                <input class="form-control" id="searchin" type="text" placeholder="Search" aria-label="Search" name="searchin">
             </div>
             <div class="col-xs-*">
                 <button id="lookup-button" type="submit"><i class="fa fa-search"></i></button>
