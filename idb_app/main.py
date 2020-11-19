@@ -42,6 +42,8 @@ def majors_base():
     if order is None:
         order = "+"
     order_by = f"{order}{request.args.get('order_by')}"
+    if len(order_by) == 1:
+        order_by = ""
     filter_params = get_filter_parameters(request.args, Major)
     majors = Major.objects(cip_code__ne=None, **filter_params).order_by(order_by).only(
         "name",
@@ -62,6 +64,8 @@ def cities_base():
     if order is None:
         order = "+"
     order_by = f"{order}{request.args.get('order_by')}"
+    if len(order_by) == 1:
+        order_by = ""
     filter_params = get_filter_parameters(request.args, City)
     cities = City.objects(**filter_params).order_by(order_by).only(
         "name", "state", "population", "community_type", "area"
@@ -78,6 +82,8 @@ def universities_base():
     if order is None:
         order = "+"
     order_by = f"{order}{request.args.get('order_by')}"
+    if len(order_by) == 1:
+        order_by = ""
     filter_params = get_filter_parameters(request.args, University)
     universities = University.objects(**filter_params).order_by(order_by).only(
         "school_name",
