@@ -198,16 +198,16 @@
         {% for instance in model.instances %}
         <!-- TODO make image a background-image instead of img -->
         <div
-            class="card h-100 main-button"
+            class="card h-100 main-button bg-light"
             style="background-image:'{{ instance.image_url }}';  min-height: 29rem; max-height: 29rem;"
         >
             <img class="card-img-top d-block" src="/images/{{ instance.model_type }}/{{ instance.id }}" />
             <div class="card-body">
                 <h5 class="card-title">{{instance.name.replace(".", "")}}</h5>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">{{instance.attribute_1['name']}}: {{instance.attribute_1['value']}}</li>
-                    <li class="list-group-item">{{instance.attribute_2['name']}}: {{instance.attribute_2['value']}}</li>
-                    <li class="list-group-item">{{instance.attribute_3['name']}}: {{instance.attribute_3['value']}}</li>
+                    <li class="list-group-item text-black bg-light">{{instance.attribute_1['name']}}: {{instance.attribute_1['value']}}</li>
+                    <li class="list-group-item text-black bg-light">{{instance.attribute_2['name']}}: {{instance.attribute_2['value']}}</li>
+                    <li class="list-group-item text-black bg-light">{{instance.attribute_3['name']}}: {{instance.attribute_3['value']}}</li>
                 </ul>
             </div>
             <a href="{{instance.page_url}}" id="{{ instance.id }}" class="stretched-link"></a>
