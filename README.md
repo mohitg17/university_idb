@@ -27,5 +27,5 @@ python -m idb_app.main
     -   Estimated: 11 hours
     -   Actual: 12 hours
 -   Mohit Gupta, mg58629, mohitg17:
-    -   Estimated: 12 hours
-    -   Actual: 15 hours
+    -   Estimated: 10 hours
+    -   Actual: 12 hours
