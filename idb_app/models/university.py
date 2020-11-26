@@ -179,3 +179,10 @@ class University(Document, AbstractModel):
             model["instances"].append(instance)
 
         return model
+
+    # the weird method-level import here is necessary to prevent a circular dependency
+    @classmethod
+    def get_image_class(cls):
+        from idb_app.models import UniversityImage
+
+        return UniversityImage

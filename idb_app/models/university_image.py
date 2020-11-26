@@ -1,3 +1,4 @@
+from flask import url_for
 from mongoengine import Document, DENY
 from mongoengine.fields import ReferenceField, ImageField, IntField
 
@@ -16,3 +17,11 @@ class UniversityImage(Document):
     # tracking this allows us to get better images if needed
     # assumes image queries are relatively stable over time
     result_number = IntField(default=0, required=True)
+
+    @classmethod
+    def get_default_img_url(cls):
+        return url_for("static", filename="generic_college.jpg")
+
+    @classmethod
+    def get_model_field_name(cls):
+        return "university"

@@ -36,3 +36,7 @@ class AbstractModel:
     @classmethod
     def create_models(cls, query_set):
         raise NotImplementedError
+
+    @classmethod
+    def get_image_class(cls):
+        raise NotImplementedError

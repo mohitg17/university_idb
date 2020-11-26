@@ -42,13 +42,11 @@ Connector.connect_prod_database()
 
 @app.route("/")
 def index():
-    # Connector.reconnect_prod_database()
     return render_template("index.html")
 
 
 @app.route("/about")
 def about():
-    # Connector.reconnect_prod_database()
     return render_template("about.html")
 
 
@@ -85,7 +83,6 @@ def universities_base():
 
 @app.route("/major/<string:major_name>")
 def major(major_name):
-    # Connector.reconnect_prod_database()
     decoded_name = urllib.parse.unquote_plus(major_name)
     major_loaded = Major.objects(name=decoded_name, cip_code__ne=None).first()
     related_majors = Major.objects(cip_family=major_loaded.cip_family).limit(10)
@@ -124,7 +121,6 @@ def major(major_name):
 
 @app.route("/city/<string:city_state>")
 def city(city_state):
-    # Connector.reconnect_prod_database()
     city_loaded = City.objects(
         name=city_state.split(",")[0], state=city_state.split(",")[1].lstrip(" ")
     ).first()
@@ -181,45 +177,17 @@ def university(university_name):
         )
 
 
-@app.route("/images/university/<string:university_id>")
-def get_uni_image(university_id: str):
-    # Connector.reconnect_prod_database()
-    uni_image = UniversityImage.objects(university=university_id).first()
-    if uni_image is None:
-        return redirect(url_for("static", filename="generic_college.jpg"))
-    image_binary = uni_image.image.read()
+@app.route("/images/<string:model_name>/<string:model_object_id>")
+def get_model_image(model_name: str, model_object_id: str):
+    img_class = get_model_from_string(model_name).get_image_class()
+    img_instance = img_class.objects(**{img_class.get_model_field_name(): model_object_id}).first()
+    if img_instance is None:
+        return redirect(img_class.get_default_img_url())
+    image_binary = img_instance.image.read()
     response = make_response(image_binary)
     response.headers.set("Content-Type", "image/jpeg")
     response.headers.set(
-        "Content-Disposition", "attachment", filename=f"{university_id}.jpg"
-    )
-    return response
-
-
-@app.route("/images/city/<string:city_id>")
-def get_city_image(city_id: str):
-    # Connector.reconnect_prod_database()
-    city_image = CityImage.objects(city=city_id).first()
-    if city_image is None:
-        return redirect(url_for("static", filename="generic_city.jpg"))
-    image_binary = city_image.image.read()
-    response = make_response(image_binary)
-    response.headers.set("Content-Type", "image/png")
-    response.headers.set("Content-Disposition", "attachment", filename=f"{city_id}.png")
-    return response
-
-
-@app.route("/images/major/<string:major_id>")
-def get_major_image(major_id: str):
-    # Connector.reconnect_prod_database()
-    major_image = MajorImage.objects(major=major_id).first()
-    if major_image is None:
-        return redirect(url_for("static", filename="generic_city.jpg"))
-    image_binary = major_image.image.read()
-    response = make_response(image_binary)
-    response.headers.set("Content-Type", "image/png")
-    response.headers.set(
-        "Content-Disposition", "attachment", filename=f"{major_id}.png"
+        "Content-Disposition", "attachment", filename=f"{model_object_id}.jpg"
     )
     return response
 

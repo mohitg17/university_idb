@@ -83,3 +83,9 @@ class City(Document, AbstractModel):
             model["instances"].append(instance)
 
         return model
+
+    @classmethod
+    def get_image_class(cls):
+        from idb_app.models import CityImage
+
+        return CityImage
