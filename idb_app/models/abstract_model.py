@@ -40,3 +40,8 @@ class AbstractModel:
     @classmethod
     def get_image_class(cls):
         raise NotImplementedError
+
+    # does it really make sense to bind together the data model with the details of how its viewed into one class...
+    # TODO consider moving these functionality into a View class or something
+    def get_template(self):
+        raise NotImplementedError

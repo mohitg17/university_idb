@@ -1,8 +1,9 @@
 import urllib.parse
 from typing import List
-from flask import url_for
 from mongoengine import Document
+from flask import url_for, render_template
 from mongoengine.fields import StringField, IntField
+from flask_paginate import Pagination, get_page_args
 
 from idb_app.models import choices, AbstractModel
 from idb_app.filtering.filtering_controls import TextInput, RadioButtonSet
@@ -139,4 +140,38 @@ class Major(Document, AbstractModel):
         from idb_app.models import MajorImage
 
         return MajorImage
+
+    def get_template(self):
+        from idb_app.models import University
+
+        related_majors = Major.objects(cip_family=self.cip_family).limit(10)
+
+        # TODO figure out a less hacky way to do this
+        def format_dollar_amt(amt: float) -> str:
+            return f"${int(amt):,}"
+
+        schools = University.objects(majors_cip__ne=None, majors_cip=self.id)
+        cities = [school.school_city for school in schools[:3]]
+        page, _, _ = get_page_args(page_parameter="page", per_page_parameter="per_page")
+        per_page = 6
+        offset = (page - 1) * per_page
+        total = len(schools)
+        schools = schools[offset: offset + per_page]
+        pagination = Pagination(
+            page=page, per_page=per_page, total=total, css_framework="bootstrap4"
+        )
+
+        return render_template(
+            "major_instance.html",
+            major_name=self.name.replace(".", ""),
+            major=self,
+            related_majors=related_majors,
+            # TODO - would need to load this model from University data
+            schools=schools,
+            cities=cities,
+            num_schools=total,
+            format_dollar_amt=format_dollar_amt,
+            page=page,
+            pagination=pagination,
+        )
 

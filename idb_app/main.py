@@ -8,9 +8,6 @@ from idb_app.models import (
     Major,
     City,
     University,
-    UniversityImage,
-    CityImage,
-    MajorImage,
 )
 
 
@@ -33,10 +30,9 @@ def get_model_from_string(s: str):
 def encode(name):
     return url_for("major", major_name=urllib.parse.quote_plus(name))
 
-# if connecting to remote DB, need a .env file to load password from
+
 Connector.load_database_creds()
 
-# switch to Connector.connect_prod_database() when done testing
 Connector.connect_prod_database()
 
 
@@ -81,42 +77,19 @@ def universities_base():
     return redirect("/base/university")
 
 
+@app.route("/instance/<string:model_name>/<string:object_id>")
+def instance(model_name: str, object_id: str):
+    return get_model_from_string(model_name).objects(id=object_id).first().get_template()
+
+
+# TODO see if this and the following 2 routes can be consolidated further or removed entirely
 @app.route("/major/<string:major_name>")
 def major(major_name):
     decoded_name = urllib.parse.unquote_plus(major_name)
     major_loaded = Major.objects(name=decoded_name, cip_code__ne=None).first()
-    related_majors = Major.objects(cip_family=major_loaded.cip_family).limit(10)
     if major_loaded is None:
         return f"Could not find major {decoded_name}"
-    else:
-        # TODO figure out a less hacky way to do this
-        def format_dollar_amt(amt: float) -> str:
-            return f"${int(amt):,}"
-
-        schools = University.objects(majors_cip__ne=None, majors_cip=major_loaded.id)
-        cities = [school.school_city for school in schools[:3]]
-        page, _, _ = get_page_args(page_parameter="page", per_page_parameter="per_page")
-        per_page = 6
-        offset = (page - 1) * per_page
-        total = len(schools)
-        schools = schools[offset : offset + per_page]
-        pagination = Pagination(
-            page=page, per_page=per_page, total=total, css_framework="bootstrap4"
-        )
-
-        return render_template(
-            "major_instance.html",
-            major_name=decoded_name.replace(".", ""),
-            major=major_loaded,
-            related_majors=related_majors,
-            # TODO - would need to load this model from University data
-            schools=schools,
-            cities=cities,
-            num_schools=total,
-            format_dollar_amt=format_dollar_amt,
-            page=page,
-            pagination=pagination,
-        )
+    return redirect(f"/instance/major/{major_loaded.id}")
 
 
 @app.route("/city/<string:city_state>")
@@ -126,55 +99,15 @@ def city(city_state):
     ).first()
     if city_loaded is None:
         return f"Could not find city {city_state}"
-    else:
-        page, _, _ = get_page_args(page_parameter="page", per_page_parameter="per_page")
-        per_page = 6
-        offset = (page - 1) * per_page
-        schools = University.objects(school_city=city_loaded)[
-            offset : offset + per_page
-        ]
-        suggested_majors = schools.first().majors_cip[:3] if (len(schools.first().majors_cip) > 3) else schools.first().majors_cip
-        pagination = Pagination(
-            page=page,
-            per_page=per_page,
-            total=len(University.objects(school_city=city_loaded)),
-            css_framework="bootstrap4",
-        )
-        return render_template(
-            "city_instance.html",
-            city_name=str(city_loaded),
-            city=city_loaded,
-            schools=schools,
-            suggested_majors=suggested_majors,
-            page=page,
-            pagination=pagination,
-        )
+    return redirect(f"/instance/city/{city_loaded.id}")
 
 
 @app.route("/university/<string:university_name>")
 def university(university_name):
-    # Connector.reconnect_prod_database()
-    # TODO may need more than just name to differentiate universities
     uni_loaded = University.objects(school_name=university_name).first()
     if uni_loaded is None:
         return f"Could not find university {university_name.replace('_', ' ').title()}"
-    else:
-        for property in uni_loaded:
-            if uni_loaded[property] == 0:
-                uni_loaded[property] = "NA"
-            if isinstance(uni_loaded[property], float):
-                uni_loaded[property] = round(float(uni_loaded[property] * 100), 4)
-        uni_loaded.majors_cip = [
-            list(set(uni_loaded.majors_cip))[i : i + 2]
-            for i in range(0, len(list(set(uni_loaded.majors_cip))), 2)
-        ]
-        return render_template(
-            "university_instance.html",
-            university_name=university_name.replace("_", " ").title(),
-            university=uni_loaded,
-            city_name=str(uni_loaded.school_city),
-            encode=urllib.parse.quote_plus,
-        )
+    return redirect(f"/instance/university/{uni_loaded.id}")
 
 
 @app.route("/images/<string:model_name>/<string:model_object_id>")

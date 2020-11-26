@@ -1,6 +1,7 @@
 from typing import List
-from flask import url_for
 from mongoengine import Document
+from flask import url_for, render_template
+from flask_paginate import Pagination, get_page_args
 from mongoengine.fields import StringField, FloatField, IntField
 
 from idb_app.models import choices, AbstractModel
@@ -89,3 +90,30 @@ class City(Document, AbstractModel):
         from idb_app.models import CityImage
 
         return CityImage
+
+    def get_template(self):
+        from idb_app.models import University
+
+        page, _, _ = get_page_args(page_parameter="page", per_page_parameter="per_page")
+        per_page = 6
+        offset = (page - 1) * per_page
+        schools = University.objects(school_city=self)[
+                  offset: offset + per_page
+                  ]
+        suggested_majors = schools.first().majors_cip[:3] if (
+                    len(schools.first().majors_cip) > 3) else schools.first().majors_cip
+        pagination = Pagination(
+            page=page,
+            per_page=per_page,
+            total=len(University.objects(school_city=self)),
+            css_framework="bootstrap4",
+        )
+        return render_template(
+            "city_instance.html",
+            city_name=str(self),
+            city=self,
+            schools=schools,
+            suggested_majors=suggested_majors,
+            page=page,
+            pagination=pagination,
+        )

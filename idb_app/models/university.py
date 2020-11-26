@@ -1,5 +1,5 @@
+import urllib.parse
 from typing import List
-from flask import url_for
 from mongoengine import Document, DENY
 from mongoengine.fields import (
     StringField,
@@ -8,6 +8,7 @@ from mongoengine.fields import (
     ListField,
     FloatField,
 )
+from flask import url_for, render_template
 
 from idb_app.models import City, Major, AbstractModel, choices
 from idb_app.filtering.filtering_controls import TextInput, RadioButtonSet
@@ -186,3 +187,21 @@ class University(Document, AbstractModel):
         from idb_app.models import UniversityImage
 
         return UniversityImage
+
+    def get_template(self):
+        for property in self:
+            if self[property] == 0:
+                self[property] = "NA"
+            if isinstance(self[property], float):
+                self[property] = round(float(self[property] * 100), 4)
+        self.majors_cip = [
+            list(set(self.majors_cip))[i : i + 2]
+            for i in range(0, len(list(set(self.majors_cip))), 2)
+        ]
+        return render_template(
+            "university_instance.html",
+            university_name=self.school_name.replace("_", " ").title(),
+            university=self,
+            city_name=str(self.school_city),
+            encode=urllib.parse.quote_plus,
+        )
