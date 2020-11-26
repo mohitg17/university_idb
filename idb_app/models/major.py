@@ -1,11 +1,14 @@
+import urllib.parse
 from typing import List
+from flask import url_for
 from mongoengine import Document
 from mongoengine.fields import StringField, IntField
 
-from idb_app.models import RadioButtonSet, TextInput, choices
+from idb_app.models import choices, AbstractModel
+from idb_app.filtering.filtering_controls import TextInput, RadioButtonSet
 
 
-class Major(Document):
+class Major(Document, AbstractModel):
     name = StringField(required=True, unique=True)
     description = StringField()
     # would be "science" or "social studies" or "engineering", etc. Exact choices we use depend on data set
@@ -74,9 +77,60 @@ class Major(Document):
                               set_name="order_by",
                               values=["median_starting_salary",
                                       "median_midcareer_salary",
-                                      "num_bachelor_programs",],
+                                      "num_bachelor_programs", ],
                               labels=["Starting Salary", "Mid-Career Salary", "Number of Bachelor's Programs"])
 
     @classmethod
     def get_name_field(cls) -> str:
         return "name"
+
+    @classmethod
+    def get_base_attributes(cls) -> List[str]:
+        return ["name",
+                "earnings_weighted_sum",
+                "earnings_count",
+                "num_bachelor_programs",
+                "cip_code",
+                "program_count_estimate"]
+
+    @classmethod
+    def base_queryset(cls):
+        return cls.objects(cip_code__ne=None)
+
+    @classmethod
+    def create_models(cls, queryset):
+        model = {"title": "Fields of Study & Majors",
+                 "type": "major",
+                 "instances": [],
+                 "filter_buttons": cls.get_filtering_buttons(),
+                 "filter_text": cls.get_filtering_text(),
+                 "sort_buttons": cls.get_sort_buttons(),
+                 }
+
+        # Mapping majors to an object that is passed to the template. Assumes naming scheme for page_url and image_url
+        for major in queryset:
+            instance = {
+                "model_type": "major",
+                "page_url": url_for(
+                    "major", major_name=urllib.parse.quote_plus(major.name)
+                ),
+                "image_url": url_for("static", filename=(major.name + ".jpg")),
+                "name": major.name.replace("_", " ").title(),
+                "id": major.id,
+                "attribute_1": {
+                    "name": "Average Starting Salary",
+                    "value": f"${int(major.average_earnings()):,}",
+                },
+                "attribute_2": {
+                    "name": "Average Mid-Career Salary",
+                    "value": f"${int(major.average_mid_earnings()):,}",
+                },
+                "attribute_3": {
+                    "name": "Number of Bachelor's Programs",
+                    "value": f"~{major.program_count_estimate:,}",
+                },
+            }
+            model["instances"].append(instance)
+
+        return model
+

@@ -1,5 +1,4 @@
 import urllib.parse
-import json
 from flask import Flask, render_template, url_for, make_response, redirect, request
 from flask_paginate import Pagination, get_page_args
 
@@ -16,6 +15,19 @@ from idb_app.models import (
 
 
 app = Flask(__name__)
+
+
+def get_model_from_string(s: str):
+    s_normalized = s.lower()
+    model_class = {
+        "major": Major,
+        "university": University,
+        "city": City,
+     }.get(s_normalized)
+    if model_class is None:
+        raise ValueError(f"{s} is not a known model class")
+    return model_class
+
 
 @app.template_filter('encode')
 def encode(name):
@@ -40,66 +52,35 @@ def about():
     return render_template("about.html")
 
 
-@app.route("/majors")
-def majors_base():
-    # Connector.reconnect_prod_database()
+@app.route("/base/<string:model_name>")
+def base(model_name: str):
+    model_class = get_model_from_string(model_name)
     order = request.args.get('order')
     if order is None:
         order = "+"
     order_by = f"{order}{request.args.get('order_by')}"
     if len(order_by) == 1:
         order_by = ""
-    filter_params = get_filter_parameters(request.args, Major)
-    majors = Major.objects(cip_code__ne=None, **filter_params).order_by(order_by).only(
-        "name",
-        "earnings_weighted_sum",
-        "earnings_count",
-        "num_bachelor_programs",
-        "cip_code",
-        "program_count_estimate",
-    )
-    model = create_major_model(majors)
+    filter_params = get_filter_parameters(request.args, model_class)
+    model_objects = model_class.base_queryset().filter(**filter_params).order_by(order_by).only(*model_class.get_base_attributes())
+    model = model_class.create_models(model_objects)
     return render_model(model)
+
+
+# TODO get rid of these and the other bases once we fix all links to this
+@app.route("/majors")
+def majors_base():
+    return redirect("/base/major")
 
 
 @app.route("/cities")
 def cities_base():
-    # Connector.reconnect_prod_database()
-    order = request.args.get('order')
-    if order is None:
-        order = "+"
-    order_by = f"{order}{request.args.get('order_by')}"
-    if len(order_by) == 1:
-        order_by = ""
-    filter_params = get_filter_parameters(request.args, City)
-    cities = City.objects(**filter_params).order_by(order_by).only(
-        "name", "state", "population", "community_type", "area"
-    )
-    model = create_city_model(cities)
-    # TODO image_url is currently linked to the wrong images
-    return render_model(model)
+    return redirect("/base/city")
 
 
 @app.route("/universities")
 def universities_base():
-    # Connector.reconnect_prod_database()
-    order = request.args.get('order')
-    if order is None:
-        order = "+"
-    order_by = f"{order}{request.args.get('order_by')}"
-    if len(order_by) == 1:
-        order_by = ""
-    filter_params = get_filter_parameters(request.args, University)
-    universities = University.objects(**filter_params).order_by(order_by).only(
-        "school_name",
-        "school_state",
-        "latest_student_size",
-        "latest_cost_attendance_academic_year",
-        "id",
-    )
-    model = create_university_model(universities)
-    # TODO image_url is currently linked to the wrong images
-    return render_model(model)
+    return redirect("/base/university")
 
 
 @app.route("/major/<string:major_name>")
@@ -302,11 +283,6 @@ def render_model(model):
     return render_template(
         "model.html", model=model, page=page, per_page=per_page, pagination=pagination
     )
-
-
-# TODO write this as an interface so that it can be called and will check the type of an object before calling the correct helper function
-def create_model(objects):
-    return objects
 
 
 def get_filter_parameters(raw_params, model):

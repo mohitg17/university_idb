@@ -1,4 +1,4 @@
-
+# technically represented with a html dropdown
 class RadioButton:
     def __init__(self, html_id:str, name:str, value:str, label:str):
         self.html_id = html_id
