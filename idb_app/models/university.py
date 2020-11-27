@@ -158,7 +158,7 @@ class University(Document, AbstractModel):
         for university in query_set:
             instance = {
                 "model_type": "university",
-                "page_url": url_for("university", university_name=university.school_name),
+                "page_url": url_for("instance", model_name="university", object_id=university.id),
                 "image_url": url_for(
                     "static", filename=(university.school_name.replace("_", " ") + ".jpg")
                 ),

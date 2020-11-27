@@ -26,11 +26,6 @@ def get_model_from_string(s: str):
     return model_class
 
 
-@app.template_filter('encode')
-def encode(name):
-    return url_for("major", major_name=urllib.parse.quote_plus(name))
-
-
 Connector.load_database_creds()
 
 Connector.connect_prod_database()
@@ -61,53 +56,9 @@ def base(model_name: str):
     return render_model(model)
 
 
-# TODO get rid of these and the other bases once we fix all links to this
-@app.route("/majors")
-def majors_base():
-    return redirect("/base/major")
-
-
-@app.route("/cities")
-def cities_base():
-    return redirect("/base/city")
-
-
-@app.route("/universities")
-def universities_base():
-    return redirect("/base/university")
-
-
 @app.route("/instance/<string:model_name>/<string:object_id>")
 def instance(model_name: str, object_id: str):
     return get_model_from_string(model_name).objects(id=object_id).first().get_template()
-
-
-# TODO see if this and the following 2 routes can be consolidated further or removed entirely
-@app.route("/major/<string:major_name>")
-def major(major_name):
-    decoded_name = urllib.parse.unquote_plus(major_name)
-    major_loaded = Major.objects(name=decoded_name, cip_code__ne=None).first()
-    if major_loaded is None:
-        return f"Could not find major {decoded_name}"
-    return redirect(f"/instance/major/{major_loaded.id}")
-
-
-@app.route("/city/<string:city_state>")
-def city(city_state):
-    city_loaded = City.objects(
-        name=city_state.split(",")[0], state=city_state.split(",")[1].lstrip(" ")
-    ).first()
-    if city_loaded is None:
-        return f"Could not find city {city_state}"
-    return redirect(f"/instance/city/{city_loaded.id}")
-
-
-@app.route("/university/<string:university_name>")
-def university(university_name):
-    uni_loaded = University.objects(school_name=university_name).first()
-    if uni_loaded is None:
-        return f"Could not find university {university_name.replace('_', ' ').title()}"
-    return redirect(f"/instance/university/{uni_loaded.id}")
 
 
 @app.route("/images/<string:model_name>/<string:model_object_id>")

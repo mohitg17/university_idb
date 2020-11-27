@@ -110,7 +110,7 @@
                     <img class="card-img-top d-block" src="/images/major/{{ major.id }}" />
                     <div class="card-body bg-dark">
                         <h6 class="centered text-white card-title">{{major.name}}</h6>
-                        <a href="{{major.name|encode}}" class="stretched-link"></a>
+                        <a href="/instance/major/{{major.id}}" class="stretched-link"></a>
                     </div>
                 </div>
                 {% endfor %}
@@ -127,7 +127,7 @@
                 <img class="card-img-top d-block" src="/images/university/{{ uni.id }}" />
                 <div class="card-body bg-dark">
                     <h6 class="centered text-white card-title">{{uni.school_name}}</h6>
-                    <a href="/university/{{uni.school_name}}" class="stretched-link"></a>
+                    <a href="/instance/university/{{uni.id}}" class="stretched-link"></a>
                 </div>
             </div>
             {% endfor %}

@@ -113,7 +113,7 @@ class Major(Document, AbstractModel):
             instance = {
                 "model_type": "major",
                 "page_url": url_for(
-                    "major", major_name=urllib.parse.quote_plus(major.name)
+                    "instance", model_name="major", object_id=major.id
                 ),
                 "image_url": url_for("static", filename=(major.name + ".jpg")),
                 "name": major.name.replace("_", " ").title(),

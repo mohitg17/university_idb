@@ -30,7 +30,7 @@
 <div>
     <div class="jumbotron" style="background-color: #395C6B;">
         <h1 style="color: white">{{university_name}}</h1>
-        <p><a href="/city/{{university.school_city}}" style="color: white">{{city_name}}</a></p>
+        <p><a href="/instance/city/{{university.school_city.id}}" style="color: white">{{city_name}}</a></p>
         
     </div>
 
@@ -59,7 +59,7 @@
             <div class="container" id="info" style="margin-bottom: 10px">
                 <h3 class="headers">School Info</h3>
                 <div style="width: 40%; float: left;">
-                    <h5 class="text-center" style="padding-top: 20%"><a href="/city/{{university.school_city}}">Location: {{city_name}}</a></h5>
+                    <h5 class="text-center" style="padding-top: 20%"><a href="/instance/city/{{university.school_city.id}}">Location: {{city_name}}</a></h5>
                     <h5 class="text-center">Main Campus: {{city_name}}</h5>
                     <h5 class="text-center">Website:
                         <a href="{{university.school_school_url}}" style="color: blue;">{{university.school_school_url}}</a>
@@ -75,11 +75,11 @@
                 {% for major_set in university.majors_cip %}
                 <div class="row">
                     <div class="col div-text">
-                        <a href="{{major_set[0].name|encode}}" class="stretched-link">{{ major_set[0].name|title }}</a>
+                        <a href="/instance/major/{{major_set[0].id}}" class="stretched-link">{{ major_set[0].name|title }}</a>
                     </div>
                     {% if major_set[1] %}
                     <div class="col div-text">
-                        <a href="{{major_set[1].name|encode}}" class="stretched-link">{{ major_set[1].name|title }}</a>
+                        <a href="/instance/major/{{major_set[1].id}}" class="stretched-link">{{ major_set[1].name|title }}</a>
                     </div>
                     {% endif %}
                 </div>

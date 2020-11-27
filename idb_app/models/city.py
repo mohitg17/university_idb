@@ -67,7 +67,7 @@ class City(Document, AbstractModel):
         for city in query_set:
             instance = {
                 "model_type": "city",
-                "page_url": url_for("city", city_state=city),
+                "page_url": url_for("instance", model_name="city", object_id=city.id),
                 "image_url": url_for(
                     "static", filename=(city.name + "_" + city.state + ".png")
                 ),
@@ -100,8 +100,8 @@ class City(Document, AbstractModel):
         schools = University.objects(school_city=self)[
                   offset: offset + per_page
                   ]
-        suggested_majors = schools.first().majors_cip[:3] if (
-                    len(schools.first().majors_cip) > 3) else schools.first().majors_cip
+        suggested_majors = set(schools.first().majors_cip[:3]) if (
+                    len(set(schools.first().majors_cip)) > 3) else set(schools.first().majors_cip)
         pagination = Pagination(
             page=page,
             per_page=per_page,
