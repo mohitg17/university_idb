@@ -154,45 +154,6 @@
     <div id="place_for_suggestions">
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-    <script>
-        // Search suggestions
-        $("#search-form-input").keyup(function(){
-            var text = $(this).val();
-
-            $.ajax({
-                url: "/suggestions/{{ model.type }}",
-                type: "get",
-                data: {jsdata: text},
-                success: function(response) {
-                    //$("#place_for_suggestions").html(response);
-            },
-            error: function(xhr) {
-                //Do Something to handle error
-            }
-            });
-        });
-
-        // Search functionality, this should not be used
-        // Instead, the form sends the request on submit
-        $("#search-button").click(function(){
-            var text = $("#search-form-input").val();
-
-            $.ajax({
-                //url: "/search/{{ model.type }}",
-                type: "get",
-                data: {jsdata: text},
-                success: function(response) {
-                    console.log("success")
-                    $("html").html(response);
-                },
-                error: function(xhr) {
-                    //Do Something to handle error
-                }
-            });
-        })
-    </script>
 
     <div class="card-columns" id="instances">
         {% for instance in model.instances %}
