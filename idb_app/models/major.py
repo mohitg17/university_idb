@@ -99,43 +99,6 @@ class Major(Document, AbstractModel):
         return cls.objects(cip_code__ne=None)
 
     @classmethod
-    def create_models(cls, queryset):
-        model = {"title": "Fields of Study & Majors",
-                 "type": "major",
-                 "instances": [],
-                 "filter_buttons": cls.get_filtering_buttons(),
-                 "filter_text": cls.get_filtering_text(),
-                 "sort_buttons": cls.get_sort_buttons(),
-                 }
-
-        # Mapping majors to an object that is passed to the template. Assumes naming scheme for page_url and image_url
-        for major in queryset:
-            instance = {
-                "model_type": "major",
-                "page_url": url_for(
-                    "instance", model_name="major", object_id=major.id
-                ),
-                "image_url": url_for("static", filename=(major.name + ".jpg")),
-                "name": major.name.replace("_", " ").title(),
-                "id": major.id,
-                "attribute_1": {
-                    "name": "Average Starting Salary",
-                    "value": f"${int(major.average_earnings()):,}",
-                },
-                "attribute_2": {
-                    "name": "Average Mid-Career Salary",
-                    "value": f"${int(major.average_mid_earnings()):,}",
-                },
-                "attribute_3": {
-                    "name": "Number of Bachelor's Programs",
-                    "value": f"~{major.program_count_estimate:,}",
-                },
-            }
-            model["instances"].append(instance)
-
-        return model
-
-    @classmethod
     def get_image_class(cls):
         from idb_app.models import MajorImage
 

@@ -4,6 +4,7 @@ from flask_paginate import Pagination, get_page_args
 
 
 from idb_app.mongo import Connector
+from idb_app.bases import BaseFactory
 from idb_app.models import (
     Major,
     City,
@@ -44,20 +45,7 @@ def about():
 @app.route("/base/<string:model_name>")
 def base(model_name: str):
     model_class = get_model_from_string(model_name)
-    order = request.args.get("order")
-    if order is None:
-        order = "+"
-    order_by = f"{order}{request.args.get('order_by')}"
-    if len(order_by) == 1:
-        order_by = ""
-    filter_params = get_filter_parameters(request.args, model_class)
-    model_objects = (
-        model_class.base_queryset()
-        .filter(**filter_params)
-        .order_by(order_by)
-        .only(*model_class.get_base_attributes())
-    )
-    model = model_class.create_models(model_objects)
+    model = BaseFactory.create_base(model_name, model_class)
     return render_model(model)
 
 
@@ -99,16 +87,6 @@ def render_model(model):
     return render_template(
         "model.html", model=model, page=page, per_page=per_page, pagination=pagination
     )
-
-
-def get_filter_parameters(raw_params, model):
-    params = {}
-    for k, v in raw_params.items():
-        if "filter__" in k and v:
-            params[k.replace("filter__", "")] = v.strip()
-        elif k == "searchin" and v:
-            params[f"{model.get_name_field()}__icontains"] = v.strip()
-    return params
 
 
 if __name__ == "__main__":

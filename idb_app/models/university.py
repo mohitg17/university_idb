@@ -143,44 +143,6 @@ class University(Document, AbstractModel):
                 "latest_cost_attendance_academic_year",
                 "id", ]
 
-    @classmethod
-    def create_models(cls, query_set):
-        model = {"title": "Universities",
-                 "type": "university",
-                 "instances": [],
-                 "filter_buttons": cls.get_filtering_buttons(),
-                 "filter_text": cls.get_filtering_text(),
-                 "sort_buttons": cls.get_sort_buttons(),
-                 }
-
-        # Mapping cities to an object that is passed to the template. Assumes naming scheme for page_url and image_url
-        # TODO image_url is currently linked to the wrong images
-        for university in query_set:
-            instance = {
-                "model_type": "university",
-                "page_url": url_for("instance", model_name="university", object_id=university.id),
-                "image_url": url_for(
-                    "static", filename=(university.school_name.replace("_", " ") + ".jpg")
-                ),
-                "name": university.school_name.replace("_", " ").title(),
-                "id": university.id,
-                "attribute_1": {"name": "State", "value": university.school_state},
-                "attribute_2": {
-                    "name": "Student Population",
-                    "value": university.latest_student_size,
-                },
-                "attribute_3": {
-                    "name": "Cost of Attendance",
-                    "value":
-                        university.latest_cost_attendance_academic_year
-                        if university.latest_cost_attendance_academic_year
-                        else "Unavailable",
-                },
-            }
-            model["instances"].append(instance)
-
-        return model
-
     # the weird method-level import here is necessary to prevent a circular dependency
     @classmethod
     def get_image_class(cls):

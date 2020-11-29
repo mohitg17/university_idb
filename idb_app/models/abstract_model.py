@@ -31,12 +31,6 @@ class AbstractModel:
     def base_queryset(cls):
         return cls.objects()
 
-    # packages model info in a way that can be used by the base page front end
-    # TODO pull out some of the repetition across model/city/uni implementations of this into base class
-    @classmethod
-    def create_models(cls, query_set):
-        raise NotImplementedError
-
     @classmethod
     def get_image_class(cls):
         raise NotImplementedError
