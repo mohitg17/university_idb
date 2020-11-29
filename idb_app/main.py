@@ -4,7 +4,7 @@ from flask_paginate import Pagination, get_page_args
 
 
 from idb_app.mongo import Connector
-from idb_app.bases import BaseFactory
+from idb_app.bases import UniversityFactory, CityFactory, MajorFactory
 from idb_app.models import (
     Major,
     City,
@@ -26,6 +26,17 @@ def get_model_from_string(s: str):
         raise ValueError(f"{s} is not a known model class")
     return model_class
 
+def get_factory_from_string(s: str):
+    s_normalized = s.lower()
+    factory = {
+        "major": MajorFactory,
+        "university": UniversityFactory,
+        "city": CityFactory,
+    }.get(s_normalized)
+    if factory is None:
+        raise ValueError(f"{s} is not a known model class")
+    return factory
+
 
 Connector.load_database_creds()
 
@@ -44,8 +55,9 @@ def about():
 
 @app.route("/base/<string:model_name>")
 def base(model_name: str):
+    factory = get_factory_from_string(model_name)
     model_class = get_model_from_string(model_name)
-    model = BaseFactory.create_base(model_name, model_class)
+    model = factory.build_base(model_class)
     return render_model(model)
 
 
