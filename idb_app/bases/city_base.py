@@ -21,11 +21,11 @@ class CityBase(AbstractBase):
                 "name": str(city),
                 "id": city.id,
                 "attribute_1": {"name": "Population",
-                                "value": city.population if not city.population == 10000 else "Unavailable"},
+                                "value": city.population if not city.population == 0 else "Unavailable"},
                 "attribute_2": {"name": "Community Type", "value": city.community_type},
                 "attribute_3": {
                     "name": "Area (square miles)",
-                    "value": city.area if not city.area == 1000000 else "Unavailable",
+                    "value": city.area if not city.area == 0 else "Unavailable",
                 },
             }
             instances.append(instance)

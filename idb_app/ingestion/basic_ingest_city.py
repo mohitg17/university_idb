@@ -51,7 +51,7 @@ example_cities = [
 #     c = City(**city)
 #     c.save()
 
-c = City.objects().skip(3)
+c = City.objects(area=1000000)
 
 base_url = "http://api.wolframalpha.com/v2/query?appid=38LR3Q-5V34V3KX75"
 
@@ -153,20 +153,20 @@ base_url = "http://api.wolframalpha.com/v2/query?appid=38LR3Q-5V34V3KX75"
 #     except AttributeError:
 #         continue
 
-for city in c:
-    print(city["name"] + ", " + city["state"])
-    source = requests.get('https://city-data.com/city/'+ city["name"].replace(' ', '-') + "-" + city["state"].replace(' ', '-') + ".html")
-    soup = BeautifulSoup(source.content, 'lxml')
+# for city in c:
+#     print(city["name"] + ", " + city["state"])
+#     source = requests.get('https://city-data.com/city/'+ city["name"].replace(' ', '-') + "-" + city["state"].replace(' ', '-') + ".html")
+#     soup = BeautifulSoup(source.content, 'lxml')
 
-    try:
-        rent_data = soup.find('section', class_='median-rent')
-        rent_stat = rent_data.text.split(':')[1]
-        gross_rent = int(rent_stat.strip().lstrip('$').rstrip('.').replace(',', ''))
-        print(gross_rent)
-        city["median_gross_rent"] = gross_rent
-        city.save()
-    except AttributeError:
-        continue
+#     try:
+#         rent_data = soup.find('section', class_='median-rent')
+#         rent_stat = rent_data.text.split(':')[1]
+#         gross_rent = int(rent_stat.strip().lstrip('$').rstrip('.').replace(',', ''))
+#         print(gross_rent)
+#         city["median_gross_rent"] = gross_rent
+#         city.save()
+#     except AttributeError:
+#         continue
 
 # source = requests.get('https://city-data.com/city/austin-texas.html')
 # soup = BeautifulSoup(source.content, 'lxml')
@@ -175,5 +175,15 @@ for city in c:
 # rent_stat = rent_data.p.text.split(':')[1]
 
 # print(int(rent_stat.strip().lstrip('$').rstrip('.').replace(',', '')))
+
+for city in c:
+    print(city["name"])
+    if city["population"] == 10000:
+        city["population"] = 0
+    if city["population_density"] == 10000:
+        city["population_density"] = 0
+    if city["area"] == 1000000:
+        city["area"] = 0
+    city.save()
 
 Connector.disconnect_database()
