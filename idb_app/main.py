@@ -92,7 +92,9 @@ def render_model(model):
     offset = (page - 1) * per_page
     total = len(model["instances"])
     if total is not 0:
-        model["instances"] = model["instances"][offset : offset + per_page]
+        instances = model["instances"][offset : offset + per_page]
+        order = [0, 3, 6, 9, 12, 15, 1, 4, 7, 10, 13, 16, 2, 5, 8, 11, 14, 17]
+        model["instances"] = [instances[i] for i in [j for j in order if j < len(instances)]]
     pagination = Pagination(
         page=page, per_page=per_page, total=total, css_framework="bootstrap4"
     )
