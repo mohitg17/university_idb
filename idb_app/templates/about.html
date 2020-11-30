@@ -97,14 +97,18 @@
         <a href="https://www.karllhughes.com/posts/database-of-accredited-colleges-in-the-united-states" style="color: white">College's API</a>
         <br>
         <br>
-        Our tech stack: <br>
-        <a href="https://flask.palletsprojects.com/en/1.1.x/" style="color: white">Flask</a>
-        <br>
+        Our tech stack: <br><br>
+        <a href="https://flask.palletsprojects.com/en/1.1.x/" style="color: white">Flask</a> <br>
+        Our backend framework is flask, a microservices framework for python. Flask is useful in that it is lightweight: it was trivially simple to set up the server and start running it locally. When we want to add new pages, we simply add a route for the new page. We also took advantage of Flask’s template mechanics. Using flask templates, we dynamically generate instance pages for our major, university, and city models. This allows us to reuse the same HTML, instead of adding hundreds of nearly identical HTML files for each university.
+        <br><br>
         <a href="https://getbootstrap.com/" style="color: white">Bootstrap</a>
         <br>
-        <a href="https://www.mongodb.com/" style="color: white">MongoDB</a> & <a href="http://mongoengine.org/" style="color: white">mongoengine</a> -- to be integrated
+        Our frontend framework is bootstrap, which we use alongside HTML and CSS to design our web pages. Bootstrap has been crucial for allowing our pages to be reactive. The pages in our site dynamically resize based on the size of the viewport, allowing our format to remain robust and look clean, despite the window size limitations of the user. 
+        <br><br>
+        <a href="https://www.mongodb.com/" style="color: white">MongoDB</a> & <a href="http://mongoengine.org/" style="color: white">mongoengine</a>
         <br>
-        <br>
+        All of our data is dynamically pulled from MongoDB, including the images for every model instance. Our models are defined with MongoEngine, an open-source Python Object-Document Mapper. MongoEngine will allow us to define “schemas” (MongoDB does not technically have schemas since it’s NoSQL) with python objects, so we can interact with our database purely in terms of University, Major, and City python objects that we design.
+        <br><br>
         <a href="https://github.com/UT-SWLab/TeamE3" style="color: white">Our github repo</a>
         <br>
     </p>
