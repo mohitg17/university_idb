@@ -147,7 +147,7 @@ base_url = "http://api.wolframalpha.com/v2/query?appid=38LR3Q-5V34V3KX75"
 #     r = requests.get(
 #         short_ans_url + "&i=median+age+" + city["name"] + "+" + city["state"] + "%3f"
 #     )
-#     try:   
+#     try:
 #         city["median_age"] = round(float(re.match(r'[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?', r.text).group()), 0)
 #         city.save()
 #     except AttributeError:

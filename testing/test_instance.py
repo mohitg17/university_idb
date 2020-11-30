@@ -107,7 +107,7 @@ class TestDB(unittest.TestCase):
             40.0,
             65.34,
             4377.7411,
-            -8842.0638
+            -8842.0638,
         ]
         self.assertEqual(actual, expected)
 

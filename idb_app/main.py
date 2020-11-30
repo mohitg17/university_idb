@@ -25,6 +25,7 @@ def get_model_from_string(s: str):
         raise ValueError(f"{s} is not a known model class")
     return model_class
 
+
 def get_factory_from_string(s: str):
     s_normalized = s.lower()
     factory = {

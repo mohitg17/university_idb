@@ -2,8 +2,8 @@ from idb_app.bases import UniversityBase, CityBase, MajorBase
 from abc import ABC, abstractmethod
 from flask import request
 
-class BaseFactory(ABC):
 
+class BaseFactory(ABC):
     @classmethod
     def get_filter_parameters(cls, raw_params, model):
         params = {}
@@ -13,7 +13,7 @@ class BaseFactory(ABC):
             elif k == "searchin" and v:
                 params[f"{model.get_name_field()}__icontains"] = v.strip()
         return params
-    
+
     @classmethod
     def get_model_objects(cls, model_class):
         order = request.args.get("order")

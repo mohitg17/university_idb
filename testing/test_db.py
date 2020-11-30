@@ -13,7 +13,7 @@ class TestDB(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         Connector.disconnect_database()
-    
+
     def test_uni_query(self):
         self.uni = University.objects(school_name="Harvard University").first()
         self.assertEqual(self.uni.id, ObjectId("5f965e1b81739c6287e0ccf8"))
@@ -101,8 +101,13 @@ class TestDB(unittest.TestCase):
         self.major.save()
 
     def test_create_major(self):
-        major_params = {'name': 'Dummy', 'cip_code': '003830', 
-        'earnings_weighted_sum': 817263800, 'earnings_count': 11503, 'program_count_estimate': 588}
+        major_params = {
+            "name": "Dummy",
+            "cip_code": "003830",
+            "earnings_weighted_sum": 817263800,
+            "earnings_count": 11503,
+            "program_count_estimate": 588,
+        }
         major = Major(**major_params)
         major.save()
         major = Major.objects(name="Dummy").first()
@@ -110,9 +115,18 @@ class TestDB(unittest.TestCase):
         major.delete()
 
     def test_create_city(self):
-        city_params = {'name': 'Dummy', 'state': 'Texas', 'area': 297.9, 'population': 950715, 
-        'population_density': 3191, 'community_type': 'City', 'median_age': 33, 
-        'median_gross_rent': 1000, 'latitude': 30.267153, 'longitude': -97.7430608}
+        city_params = {
+            "name": "Dummy",
+            "state": "Texas",
+            "area": 297.9,
+            "population": 950715,
+            "population_density": 3191,
+            "community_type": "City",
+            "median_age": 33,
+            "median_gross_rent": 1000,
+            "latitude": 30.267153,
+            "longitude": -97.7430608,
+        }
         city = City(**city_params)
         city.save()
         city = City.objects(name="Dummy").first()
@@ -120,12 +134,14 @@ class TestDB(unittest.TestCase):
         city.delete()
 
     def test_create_university(self):
-        uni_params = {'school_name': 'Dummy University', 
-        'school_city': City.objects(name="Cambridge").first(), 
-        'school_state': 'Massachusetts', 
-        'school_school_url': 'https://harvard.edu', 
-        'school_degrees_awarded_predominant': "Bachelor's", 
-        'school_degrees_awarded_highest': 'Graduate'}
+        uni_params = {
+            "school_name": "Dummy University",
+            "school_city": City.objects(name="Cambridge").first(),
+            "school_state": "Massachusetts",
+            "school_school_url": "https://harvard.edu",
+            "school_degrees_awarded_predominant": "Bachelor's",
+            "school_degrees_awarded_highest": "Graduate",
+        }
         uni = University(**uni_params)
         uni.save()
         uni = University.objects(school_name="Dummy University").first()
@@ -133,8 +149,13 @@ class TestDB(unittest.TestCase):
         uni.delete()
 
     def test_delete_major(self):
-        major_params = {'name': 'Dummy', 'cip_code': '003830', 
-        'earnings_weighted_sum': 817263800, 'earnings_count': 11503, 'program_count_estimate': 588}
+        major_params = {
+            "name": "Dummy",
+            "cip_code": "003830",
+            "earnings_weighted_sum": 817263800,
+            "earnings_count": 11503,
+            "program_count_estimate": 588,
+        }
         major = Major(**major_params)
         major.save()
         major = Major.objects(name="Dummy").first()
@@ -143,9 +164,18 @@ class TestDB(unittest.TestCase):
         self.assertFalse(major)
 
     def test_delete_city(self):
-        city_params = {'name': 'Dummy', 'state': 'Texas', 'area': 297.9, 'population': 950715, 
-        'population_density': 3191, 'community_type': 'City', 'median_age': 33, 
-        'median_gross_rent': 1000, 'latitude': 30.267153, 'longitude': -97.7430608}
+        city_params = {
+            "name": "Dummy",
+            "state": "Texas",
+            "area": 297.9,
+            "population": 950715,
+            "population_density": 3191,
+            "community_type": "City",
+            "median_age": 33,
+            "median_gross_rent": 1000,
+            "latitude": 30.267153,
+            "longitude": -97.7430608,
+        }
         city = City(**city_params)
         city.save()
         city = City.objects(name="Dummy").first()
@@ -154,12 +184,14 @@ class TestDB(unittest.TestCase):
         self.assertFalse(city)
 
     def test_delete_university(self):
-        uni_params = {'school_name': 'Dummy University', 
-        'school_city': City.objects(name="Cambridge").first(), 
-        'school_state': 'Massachusetts', 
-        'school_school_url': 'https://harvard.edu', 
-        'school_degrees_awarded_predominant': "Bachelor's", 
-        'school_degrees_awarded_highest': 'Graduate'}
+        uni_params = {
+            "school_name": "Dummy University",
+            "school_city": City.objects(name="Cambridge").first(),
+            "school_state": "Massachusetts",
+            "school_school_url": "https://harvard.edu",
+            "school_degrees_awarded_predominant": "Bachelor's",
+            "school_degrees_awarded_highest": "Graduate",
+        }
         uni = University(**uni_params)
         uni.save()
         uni = University.objects(school_name="Dummy University").first()
@@ -168,31 +200,49 @@ class TestDB(unittest.TestCase):
         self.assertFalse(uni)
 
     def test_search_university(self):
-        objects = University.objects(school_name__icontains="University of Texas").only("school_name").limit(10)
+        objects = (
+            University.objects(school_name__icontains="University of Texas")
+            .only("school_name")
+            .limit(10)
+        )
         names = [object.school_name for object in objects]
-        expected = ['The University of Texas Health Science Center at Houston', 
-        'The University of Texas Health Science Center at San Antonio', 
-        'The University of Texas MD Anderson Cancer Center', 'The University of Texas Medical Branch at Galveston', 
-        'The University of Texas Rio Grande Valley', 'The University of Texas at Arlington', 
-        'The University of Texas at Austin', 'The University of Texas at Dallas', 'The University of Texas at El Paso', 
-        'The University of Texas at San Antonio']
+        expected = [
+            "The University of Texas Health Science Center at Houston",
+            "The University of Texas Health Science Center at San Antonio",
+            "The University of Texas MD Anderson Cancer Center",
+            "The University of Texas Medical Branch at Galveston",
+            "The University of Texas Rio Grande Valley",
+            "The University of Texas at Arlington",
+            "The University of Texas at Austin",
+            "The University of Texas at Dallas",
+            "The University of Texas at El Paso",
+            "The University of Texas at San Antonio",
+        ]
         self.assertEqual(names, expected)
 
     def test_search_major(self):
         objects = Major.objects(name__icontains="Engineering").only("name").limit(10)
         names = [object.name for object in objects]
-        expected = ['Aerospace, Aeronautical and Astronautical Engineering.', 
-        'Agricultural Engineering.', 'Architectural Engineering Technologies/Technicians.', 
-        'Architectural Engineering.', 'Biochemical Engineering.', 'Biological/Biosystems Engineering.', 
-        'Biomedical/Medical Engineering.', 'Ceramic Sciences and Engineering.', 'Chemical Engineering.', 
-        'Civil Engineering Technologies/Technicians.']
+        expected = [
+            "Aerospace, Aeronautical and Astronautical Engineering.",
+            "Agricultural Engineering.",
+            "Architectural Engineering Technologies/Technicians.",
+            "Architectural Engineering.",
+            "Biochemical Engineering.",
+            "Biological/Biosystems Engineering.",
+            "Biomedical/Medical Engineering.",
+            "Ceramic Sciences and Engineering.",
+            "Chemical Engineering.",
+            "Civil Engineering Technologies/Technicians.",
+        ]
         self.assertEqual(names, expected)
 
     def test_search_city(self):
         objects = City.objects(name__icontains="Los").only("name").limit(10)
         names = [object.name for object in objects]
-        expected = ['Los Angeles', 'Palos Heights', 'Los Alamitos']
+        expected = ["Los Angeles", "Palos Heights", "Los Alamitos"]
         self.assertEqual(names, expected)
+
 
 if __name__ == "__main__":
     unittest.main()

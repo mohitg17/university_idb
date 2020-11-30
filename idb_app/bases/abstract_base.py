@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class AbstractBase(ABC):
     @property
     @abstractmethod
@@ -29,7 +30,7 @@ class AbstractBase(ABC):
     @abstractmethod
     def build_instances(self, query_set):
         raise NotImplementedError
-    
+
     def create_base(self, query_set):
         base = {
             "title": self.title,
@@ -38,5 +39,5 @@ class AbstractBase(ABC):
             "filter_buttons": self.filter_buttons,
             "filter_text": self.filter_text,
             "sort_buttons": self.sort_buttons,
-            }
+        }
         return base

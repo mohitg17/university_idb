@@ -107,29 +107,43 @@ class University(Document, AbstractModel):
 
     @classmethod
     def get_filtering_buttons(cls) -> List[RadioButtonSet]:
-        size_button_set = RadioButtonSet(title="School Size",
-                                         set_name="filter__size",
-                                         values=choices.UNI_SIZE_CHOICES,
-                                         labels=choices.UNI_SIZE_CHOICES)
-        cost_button_set = RadioButtonSet(title="Cost of Attendance",
-                                         set_name="filter__cost_category",
-                                         values=choices.COST_CATEGORY_CHOICES,
-                                         labels=choices.COST_CATEGORY_CHOICES)
+        size_button_set = RadioButtonSet(
+            title="School Size",
+            set_name="filter__size",
+            values=choices.UNI_SIZE_CHOICES,
+            labels=choices.UNI_SIZE_CHOICES,
+        )
+        cost_button_set = RadioButtonSet(
+            title="Cost of Attendance",
+            set_name="filter__cost_category",
+            values=choices.COST_CATEGORY_CHOICES,
+            labels=choices.COST_CATEGORY_CHOICES,
+        )
         return [size_button_set, cost_button_set]
 
     @classmethod
     def get_filtering_text(cls) -> List[TextInput]:
-        return [TextInput(html_id="state_filter_input", name="filter__school_state__iexact", placeholder="State")]
+        return [
+            TextInput(
+                html_id="state_filter_input",
+                name="filter__school_state__iexact",
+                placeholder="State",
+            )
+        ]
 
     @classmethod
     def get_sort_buttons(cls) -> RadioButtonSet:
-        return RadioButtonSet(title="Sort By",
-                              set_name="order_by",
-                              values=["school_name",
-                                      "latest_admissions_admission_rate_overall",
-                                      "latest_student_size",
-                                      "latest_cost_attendance_academic_year"],
-                              labels=["School Name", "Acceptance Rate", "Size", "Cost of Attendance"])
+        return RadioButtonSet(
+            title="Sort By",
+            set_name="order_by",
+            values=[
+                "school_name",
+                "latest_admissions_admission_rate_overall",
+                "latest_student_size",
+                "latest_cost_attendance_academic_year",
+            ],
+            labels=["School Name", "Acceptance Rate", "Size", "Cost of Attendance"],
+        )
 
     @classmethod
     def get_name_field(cls) -> str:
@@ -137,11 +151,13 @@ class University(Document, AbstractModel):
 
     @classmethod
     def get_base_attributes(cls) -> List[str]:
-        return ["school_name",
-                "school_state",
-                "latest_student_size",
-                "latest_cost_attendance_academic_year",
-                "id", ]
+        return [
+            "school_name",
+            "school_state",
+            "latest_student_size",
+            "latest_cost_attendance_academic_year",
+            "id",
+        ]
 
     # the weird method-level import here is necessary to prevent a circular dependency
     @classmethod

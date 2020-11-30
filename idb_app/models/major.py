@@ -61,10 +61,12 @@ class Major(Document, AbstractModel):
         for k, v in choices.CIP_FAMILY_MAP.items():
             cip_labels.append(v)
             cip_values.append(k)
-        cip_family_button_set = RadioButtonSet(title="Major Category",
-                                               set_name="filter__cip_family",
-                                               values=cip_values,
-                                               labels=cip_labels)
+        cip_family_button_set = RadioButtonSet(
+            title="Major Category",
+            set_name="filter__cip_family",
+            values=cip_values,
+            labels=cip_labels,
+        )
         return [cip_family_button_set]
 
     @classmethod
@@ -73,12 +75,20 @@ class Major(Document, AbstractModel):
 
     @classmethod
     def get_sort_buttons(cls) -> RadioButtonSet:
-        return RadioButtonSet(title="Sort By",
-                              set_name="order_by",
-                              values=["median_starting_salary",
-                                      "median_midcareer_salary",
-                                      "num_bachelor_programs", ],
-                              labels=["Starting Salary", "Mid-Career Salary", "Number of Bachelor's Programs"])
+        return RadioButtonSet(
+            title="Sort By",
+            set_name="order_by",
+            values=[
+                "median_starting_salary",
+                "median_midcareer_salary",
+                "num_bachelor_programs",
+            ],
+            labels=[
+                "Starting Salary",
+                "Mid-Career Salary",
+                "Number of Bachelor's Programs",
+            ],
+        )
 
     @classmethod
     def get_name_field(cls) -> str:
@@ -86,12 +96,14 @@ class Major(Document, AbstractModel):
 
     @classmethod
     def get_base_attributes(cls) -> List[str]:
-        return ["name",
-                "earnings_weighted_sum",
-                "earnings_count",
-                "num_bachelor_programs",
-                "cip_code",
-                "program_count_estimate"]
+        return [
+            "name",
+            "earnings_weighted_sum",
+            "earnings_count",
+            "num_bachelor_programs",
+            "cip_code",
+            "program_count_estimate",
+        ]
 
     @classmethod
     def base_queryset(cls):
@@ -118,7 +130,7 @@ class Major(Document, AbstractModel):
         per_page = 6
         offset = (page - 1) * per_page
         total = len(schools)
-        schools = schools[offset: offset + per_page]
+        schools = schools[offset : offset + per_page]
         pagination = Pagination(
             page=page, per_page=per_page, total=total, css_framework="bootstrap4"
         )
@@ -136,4 +148,3 @@ class Major(Document, AbstractModel):
             page=page,
             pagination=pagination,
         )
-
