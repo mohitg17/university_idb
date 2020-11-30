@@ -1,7 +1,6 @@
-import urllib.parse
 from typing import List
 from mongoengine import Document
-from flask import url_for, render_template
+from flask import render_template
 from mongoengine.fields import StringField, IntField
 from flask_paginate import Pagination, get_page_args
 

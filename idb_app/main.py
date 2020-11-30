@@ -1,5 +1,4 @@
-import urllib.parse
-from flask import Flask, render_template, url_for, make_response, redirect, request
+from flask import Flask, render_template, make_response, redirect
 from flask_paginate import Pagination, get_page_args
 
 

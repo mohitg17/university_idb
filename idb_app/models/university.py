@@ -8,7 +8,7 @@ from mongoengine.fields import (
     ListField,
     FloatField,
 )
-from flask import url_for, render_template
+from flask import render_template
 
 from idb_app.models import City, Major, AbstractModel, choices
 from idb_app.filtering.filtering_controls import TextInput, RadioButtonSet

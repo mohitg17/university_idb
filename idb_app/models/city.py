@@ -1,6 +1,6 @@
 from typing import List
 from mongoengine import Document
-from flask import url_for, render_template
+from flask import render_template
 from flask_paginate import Pagination, get_page_args
 from mongoengine.fields import StringField, FloatField, IntField
 
