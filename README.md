@@ -24,8 +24,8 @@ python -m idb_app.main
     -   Estimated: 12 hours
     -   Actual: 13 hours
 -   Nikhil Jalla, nj5473, nikhiljalla17:
-    -   Estimated: 11 hours
-    -   Actual: 12 hours
+    -   Estimated: 10 hours
+    -   Actual: 11 hours
 -   Mohit Gupta, mg58629, mohitg17:
     -   Estimated: 10 hours
     -   Actual: 12 hours
