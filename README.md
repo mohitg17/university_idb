@@ -18,8 +18,8 @@ python -m idb_app.main
 ## Team Member, EID, Github ID, Estimated and Actual Completion Rate
 
 -   Silas Strawn, scs3434, StrawnSC:
-    -   Estimated: 11 hours
-    -   Actual: 10 hours
+    -   Estimated: 6 hours
+    -   Actual: 7 hours
 -   Harrison Berrier, hlb962, harrisonberrier:
     -   Estimated: 12 hours
     -   Actual: 13 hours
