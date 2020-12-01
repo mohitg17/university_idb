@@ -99,28 +99,23 @@
 </div>
 
 <div class="container" style="max-width: 1600px;">
+    <div class="d-flex justify-content-center p-2 border">
+    <div class="col-md-6 col-sm-7">
     <form method="GET">
-        <div class="row">
-            <div class="col-sm-*" style="margin-right: 5px;">
-                <label for="sort" style="font-weight: bold; margin-right: 5px;">Sort</label>
-                <select name="order_by" id="order_by">
+<!--                <label for="sort" style="font-weight: bold; margin-right: 5px;">Sort</label>-->
+                    <h5 style="font-size: 18px;">Sort</h5>
+                    <select name="order_by" id="order_by">
                     <option id="choose" name="choose" value="">Select</option>
                     {% for btn in model["sort_buttons"].buttons %}
                         <option id="{{btn.html_id}}" name="{{btn.name}}" value="{{btn.value}}">{{btn.label}}</option>
                     {% endfor %}
                 </select>
-            </div>
-            <div class="col-xs-*" style="margin-right: 45px;">
                 <select name="order" id="order">
                     <option value="">Ascending</option>
                     <option value="-">Descending</option>
                 </select>
-            </div>
-            <div class="col-xs-4" style="margin-right: 20px;">
                 <h5 style="font-size: 18px;">Filter</h5>
-            </div>
             {% for radio_button_set in model["filter_buttons"] %}
-            <div class="col-sm-*" style="margin-right: 10px;">
                 <label for="{{radio_button_set.set_name}}">{{radio_button_set.title}}</label>
                 <select name="{{radio_button_set.buttons[0].name}}" id="{{radio_button_set.buttons[0].name}}">
                 <option name="" id="" value="">Select</option>
@@ -128,31 +123,23 @@
                         <option id="{{button.html_id}}" name="{{button.name}}" value="{{button.value}}">{{button.label}}</option>
                     {% endfor %}
                 </select>
-            </div>
             {% endfor %}
             {% for text_input in model["filter_text"] %}
-                <div class="col-xs-*">
                     <h6>{{text_input.placeholder}}</h6>
-                </div>
-                <div class="col">
                     <input class="form-control" id="{{text_input.name}}" type="text" placeholder="{{text_input.placeholder}}" aria-label="{{text_input.placeholder}}" name="{{text_input.name}}">
-                </div>
             {% endfor %}
-            <div class="col-xs-*">
                 <h6>Search</h6>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-            </div>
-            <div class="col">
                 <input class="form-control" id="searchin" type="text" placeholder="Search" aria-label="Search" name="searchin">
-            </div>
-            <div class="col-xs-*">
+                <br>
                 <button id="lookup-button" type="submit"><i class="fa fa-search"></i></button>
-            </div>
-        </div>
+                <br> <br>
     </form>
     <form>
         <input type="submit" value="clear" />
     </form>
+    </div>
+    </div>
     <br />
     <div id="place_for_suggestions">
     </div>
